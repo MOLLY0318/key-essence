@@ -145,6 +145,22 @@ nav.site-nav .nav-links a.active {
   margin-right: auto;
 }
 
+/* ── PULL QUOTE ── */
+.pull-quote { max-width: 38em; margin: 0 auto; text-align: center; }
+.pull-quote .quote-divider {
+  width: 48px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brass), var(--champagne));
+  margin: 0 auto 2rem;
+  box-shadow: 0 6px 16px -4px rgba(199, 173, 122, 0.55);
+}
+.pull-quote p {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2rem;
+  line-height: 2.1;
+  color: var(--ink);
+}
+
 /* ── SECTION ── */
 section {
   padding: 5.5rem 0;
