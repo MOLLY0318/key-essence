@@ -86,7 +86,7 @@ nav.site-nav .nav-links a.active {
 /* ── HERO (dark bookend) ── */
 .hero {
   background:
-    radial-gradient(ellipse at 50% 20%, rgba(24, 37, 43, 0.82) 0%, rgba(17, 27, 32, 0.93) 70%),
+    radial-gradient(ellipse at 50% 20%, rgba(24, 37, 43, 0.42) 0%, rgba(17, 27, 32, 0.68) 70%),
     url('images/backgrounds/bg-dark.jpg') center / cover no-repeat,
     var(--ink);
   color: var(--mist);
@@ -124,7 +124,7 @@ nav.site-nav .nav-links a.active {
 /* ── PAGE HEADER (sub-pages) ── */
 .page-header {
   background:
-    radial-gradient(ellipse at 50% 0%, rgba(24, 37, 43, 0.85) 0%, rgba(17, 27, 32, 0.94) 75%),
+    radial-gradient(ellipse at 50% 0%, rgba(24, 37, 43, 0.45) 0%, rgba(17, 27, 32, 0.7) 75%),
     url('images/backgrounds/bg-dark.jpg') center / cover no-repeat,
     var(--ink);
   color: var(--mist);
