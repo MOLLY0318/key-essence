@@ -200,6 +200,38 @@ section.alt {
   margin: 0 auto;
 }
 
+/* ── TOOL LIST ── */
+.tool-grid {
+  display: grid;
+  gap: 3rem;
+  margin-top: 1rem;
+}
+.tool-item {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.tool-item .tool-index {
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: var(--brass);
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+.tool-item h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.9rem;
+}
+.tool-item p {
+  margin-bottom: 0.9rem;
+}
+.tool-item p:last-child {
+  margin-bottom: 0;
+}
+.tool-item + .tool-item {
+  padding-top: 2.5rem;
+  border-top: 1px solid rgba(17, 27, 32, 0.08);
+}
+
 /* ── CARD GRID ── */
 .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.75rem; }
 .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
