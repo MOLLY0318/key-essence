@@ -409,10 +409,13 @@ ul.credential-list li::before {
 /* ── CONTACT ── */
 .contact-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 700px;
+  max-width: 920px;
   margin: 0 auto;
+}
+@media (max-width: 760px) {
+  .contact-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 640px) {
   .contact-grid { grid-template-columns: 1fr; }
