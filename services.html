@@ -42,6 +42,8 @@
         <p>每一支精油都有自己的化學身分——酯類、單萜醇、酚類等不同分子結構，會在嗅覺與身體裡引發不同的生理與情緒反應。你聞到一支油時的直覺反應：被吸引、想靠近，或是抗拒、想推開，往往不是隨機的，而是身體比頭腦更早說出來的訊號。</p>
         <p>側寫的過程，就是把這些訊號攤開來看——你被哪一支精油吸引、抗拒哪一種氣味、對某個味道有什麼身體反應，這些都指向你此刻的能量狀態：可能藏在哪一層情緒、哪一種防衛，或哪個還沒被好好聽見的需求裡。</p>
         <p>這套方法的依據來自臨床芳療對精油化學成分與身心反應的整理，不是憑空的直覺猜測。它不急著給你答案，而是先陪你看懂自己「現在」站在哪裡。</p>
+        <p>側寫的對照不只停留在分子，也會搭配中醫氣血津液的觀察，把生理訊號、情緒狀態與你正在經歷的處境放在一起看，再當面與你討論、核對。很多時候，你聽過不少道理——書、課程、身邊的人，都曾告訴你接下來該往哪裡走。那些話當下都對，也真的給過你一兩天的力氣，可是回到日常裡，那股力氣很快就散了，因為道理是說給「聽得懂」的你聽的，但真正卡住你的，往往是那個還沒準備好被說服的自己。</p>
+        <p>氣味走的是另一條路。它不會先經過你的理智審查，而是直接連結到海馬迴——大腦裡收著記憶與情緒的地方。所以一支精油能碰到的，常常是你還來不及防備、也最沒有武裝的那一塊，讓改變不只停留在「知道」，而是真的被身體記住。</p>
       </div>
       <div class="tool-item">
         <div class="tool-index">工具二・人類圖</div>
@@ -76,6 +78,7 @@
       <div class="eyebrow">心靈整聊室・一對一</div>
       <h2>深度陪伴，從一次側寫開始</h2>
       <p>結合精油側寫、人類圖機制、生命靈數流年與頌缽音療，找出潛意識裡的盲點，陪你一步步卸下長期照顧他人留下的緊繃。</p>
+      <p>如果你走進 21 天的旅程，陪你的不會只是一次性的解析，而是一支屬於你的「側寫油」。它在你最沒注意到的時刻提醒你、安頓你，像一個不催促、只是在旁邊陪著的存在。這段時間，你會慢慢經過三層：重新認識自己是誰、看見過去那個你如何一路走到這裡、最後慢慢與自己的本質握手言和。很多人說不出具體是哪一刻改變的，但身體會記得——那種被好好陪過的感覺，會留下來。</p>
     </div>
     <div class="media-showcase">
       <video controls playsinline preload="metadata">
@@ -128,17 +131,19 @@
       <div class="media-caption">課堂實況：科學芳療手作學院</div>
     </div>
     <div class="grid-3">
-      <div class="card">
+      <div class="card card-gallery" data-gallery="stone" data-title="療癒擴香石" data-images='["images/craft/stone-01.jpg","images/craft/stone-02.jpg"]'>
         <div class="card-eyebrow">手作項目</div>
         <h3>療癒擴香石</h3>
         <p>從動物、多肉到節慶造型，把喜歡的香氣留在親手捏塑的形狀裡，每一次成型都是一次專注的呼吸。</p>
         <div class="price">費用依材料包定價</div>
+        <div class="card-gallery-hint">查看照片 →</div>
       </div>
-      <div class="card">
+      <div class="card card-gallery" data-gallery="chenille" data-title="毛根花創作" data-images='["images/craft/chenille-01.jpg","images/craft/chenille-02.jpg","images/craft/chenille-03.jpg"]'>
         <div class="card-eyebrow">手作項目</div>
         <h3>毛根花創作</h3>
         <p>親手扭出永不凋謝的花束，不用換水、不會枯萎，是一份能在桌上陪你很久很久的柔軟色彩。</p>
         <div class="price">費用依材料包定價</div>
+        <div class="card-gallery-hint">查看照片 →</div>
       </div>
       <div class="card">
         <div class="card-eyebrow">手作項目</div>
@@ -187,6 +192,85 @@
   </div>
   <div class="footer-meta">© 2026 鑰．本質 Key Essence ｜ 服務內容為身心陪伴與覺察工具，非醫療診斷或治療行為</div>
 </footer>
+
+<!-- 照片燈箱 Modal -->
+<div id="craft-modal" class="craft-modal" role="dialog" aria-modal="true" aria-label="手作照片">
+  <div class="craft-modal-backdrop"></div>
+  <div class="craft-modal-box">
+    <button class="craft-modal-close" aria-label="關閉">✕</button>
+    <div class="craft-modal-title"></div>
+    <div class="craft-modal-stage">
+      <button class="craft-modal-prev" aria-label="上一張">‹</button>
+      <img class="craft-modal-img" src="" alt="">
+      <button class="craft-modal-next" aria-label="下一張">›</button>
+    </div>
+    <div class="craft-modal-dots"></div>
+  </div>
+</div>
+
+<script>
+(function () {
+  const modal   = document.getElementById('craft-modal');
+  const imgEl   = modal.querySelector('.craft-modal-img');
+  const titleEl = modal.querySelector('.craft-modal-title');
+  const dotsEl  = modal.querySelector('.craft-modal-dots');
+  const prevBtn = modal.querySelector('.craft-modal-prev');
+  const nextBtn = modal.querySelector('.craft-modal-next');
+  const closeBtn= modal.querySelector('.craft-modal-close');
+  const backdrop= modal.querySelector('.craft-modal-backdrop');
+
+  let images = [], idx = 0;
+
+  function renderDots() {
+    dotsEl.innerHTML = images.map((_, i) =>
+      `<span class="craft-dot${i === idx ? ' active' : ''}"></span>`
+    ).join('');
+  }
+
+  function show(i) {
+    idx = (i + images.length) % images.length;
+    imgEl.src = images[idx];
+    prevBtn.style.display = images.length > 1 ? '' : 'none';
+    nextBtn.style.display = images.length > 1 ? '' : 'none';
+    renderDots();
+  }
+
+  function open(title, imgs) {
+    images = imgs; idx = 0;
+    titleEl.textContent = title;
+    imgEl.src = '';
+    show(0);
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function close() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    imgEl.src = '';
+  }
+
+  document.querySelectorAll('.card-gallery').forEach(card => {
+    card.style.cursor = 'pointer';
+    card.addEventListener('click', () => {
+      const imgs = JSON.parse(card.dataset.images);
+      open(card.dataset.title, imgs);
+    });
+  });
+
+  prevBtn.addEventListener('click', e => { e.stopPropagation(); show(idx - 1); });
+  nextBtn.addEventListener('click', e => { e.stopPropagation(); show(idx + 1); });
+  closeBtn.addEventListener('click', close);
+  backdrop.addEventListener('click', close);
+
+  document.addEventListener('keydown', e => {
+    if (!modal.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft')  show(idx - 1);
+    if (e.key === 'ArrowRight') show(idx + 1);
+  });
+})();
+</script>
 
 </body>
 </html>
