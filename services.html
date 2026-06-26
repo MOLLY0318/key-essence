@@ -138,7 +138,7 @@
         <div class="price">費用依材料包定價</div>
         <div class="card-gallery-hint">查看照片 →</div>
       </div>
-      <div class="card card-gallery" data-gallery="chenille" data-title="毛根花創作" data-images='["images/craft/chenille-01.jpg","images/craft/chenille-02.jpg","images/craft/chenille-03.jpg"]'>
+      <div class="card card-gallery" data-gallery="chenille" data-title="毛根花創作" data-images='["images/craft/chenille-video.mp4","images/craft/chenille-01.jpg","images/craft/chenille-02.jpg","images/craft/chenille-03.jpg"]'>
         <div class="card-eyebrow">手作項目</div>
         <h3>毛根花創作</h3>
         <p>親手扭出永不凋謝的花束，不用換水、不會枯萎，是一份能在桌上陪你很久很久的柔軟色彩。</p>
@@ -201,7 +201,7 @@
     <div class="craft-modal-title"></div>
     <div class="craft-modal-stage">
       <button class="craft-modal-prev" aria-label="上一張">‹</button>
-      <img class="craft-modal-img" src="" alt="">
+      <div class="craft-modal-media"></div>
       <button class="craft-modal-next" aria-label="下一張">›</button>
     </div>
     <div class="craft-modal-dots"></div>
@@ -210,14 +210,14 @@
 
 <script>
 (function () {
-  const modal   = document.getElementById('craft-modal');
-  const imgEl   = modal.querySelector('.craft-modal-img');
-  const titleEl = modal.querySelector('.craft-modal-title');
-  const dotsEl  = modal.querySelector('.craft-modal-dots');
-  const prevBtn = modal.querySelector('.craft-modal-prev');
-  const nextBtn = modal.querySelector('.craft-modal-next');
-  const closeBtn= modal.querySelector('.craft-modal-close');
-  const backdrop= modal.querySelector('.craft-modal-backdrop');
+  const modal    = document.getElementById('craft-modal');
+  const mediaEl  = modal.querySelector('.craft-modal-media');
+  const titleEl  = modal.querySelector('.craft-modal-title');
+  const dotsEl   = modal.querySelector('.craft-modal-dots');
+  const prevBtn  = modal.querySelector('.craft-modal-prev');
+  const nextBtn  = modal.querySelector('.craft-modal-next');
+  const closeBtn = modal.querySelector('.craft-modal-close');
+  const backdrop = modal.querySelector('.craft-modal-backdrop');
 
   let images = [], idx = 0;
 
@@ -227,9 +227,20 @@
     ).join('');
   }
 
+  function pauseVideo() {
+    const v = mediaEl.querySelector('video');
+    if (v) v.pause();
+  }
+
   function show(i) {
+    pauseVideo();
     idx = (i + images.length) % images.length;
-    imgEl.src = images[idx];
+    const src = images[idx];
+    if (/\.mp4$/i.test(src)) {
+      mediaEl.innerHTML = `<video class="craft-modal-img" src="${src}" controls playsinline></video>`;
+    } else {
+      mediaEl.innerHTML = `<img class="craft-modal-img" src="${src}" alt="">`;
+    }
     prevBtn.style.display = images.length > 1 ? '' : 'none';
     nextBtn.style.display = images.length > 1 ? '' : 'none';
     renderDots();
@@ -238,16 +249,17 @@
   function open(title, imgs) {
     images = imgs; idx = 0;
     titleEl.textContent = title;
-    imgEl.src = '';
+    mediaEl.innerHTML = '';
     show(0);
     modal.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
 
   function close() {
+    pauseVideo();
     modal.classList.remove('open');
     document.body.style.overflow = '';
-    imgEl.src = '';
+    mediaEl.innerHTML = '';
   }
 
   document.querySelectorAll('.card-gallery').forEach(card => {
