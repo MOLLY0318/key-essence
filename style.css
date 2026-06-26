@@ -20,9 +20,10 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--mist);
-  color: var(--umber);
+  color: var(--ink);
   font-family: 'Noto Sans TC', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
+  font-size: 1.0625rem;
   line-height: 1.9;
   -webkit-font-smoothing: antialiased;
 }
@@ -283,8 +284,8 @@ section.alt {
   margin-bottom: 0.8rem;
 }
 .card p {
-  color: var(--umber);
-  font-size: 0.92rem;
+  color: var(--ink);
+  font-size: 0.97rem;
   margin-bottom: 1rem;
 }
 .card .price {
@@ -398,8 +399,8 @@ ul.credential-list { list-style: none; }
 ul.credential-list li {
   padding: 0.6rem 0;
   border-bottom: 1px solid var(--sand);
-  font-size: 0.92rem;
-  color: var(--umber);
+  font-size: 0.97rem;
+  color: var(--ink);
 }
 ul.credential-list li::before {
   content: '— ';
@@ -451,8 +452,8 @@ ul.credential-list li::before {
   position: relative;
   background: #fff;
   padding: 1.5rem 1.8rem;
-  font-size: 0.9rem;
-  color: var(--umber);
+  font-size: 0.97rem;
+  color: var(--ink);
   max-width: 700px;
   margin: 3rem auto 0;
   box-shadow: 0 18px 40px -18px rgba(17, 27, 32, 0.18);
