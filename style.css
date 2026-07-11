@@ -74,6 +74,7 @@ nav.site-nav .nav-links a {
   transition: color 0.25s;
   padding-bottom: 2px;
   border-bottom: 1px solid transparent;
+  white-space: nowrap;
 }
 nav.site-nav .nav-links a:hover,
 nav.site-nav .nav-links a.active {
@@ -81,7 +82,8 @@ nav.site-nav .nav-links a.active {
   border-bottom-color: var(--champagne);
 }
 @media (max-width: 640px) {
-  nav.site-nav .nav-links { gap: 1.1rem; font-size: 0.72rem; }
+  nav.site-nav { padding: 0.85rem 1.1rem; }
+  nav.site-nav .nav-links { gap: 0.6rem 0.9rem; font-size: 0.66rem; flex-wrap: wrap; justify-content: flex-end; row-gap: 0.4rem; }
 }
 
 /* ── HERO (dark bookend) ── */
