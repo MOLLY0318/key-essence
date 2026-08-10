@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>精油側寫｜21 天旅程記錄表</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;700&display=swap');
+
+:root {
+  --ink:       #2c2420;
+  --soft:      #6b5c52;
+  --accent:    #8b6f5e;
+  --pale:      #f5efe8;
+  --border:    #d9cfc7;
+  --gold:      #a0845c;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Serif TC', 'Georgia', serif;
+  background: #faf7f4;
+  color: var(--ink);
+  line-height: 1.9;
+  font-size: 15px;
+}
+
+.page {
+  max-width: 720px;
+  margin: 40px auto;
+  background: #fff;
+  border: 1px solid var(--border);
+  padding: 56px 64px 64px;
+  position: relative;
+}
+
+.header {
+  text-align: center;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 28px;
+  margin-bottom: 40px;
+}
+
+.brand {
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.report-title {
+  font-size: 22px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+
+.report-subtitle {
+  font-size: 13px;
+  color: var(--soft);
+  letter-spacing: 0.15em;
+}
+
+.autosave-note {
+  font-size: 11.5px;
+  color: var(--soft);
+  letter-spacing: 0.05em;
+  margin-top: 10px;
+}
+
+.autosave-note .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8fae8b;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.section {
+  margin-bottom: 44px;
+}
+
+.section-title {
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  border-left: 3px solid var(--gold);
+  padding-left: 12px;
+  margin-bottom: 16px;
+  line-height: 1.4;
+}
+
+.section-title .sub {
+  display: block;
+  font-size: 17px;
+  color: var(--ink);
+  letter-spacing: 0.06em;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+p { margin-bottom: 14px; color: var(--ink); }
+
+.welcome-text p {
+  margin-bottom: 16px;
+}
+
+.welcome-text .lead {
+  color: var(--accent);
+  font-style: italic;
+}
+
+/* ── 可填寫欄位（取代原本的手寫留白線） ── */
+.form-field {
+  margin-bottom: 22px;
+}
+
+.form-label {
+  font-size: 13px;
+  color: var(--soft);
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+
+.label-hint {
+  font-size: 11.5px;
+  color: var(--soft);
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+  margin-left: 6px;
+}
+
+.fill-line,
+.fill-inline,
+.fill-area {
+  font-family: inherit;
+  font-size: 14.5px;
+  color: var(--ink);
+  background: transparent;
+  border: none;
+  border-bottom: 1px dotted var(--border);
+  width: 100%;
+  padding: 4px 2px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.fill-line:focus,
+.fill-inline:focus,
+.fill-area:focus {
+  border-bottom: 1px solid var(--gold);
+  background: #fffdfa;
+}
+
+.fill-line {
+  height: 34px;
+}
+
+.fill-area {
+  resize: none;
+  line-height: 1.8;
+  font-family: inherit;
+}
+
+.fill-area.tall {
+  min-height: 90px;
+}
+
+.fill-inline {
+  display: inline-block;
+  width: 140px;
+  height: auto;
+  padding: 2px 4px;
+}
+
+.two-col {
+  display: flex;
+  gap: 24px;
+}
+
+.two-col .form-field {
+  flex: 1;
+}
+
+/* ── 精油配方 ── */
+.recipe-item {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 20px 24px 6px;
+  margin-bottom: 18px;
+}
+
+.recipe-item-label {
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.recipe-item-row {
+  display: flex;
+  gap: 24px;
+}
+
+.recipe-name-field {
+  flex: 1;
+}
+
+.recipe-drops-field {
+  width: 110px;
+}
+
+.fill-line.locked,
+.fill-inline.locked,
+.fill-area.locked {
+  background: var(--pale);
+  color: var(--soft);
+  border-bottom-style: solid;
+  cursor: not-allowed;
+}
+
+.prep-toolbar {
+  border-top: 1px dashed var(--border);
+  margin-top: 8px;
+  padding-top: 24px;
+  text-align: center;
+}
+
+.prep-note {
+  font-size: 12px;
+  color: var(--soft);
+  line-height: 1.9;
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+.prep-toolbar button {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.prep-toolbar button:hover {
+  background: #8b6a47;
+}
+
+/* ── 提醒事項 / 用油方式 ── */
+.notice-box {
+  background: var(--pale);
+  border-radius: 4px;
+  padding: 24px 28px;
+  margin-bottom: 20px;
+}
+
+.notice-box .notice-title {
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+
+.notice-box ol,
+.notice-box ul {
+  padding-left: 20px;
+}
+
+.notice-box li {
+  margin-bottom: 10px;
+  color: var(--ink);
+  line-height: 1.8;
+}
+
+/* ── 週次區塊 ── */
+.week-section {
+  margin-bottom: 20px;
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--gold);
+  padding-bottom: 10px;
+  margin-bottom: 24px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.week-heading-text {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+
+.week-title {
+  font-size: 19px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+}
+
+.week-range {
+  font-size: 12px;
+  color: var(--soft);
+  letter-spacing: 0.1em;
+}
+
+.week-toggle-icon {
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+
+.week-section.collapsed .week-body {
+  display: none;
+}
+
+.week-summary {
+  background: var(--pale);
+  border-radius: 4px;
+  padding: 22px 24px 6px;
+  margin-top: 6px;
+  margin-bottom: 4px;
+}
+
+.week-summary .field-block {
+  margin-bottom: 16px;
+}
+
+.week-nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.week-nav-btn {
+  flex: 1;
+  min-width: 140px;
+  background: #fff;
+  color: var(--soft);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.week-nav-btn:hover {
+  background: var(--pale);
+  border-color: var(--gold);
+  color: var(--ink);
+}
+
+.refresh-note {
+  text-align: center;
+  margin-top: -18px;
+  margin-bottom: 28px;
+}
+
+.refresh-note a {
+  font-size: 11.5px;
+  color: var(--gold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profiler-note {
+  border-left: 3px solid var(--accent);
+  background: #faf5f0;
+  padding: 18px 22px;
+  margin-top: 14px;
+  margin-bottom: 4px;
+  border-radius: 0 4px 4px 0;
+}
+
+.profiler-note-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.profiler-badge {
+  font-size: 10px;
+  color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 20px;
+  padding: 2px 10px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.profiler-text {
+  background: transparent;
+  border-bottom: 1px dotted var(--border);
+  color: var(--ink);
+  cursor: default;
+}
+
+.profiler-text:focus {
+  background: transparent;
+  border-bottom: 1px dotted var(--border);
+}
+
+.day-card {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 18px 22px 20px;
+  margin-bottom: 18px;
+  page-break-inside: avoid;
+}
+
+.day-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 8px;
+  margin-bottom: 12px;
+}
+
+.day-num {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--gold);
+  letter-spacing: 0.1em;
+}
+
+.day-date {
+  font-size: 12px;
+  color: var(--soft);
+}
+
+.field-block {
+  margin-bottom: 10px;
+}
+
+.field-block:last-child {
+  margin-bottom: 0;
+}
+
+.field-label {
+  font-size: 12px;
+  color: var(--soft);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+/* ── 結語 ── */
+.closing {
+  text-align: center;
+  padding: 32px 0 0;
+  border-top: 1px solid var(--border);
+  margin-top: 48px;
+}
+
+.closing-text {
+  font-size: 14px;
+  color: var(--soft);
+  line-height: 2.2;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+
+.closing-brand {
+  font-size: 13px;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+}
+
+.closing-date {
+  font-size: 12px;
+  color: var(--soft);
+  letter-spacing: 0.15em;
+  margin-top: 6px;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── 列印設定（供備份／寄回用）── */
+@media print {
+  body { background: #fff; font-size: 13px; }
+  .page {
+    margin: 0 auto;
+    border: none;
+    padding: 20mm 22mm 24mm;
+    max-width: 100%;
+    box-shadow: none;
+  }
+  .page + .page { page-break-before: always; }
+  .section { page-break-inside: avoid; }
+  .notice-box { background: #f5efe8 !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .day-card { page-break-inside: avoid; }
+  .week-section { page-break-before: always; }
+  .week-section.collapsed .week-body { display: block; }
+  .week-header { cursor: default; }
+  .week-toggle-icon { display: none; }
+  .fill-line, .fill-inline, .fill-area { border-bottom: 1px solid var(--border); }
+  .no-print { display: none; }
+}
+
+.final-report-toolbar {
+  margin-top: 28px;
+}
+
+.final-report-toolbar button {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 14px;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.final-report-toolbar button:hover {
+  background: #8b6a47;
+}
+
+.save-toast {
+  position: fixed;
+  bottom: 32px;
+  left: 32px;
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: 4px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+.save-toast.show { opacity: 0.9; }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="header">
+    <div class="brand">鑰．本質｜Key Essence</div>
+    <div class="report-title">精油側寫．21 天旅程記錄表</div>
+    <div class="report-subtitle">個案專屬記錄手冊</div>
+    <div class="autosave-note"><span class="dot"></span>這是電子填寫版：你只要直接在欄位上打字，內容就會自動儲存並同步傳送給你的精油側寫師，不需要按任何按鈕，也不需要列印或另外傳送檔案。</div>
+  </div>
+
+  <div class="section welcome-text">
+    <p class="lead">親愛的你，</p>
+    <p>接下來的 21 天，是一段只屬於你的旅程。</p>
+    <p>你即將把三支精油，貼身穿在生活裡——洗完澡後微濕的肌膚、睡前緩下來的呼吸、隨身滾珠瓶裡若有似無的氣味。它們不會替你解決什麼，只會安靜地陪著你，走過白天的清醒，也走過夜裡的夢境。</p>
+    <p>這不是一份需要「寫得漂亮」或「做得完美」的功課。你不需要修飾，只需要誠實——把你感受到的、看見的、經歷的，如實地留下來就好。有些日子或許風平浪靜，有些日子情緒會突然翻湧，這些都是旅程的一部分，都值得被記下。</p>
+    <p>21 天之後，回頭翻閱這本記錄，你或許會看見——有些原本卡住的地方，悄悄鬆動了；有些你以為早已遺忘的畫面，又重新浮現；有些看似平凡的日子裡，其實藏著身體一直想對你說的話。</p>
+    <p>願這段旅程，陪你慢慢靠近自己，重新聽見那個一直都在、卻許久沒被好好聆聽的聲音。</p>
+    <p class="lead">與你同行，鑰．本質｜Key Essence</p>
+  </div>
+</div>
+
+<div class="page">
+  <div class="section">
+    <div class="section-title">
+      一
+      <span class="sub">基本資料</span>
+    </div>
+
+    <div class="two-col">
+      <div class="form-field">
+        <div class="form-label">姓名</div>
+        <input type="text" class="fill-line" data-key="basic-name">
+      </div>
+      <div class="form-field">
+        <div class="form-label">出生年月日</div>
+        <input type="text" class="fill-line" data-key="basic-birth">
+      </div>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">職業</div>
+      <input type="text" class="fill-line" data-key="basic-job">
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">疾病史</div>
+      <textarea class="fill-area" rows="3" data-key="basic-history"></textarea>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">身體狀況．呼吸系統<span class="label-hint">（是否會胸悶、或覺得呼吸比較淺）</span></div>
+      <textarea class="fill-area" rows="3" data-key="basic-breathing"></textarea>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">身體狀況．皮膚狀態<span class="label-hint">（是否有蕁麻疹、或哪裡反覆發炎）</span></div>
+      <textarea class="fill-area" rows="3" data-key="basic-skin"></textarea>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">睡眠狀況</div>
+      <textarea class="fill-area" rows="3" data-key="basic-sleep"></textarea>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">想要進行這 21 天旅程的理由與期待</div>
+      <textarea class="fill-area tall" rows="4" data-key="basic-expectation"></textarea>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">21 天旅程記錄開始日期</div>
+      <input type="text" class="fill-line" data-key="basic-startdate">
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      二
+      <span class="sub">注意事項</span>
+    </div>
+    <div class="notice-box">
+      <ol>
+        <li>在這 21 天的旅程中，請不要另外使用任何含有精油成分的產品，以免造成幹擾，讓這三支油能單純地陪你走完這段路。</li>
+        <li>使用期間如果出現任何身體或心靈上的臨時狀況，或是任何身心不適，請隨時與精油側寫師保持密切聯繫，一起溝通協調、找出原因。你不需要獨自承擔任何不確定。</li>
+      </ol>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      三
+      <span class="sub">用油方式</span>
+    </div>
+    <div class="notice-box">
+      <ul>
+        <li>每天洗完澡後、睡前，將油均勻塗抹於全身。</li>
+        <li>如果可以的話，可以備一個精油滾珠瓶隨身攜帶，讓自己隨時保持在精油的香氣當中。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="page">
+  <div class="header">
+    <div class="brand">鑰．本質｜Key Essence</div>
+    <div class="report-title">精油側寫．配方紀錄</div>
+    <div class="report-subtitle">旅程開始前，由側寫師協助填寫</div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      四
+      <span class="sub">配方基本資訊</span>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">個案姓名</div>
+      <input type="text" class="fill-line" data-key="recipe-client-name">
+    </div>
+
+    <div class="two-col">
+      <div class="form-field">
+        <div class="form-label">配方濃度</div>
+        <input type="text" class="fill-line" data-key="recipe-concentration" placeholder="例：3%">
+      </div>
+      <div class="form-field">
+        <div class="form-label">側寫油（基底油）容量</div>
+        <input type="text" class="fill-line" data-key="recipe-carrier-volume" placeholder="例：30ml">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">
+      五
+      <span class="sub">精油品項</span>
+    </div>
+
+    <div class="recipe-item">
+      <div class="recipe-item-label">第一支．現況</div>
+      <div class="recipe-item-row">
+        <div class="form-field recipe-name-field">
+          <div class="form-label">精油名稱</div>
+          <input type="text" class="fill-line" data-key="recipe-oil1-name">
+        </div>
+        <div class="form-field recipe-drops-field">
+          <div class="form-label">滴數</div>
+          <input type="text" class="fill-line" data-key="recipe-oil1-drops">
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-item">
+      <div class="recipe-item-label">第二支．路徑</div>
+      <div class="recipe-item-row">
+        <div class="form-field recipe-name-field">
+          <div class="form-label">精油名稱</div>
+          <input type="text" class="fill-line" data-key="recipe-oil2-name">
+        </div>
+        <div class="form-field recipe-drops-field">
+          <div class="form-label">滴數</div>
+          <input type="text" class="fill-line" data-key="recipe-oil2-drops">
+        </div>
+      </div>
+    </div>
+
+    <div class="recipe-item">
+      <div class="recipe-item-label">第三支．根源</div>
+      <div class="recipe-item-row">
+        <div class="form-field recipe-name-field">
+          <div class="form-label">精油名稱</div>
+          <input type="text" class="fill-line" data-key="recipe-oil3-name">
+        </div>
+        <div class="form-field recipe-drops-field">
+          <div class="form-label">滴數</div>
+          <input type="text" class="fill-line" data-key="recipe-oil3-drops">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <div class="form-label">建議塗抹部位</div>
+      <input type="text" class="fill-line" data-key="recipe-location">
+    </div>
+  </div>
+
+  <div class="prep-toolbar no-print" id="prepToolbar">
+    <p class="prep-note">配方填寫完成後，點下方按鈕會把配方送出，並產生一組「只屬於這個個案」的專屬連結（連結裡帶有專屬金鑰，別人猜不到、也看不到別人的紀錄）。把這個連結傳給個案，她打開後姓名與配方會自動鎖住不能改，其他都跟現在一樣。</p>
+    <button onclick="generateClientLink()">產生個案專屬連結</button>
+    <div class="form-field" id="clientLinkBox" style="display:none; margin-top:14px;">
+      <div class="form-label">個案專屬連結（點一下可全選複製）</div>
+      <input type="text" class="fill-line" id="clientLinkOutput" readonly onclick="this.select()">
+    </div>
+    <p class="prep-note">要準備下一位個案前，請先點這個按鈕清空這台電腦上暫存的資料，避免上一位個案的內容不小心被夾帶進下一位個案的畫面裡。</p>
+    <button onclick="resetLocalData()" style="background:#a08c7e;">清空本機資料，準備下一位個案</button>
+  </div>
+</div>
+
+<div class="page">
+  <div class="header">
+    <div class="brand">鑰．本質｜Key Essence</div>
+    <div class="report-title">21 天旅程記錄</div>
+    <div class="report-subtitle">每日記錄，如實留下即可</div>
+  </div>
+
+  <div class="week-nav no-print">
+    <button class="week-nav-btn" onclick="toggleWeek(1)">第一週｜第 1－7 天</button>
+    <button class="week-nav-btn" onclick="toggleWeek(2)">第二週｜第 8－14 天</button>
+    <button class="week-nav-btn" onclick="toggleWeek(3)">第三週｜第 15－21 天</button>
+  </div>
+  <div class="refresh-note no-print">
+    <a onclick="loadMyData(); return false;" href="#">重新整理我的紀錄與側寫師的話</a>
+  </div>
+
+    <div class="week-section" data-week="1">
+      <div class="week-header" onclick="toggleWeek(1)">
+        <div class="week-heading-text">
+          <span class="week-title">第一週</span>
+          <span class="week-range">第 1－7 天</span>
+        </div>
+        <span class="week-toggle-icon" id="week-icon-1">收合 ▾</span>
+      </div>
+
+      <div class="week-body" id="week-body-1">
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 1 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day1-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day1-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day1-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day1-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 2 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day2-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day2-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day2-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day2-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 3 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day3-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day3-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day3-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day3-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 4 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day4-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day4-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day4-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day4-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 5 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day5-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day5-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day5-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day5-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 6 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day6-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day6-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day6-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day6-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 7 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day7-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day7-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day7-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day7-life"></textarea>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <div class="field-block">
+          <div class="field-label">週回顧</div>
+          <textarea class="fill-area tall" rows="3" data-key="week1-review"></textarea>
+        </div>
+        <div class="field-block">
+          <div class="field-label">想跟側寫師說的話</div>
+          <textarea class="fill-area tall" rows="3" data-key="week1-message"></textarea>
+        </div>
+      </div>
+
+      <div class="profiler-note">
+        <div class="profiler-note-head">
+          <div class="field-label">側寫師想與你說說心裡話</div>
+          <span class="profiler-badge">由側寫師填寫</span>
+        </div>
+        <textarea class="fill-area tall profiler-text" rows="3" readonly id="week1-profiler-message" placeholder="側寫師尚未留言"></textarea>
+      </div>
+      </div>
+
+    </div>
+
+
+    <div class="week-section collapsed" data-week="2">
+      <div class="week-header" onclick="toggleWeek(2)">
+        <div class="week-heading-text">
+          <span class="week-title">第二週</span>
+          <span class="week-range">第 8－14 天</span>
+        </div>
+        <span class="week-toggle-icon" id="week-icon-2">展開 ▸</span>
+      </div>
+
+      <div class="week-body" id="week-body-2">
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 8 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day8-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day8-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day8-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day8-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 9 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day9-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day9-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day9-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day9-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 10 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day10-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day10-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day10-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day10-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 11 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day11-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day11-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day11-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day11-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 12 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day12-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day12-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day12-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day12-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 13 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day13-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day13-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day13-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day13-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 14 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day14-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day14-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day14-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day14-life"></textarea>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <div class="field-block">
+          <div class="field-label">週回顧</div>
+          <textarea class="fill-area tall" rows="3" data-key="week2-review"></textarea>
+        </div>
+        <div class="field-block">
+          <div class="field-label">想跟側寫師說的話</div>
+          <textarea class="fill-area tall" rows="3" data-key="week2-message"></textarea>
+        </div>
+      </div>
+
+      <div class="profiler-note">
+        <div class="profiler-note-head">
+          <div class="field-label">側寫師想與你說說心裡話</div>
+          <span class="profiler-badge">由側寫師填寫</span>
+        </div>
+        <textarea class="fill-area tall profiler-text" rows="3" readonly id="week2-profiler-message" placeholder="側寫師尚未留言"></textarea>
+      </div>
+      </div>
+
+    </div>
+
+
+    <div class="week-section collapsed" data-week="3">
+      <div class="week-header" onclick="toggleWeek(3)">
+        <div class="week-heading-text">
+          <span class="week-title">第三週</span>
+          <span class="week-range">第 15－21 天</span>
+        </div>
+        <span class="week-toggle-icon" id="week-icon-3">展開 ▸</span>
+      </div>
+
+      <div class="week-body" id="week-body-3">
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 15 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day15-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day15-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day15-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day15-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 16 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day16-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day16-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day16-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day16-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 17 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day17-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day17-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day17-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day17-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 18 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day18-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day18-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day18-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day18-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 19 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day19-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day19-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day19-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day19-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 20 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day20-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day20-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day20-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day20-life"></textarea>
+        </div>
+      </div>
+
+
+      <div class="day-card">
+        <div class="day-head">
+          <span class="day-num">第 21 天</span>
+          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day21-date" placeholder="__/__"></span>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">心情與情緒感受</div>
+          <textarea class="fill-area" rows="2" data-key="day21-mood"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">夢境與意念</div>
+          <textarea class="fill-area" rows="2" data-key="day21-dream"></textarea>
+        </div>
+
+        <div class="field-block">
+          <div class="field-label">睡眠、飲食與人際關係的狀態</div>
+          <textarea class="fill-area" rows="2" data-key="day21-life"></textarea>
+        </div>
+      </div>
+
+      <div class="week-summary">
+        <div class="field-block">
+          <div class="field-label">週回顧</div>
+          <textarea class="fill-area tall" rows="3" data-key="week3-review"></textarea>
+        </div>
+        <div class="field-block">
+          <div class="field-label">想跟側寫師說的話</div>
+          <textarea class="fill-area tall" rows="3" data-key="week3-message"></textarea>
+        </div>
+      </div>
+
+      <div class="profiler-note">
+        <div class="profiler-note-head">
+          <div class="field-label">側寫師想與你說說心裡話</div>
+          <span class="profiler-badge">由側寫師填寫</span>
+        </div>
+        <textarea class="fill-area tall profiler-text" rows="3" readonly id="week3-profiler-message" placeholder="側寫師尚未留言"></textarea>
+      </div>
+      </div>
+
+    </div>
+
+  <div class="section">
+    <div class="section-title">
+      六
+      <span class="sub">21 天總整報告</span>
+    </div>
+  </div>
+
+  <div class="closing">
+    <div class="closing-text">
+      這 21 天，謝謝你願意這樣，一天一天地，陪自己走過。<br>
+      不管記錄裡寫下的是平靜還是翻湧，都是你此刻最真實的樣子。<br><br>
+      願你在字裡行間，重新認出自己。
+    </div>
+    <div class="closing-brand">鑰．本質｜Key Essence</div>
+    <div class="closing-date">＿＿＿＿＿＿＿（填入完成日期）</div>
+    <div class="final-report-toolbar no-print">
+      <button onclick="window.print()">列印／輸出 PDF</button>
+    </div>
+  </div>
+</div>
+
+<div class="save-toast" id="saveToast">已自動儲存</div>
+
+<script>
+(function () {
+  // ⚠️ 請把下面這一行換成你自己部署好的 Google 試算表網頁應用程式網址（結尾是 /exec）
+  var SHEET_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzCKbHJz3JmZSAvaYDu3T6ApA0GrbXZPxHDOseRdlRyWRnrdhEJJNgG8AWdzVHL0Je_aw/exec';
+
+  var STORAGE_PREFIX = 'oil21-';
+  var fields = document.querySelectorAll('[data-key]');
+  var toast = document.getElementById('saveToast');
+  var toastTimer = null;
+  var debounceTimers = {};
+
+  // 個案專屬連結（?name=...&key=...）：偵測到就記住姓名與金鑰，畫面稍後會鎖住姓名與配方欄位
+  var urlParams = new URLSearchParams(location.search);
+  var urlName = urlParams.get('name');
+  var urlKey = urlParams.get('key');
+  var isClientMode = !!(urlName && urlKey);
+  if (isClientMode) {
+    localStorage.setItem(STORAGE_PREFIX + 'basic-name', urlName);
+    localStorage.setItem(STORAGE_PREFIX + 'access-key', urlKey);
+  }
+
+  function getAccessKey() {
+    return localStorage.getItem(STORAGE_PREFIX + 'access-key') || '';
+  }
+
+  function showToast(text) {
+    toast.textContent = text || '已儲存';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toast.classList.remove('show');
+    }, 1200);
+  }
+
+  function syncEnabled() {
+    return SHEET_ENDPOINT && SHEET_ENDPOINT.indexOf('http') === 0;
+  }
+
+  function postToSheet(payload) {
+    if (!syncEnabled()) return Promise.resolve(false);
+    return fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    }).then(function (res) { return res.json(); })
+      .then(function (json) { return !!(json && json.ok); })
+      .catch(function () {
+        // 網路異常或同步失敗時不中斷填寫，資料仍保留在本機，下次打開會自動重試
+        return false;
+      });
+  }
+
+  function getVal(key) {
+    return localStorage.getItem(STORAGE_PREFIX + key) || '';
+  }
+
+  function submitBasic() {
+    return postToSheet({
+      type: 'basic',
+      name: getVal('basic-name'),
+      key: getAccessKey(),
+      birth: getVal('basic-birth'),
+      job: getVal('basic-job'),
+      history: getVal('basic-history'),
+      breathing: getVal('basic-breathing'),
+      skin: getVal('basic-skin'),
+      sleep: getVal('basic-sleep'),
+      expectation: getVal('basic-expectation'),
+      startdate: getVal('basic-startdate')
+    });
+  }
+
+  function submitDaily(day) {
+    return postToSheet({
+      type: 'daily',
+      name: getVal('basic-name'),
+      key: getAccessKey(),
+      day: day,
+      date: getVal('day' + day + '-date'),
+      mood: getVal('day' + day + '-mood'),
+      dream: getVal('day' + day + '-dream'),
+      life: getVal('day' + day + '-life')
+    });
+  }
+
+  function submitRecipe() {
+    return postToSheet({
+      type: 'recipe',
+      name: getVal('recipe-client-name'),
+      concentration: getVal('recipe-concentration'),
+      carrierVolume: getVal('recipe-carrier-volume'),
+      oil1Name: getVal('recipe-oil1-name'),
+      oil1Drops: getVal('recipe-oil1-drops'),
+      oil2Name: getVal('recipe-oil2-name'),
+      oil2Drops: getVal('recipe-oil2-drops'),
+      oil3Name: getVal('recipe-oil3-name'),
+      oil3Drops: getVal('recipe-oil3-drops'),
+      location: getVal('recipe-location')
+    });
+  }
+
+  function submitWeekSummary(week) {
+    return postToSheet({
+      type: 'weeksummary',
+      name: getVal('basic-name'),
+      key: getAccessKey(),
+      week: week,
+      review: getVal('week' + week + '-review'),
+      message: getVal('week' + week + '-message')
+    });
+  }
+
+  function scheduleSync(el) {
+    var key = el.dataset.key;
+    var groupId;
+    if (key.indexOf('day') === 0) {
+      groupId = key.split('-')[0];
+    } else if (key.indexOf('week') === 0) {
+      groupId = key.split('-')[0];
+    } else if (key.indexOf('recipe') === 0) {
+      groupId = 'recipe';
+    } else {
+      groupId = 'basic';
+    }
+    clearTimeout(debounceTimers[groupId]);
+    debounceTimers[groupId] = setTimeout(function () {
+      var promise;
+      if (groupId === 'basic') {
+        promise = submitBasic();
+      } else if (groupId === 'recipe') {
+        promise = submitRecipe();
+      } else if (groupId.indexOf('week') === 0) {
+        promise = submitWeekSummary(groupId.replace('week', ''));
+      } else {
+        promise = submitDaily(groupId.replace('day', ''));
+      }
+      if (!syncEnabled()) {
+        showToast('已儲存在本機');
+        return;
+      }
+      promise.then(function (success) {
+        showToast(success ? '已同步給精油側寫師' : '已儲存在本機（將自動重試）');
+      });
+    }, 1200);
+  }
+
+  function resyncAll() {
+    if (!syncEnabled()) return;
+    if (getVal('basic-name')) submitBasic();
+    if (getVal('recipe-client-name')) submitRecipe();
+    for (var d = 1; d <= 21; d++) {
+      if (getVal('day' + d + '-mood') || getVal('day' + d + '-dream') || getVal('day' + d + '-life') || getVal('day' + d + '-date')) {
+        submitDaily(d);
+      }
+    }
+    [1, 2, 3].forEach(function (w) {
+      if (getVal('week' + w + '-review') || getVal('week' + w + '-message')) {
+        submitWeekSummary(w);
+      }
+    });
+  }
+
+  fields.forEach(function (el) {
+    var key = STORAGE_PREFIX + el.dataset.key;
+    var saved = localStorage.getItem(key);
+    if (saved !== null) {
+      el.value = saved;
+    } else if (el.value) {
+      // 個案專屬檔案裡由側寫師預先寫入的配方／姓名，第一次打開時存進本機
+      localStorage.setItem(key, el.value);
+    }
+    el.addEventListener('input', function () {
+      localStorage.setItem(key, el.value);
+      scheduleSync(el);
+    });
+  });
+
+  window.generateClientLink = function () {
+    var name = getVal('recipe-client-name');
+    if (!name) {
+      alert('請先填寫「個案姓名」，才能產生個案專屬連結。');
+      return;
+    }
+    if (!syncEnabled()) {
+      alert('尚未設定同步網址，無法產生連結。');
+      return;
+    }
+    fetch(SHEET_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        type: 'recipe',
+        name: name,
+        concentration: getVal('recipe-concentration'),
+        carrierVolume: getVal('recipe-carrier-volume'),
+        oil1Name: getVal('recipe-oil1-name'),
+        oil1Drops: getVal('recipe-oil1-drops'),
+        oil2Name: getVal('recipe-oil2-name'),
+        oil2Drops: getVal('recipe-oil2-drops'),
+        oil3Name: getVal('recipe-oil3-name'),
+        oil3Drops: getVal('recipe-oil3-drops'),
+        location: getVal('recipe-location')
+      })
+    }).then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (!json || !json.ok || !json.key) {
+          alert('產生連結失敗，請稍後再試一次。');
+          return;
+        }
+        var url = location.origin + location.pathname + '?name=' + encodeURIComponent(name) + '&key=' + encodeURIComponent(json.key);
+        var box = document.getElementById('clientLinkBox');
+        var output = document.getElementById('clientLinkOutput');
+        output.value = url;
+        box.style.display = '';
+        output.focus();
+        output.select();
+        showToast('連結已產生');
+      })
+      .catch(function () {
+        alert('產生連結失敗，請檢查網路連線後再試一次。');
+      });
+  };
+
+  function lockClientFields() {
+    var lockedKeys = [
+      'basic-name',
+      'recipe-client-name', 'recipe-concentration', 'recipe-carrier-volume',
+      'recipe-oil1-name', 'recipe-oil1-drops',
+      'recipe-oil2-name', 'recipe-oil2-drops',
+      'recipe-oil3-name', 'recipe-oil3-drops',
+      'recipe-location'
+    ];
+    lockedKeys.forEach(function (key) {
+      var el = document.querySelector('[data-key="' + key + '"]');
+      if (el) {
+        el.setAttribute('readonly', 'readonly');
+        el.classList.add('locked');
+      }
+    });
+    var prepToolbar = document.getElementById('prepToolbar');
+    if (prepToolbar) prepToolbar.parentNode.removeChild(prepToolbar);
+  }
+
+  function showInvalidLinkMessage() {
+    document.body.innerHTML = '<div style="max-width:480px;margin:80px auto;padding:32px;text-align:center;font-family:\'Noto Serif TC\',serif;color:#6b5c52;line-height:1.9;">這個連結似乎有誤或已經失效，請跟你的精油側寫師確認一下連結是否正確。</div>';
+  }
+
+  window.resetLocalData = function () {
+    var ok = confirm('確定要清空這台電腦上暫存的所有欄位資料嗎？（已經送出給側寫師的資料不會受影響，這只是清空目前畫面上還沒送出的本機暫存）');
+    if (!ok) return;
+    Object.keys(localStorage).forEach(function (key) {
+      if (key.indexOf(STORAGE_PREFIX) === 0) localStorage.removeItem(key);
+    });
+    location.reload();
+  };
+
+  window.toggleWeek = function (n) {
+    var section = document.querySelector('.week-section[data-week="' + n + '"]');
+    if (!section) return;
+    section.classList.toggle('collapsed');
+    var icon = document.getElementById('week-icon-' + n);
+    if (icon) icon.textContent = section.classList.contains('collapsed') ? '展開 ▸' : '收合 ▾';
+  };
+
+  function setIfEmpty(key, value) {
+    if (!value) return;
+    var storageKey = STORAGE_PREFIX + key;
+    if (localStorage.getItem(storageKey)) return; // 本機已有資料（可能是尚未同步的最新輸入），不覆蓋
+    var el = document.querySelector('[data-key="' + key + '"]');
+    if (!el) return;
+    el.value = value;
+    localStorage.setItem(storageKey, value);
+  }
+
+  function applyMineData(mine) {
+    if (!mine) return;
+    if (mine.basic) {
+      setIfEmpty('basic-birth', mine.basic.birth);
+      setIfEmpty('basic-job', mine.basic.job);
+      setIfEmpty('basic-history', mine.basic.history);
+      setIfEmpty('basic-breathing', mine.basic.breathing);
+      setIfEmpty('basic-skin', mine.basic.skin);
+      setIfEmpty('basic-sleep', mine.basic.sleep);
+      setIfEmpty('basic-expectation', mine.basic.expectation);
+      setIfEmpty('basic-startdate', mine.basic.startdate);
+    }
+    if (mine.daily) {
+      Object.keys(mine.daily).forEach(function (dayKey) {
+        var entry = mine.daily[dayKey];
+        if (!entry) return;
+        setIfEmpty(dayKey + '-date', entry.date);
+        setIfEmpty(dayKey + '-mood', entry.mood);
+        setIfEmpty(dayKey + '-dream', entry.dream);
+        setIfEmpty(dayKey + '-life', entry.life);
+      });
+    }
+    if (mine.week) {
+      ['week1', 'week2', 'week3'].forEach(function (w) {
+        var entry = mine.week[w];
+        if (!entry) return;
+        setIfEmpty(w + '-review', entry.review);
+        setIfEmpty(w + '-message', entry.message);
+      });
+    }
+    if (mine.recipe) {
+      setIfEmpty('recipe-client-name', getVal('basic-name'));
+      setIfEmpty('recipe-concentration', mine.recipe.concentration);
+      setIfEmpty('recipe-carrier-volume', mine.recipe.carrierVolume);
+      setIfEmpty('recipe-oil1-name', mine.recipe.oil1Name);
+      setIfEmpty('recipe-oil1-drops', mine.recipe.oil1Drops);
+      setIfEmpty('recipe-oil2-name', mine.recipe.oil2Name);
+      setIfEmpty('recipe-oil2-drops', mine.recipe.oil2Drops);
+      setIfEmpty('recipe-oil3-name', mine.recipe.oil3Name);
+      setIfEmpty('recipe-oil3-drops', mine.recipe.oil3Drops);
+      setIfEmpty('recipe-location', mine.recipe.location);
+    }
+  }
+
+  window.loadMyData = function () {
+    if (!syncEnabled()) return;
+    var name = getVal('basic-name');
+    var key = getAccessKey();
+    if (!name) return;
+    var url = SHEET_ENDPOINT + '?name=' + encodeURIComponent(name) + (key ? '&key=' + encodeURIComponent(key) : '');
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (isClientMode && (!json || !json.data || !json.data.mine)) {
+          showInvalidLinkMessage();
+          return;
+        }
+        if (!json || !json.data) return;
+        ['week1', 'week2', 'week3'].forEach(function (w) {
+          var el = document.getElementById(w + '-profiler-message');
+          if (el && json.data[w]) el.value = json.data[w];
+        });
+        applyMineData(json.data.mine);
+        if (isClientMode) lockClientFields();
+        // 把剛從試算表補回本機、以及本機原本就有但可能上次同步失敗的資料，重新送一次
+        resyncAll();
+      })
+      .catch(function () {
+        // 讀取失敗時安靜略過，不影響其他填寫功能；本機既有資料仍會照原本流程同步
+        resyncAll();
+      });
+  };
+
+  loadMyData();
+})();
+</script>
+
+</body>
+</html>
