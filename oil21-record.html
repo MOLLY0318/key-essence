@@ -557,6 +557,57 @@ hr {
   transition: opacity 0.3s;
 }
 .save-toast.show { opacity: 0.9; }
+
+.action-btn {
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.action-btn:hover {
+  background: #8b6a47;
+}
+
+.action-btn:disabled {
+  background: var(--pale);
+  color: var(--soft);
+  cursor: not-allowed;
+}
+
+.sent-status {
+  font-size: 11.5px;
+  color: var(--soft);
+  margin-top: 8px;
+}
+
+.sent-status.sent {
+  color: #6f8f6a;
+}
+
+/* ── 側寫師私人附註（個案完全看不到、看不到這段CSS也沒用，資料本來就不會傳給個案）── */
+.private-note-box {
+  border: 1px dashed #a8a29a;
+  background: #f7f5f2;
+  border-radius: 4px;
+  padding: 14px 16px;
+  margin-top: 10px;
+}
+
+.private-note-box .form-label,
+.private-note-box .field-label {
+  color: #7a7268;
+}
+
+.private-note-box textarea {
+  border-bottom: 1px dotted #c7c0b6;
+}
 </style>
 </head>
 <body>
@@ -566,7 +617,8 @@ hr {
     <div class="brand">鑰．本質｜Key Essence</div>
     <div class="report-title">精油側寫．21 天旅程記錄表</div>
     <div class="report-subtitle">個案專屬記錄手冊</div>
-    <div class="autosave-note"><span class="dot"></span>這是電子填寫版：你只要直接在欄位上打字，內容就會自動儲存並同步傳送給你的精油側寫師，不需要按任何按鈕，也不需要列印或另外傳送檔案。</div>
+    <div class="autosave-note"><span class="dot"></span>這是電子填寫版：你打字的當下，內容就會自動儲存在你自己的裝置上，不需要列印或另外傳送檔案。基本資料跟每一天的紀錄，寫完後要按一下對應的「送出」按鈕，才會真正傳送給你的精油側寫師——按之前都只有你看得到，可以慢慢寫、想清楚了再送出。</div>
+    <div class="autosave-note privacy-note" id="privacyNote" style="display:none;"><span class="dot"></span>這裡只有你看得到，安心寫。</div>
   </div>
 
   <div class="section welcome-text">
@@ -594,7 +646,7 @@ hr {
       </div>
       <div class="form-field">
         <div class="form-label">出生年月日</div>
-        <input type="text" class="fill-line" data-key="basic-birth">
+        <input type="date" class="fill-line" data-key="basic-birth">
       </div>
     </div>
 
@@ -630,7 +682,17 @@ hr {
 
     <div class="form-field">
       <div class="form-label">21 天旅程記錄開始日期</div>
-      <input type="text" class="fill-line" data-key="basic-startdate">
+      <input type="date" class="fill-line" data-key="basic-startdate">
+    </div>
+
+    <div class="form-field no-print" id="basicSubmitBox">
+      <button class="action-btn" onclick="submitBasicFinal()" id="basicSubmitBtn">送出基本資料給側寫師</button>
+      <div class="sent-status" id="basicSentStatus"></div>
+    </div>
+
+    <div class="form-field private-note-box profiler-note-box" style="display:none;">
+      <div class="form-label">側寫師私人附註<span class="label-hint">（個案看不到）</span></div>
+      <textarea class="fill-area" rows="3" id="basicProfilerNote" placeholder="只有你自己看得到的附註"></textarea>
     </div>
   </div>
 
@@ -749,8 +811,12 @@ hr {
     <p class="prep-note">配方填寫完成後，點下方按鈕會把配方送出，並產生一組「只屬於這個個案」的專屬連結（連結裡帶有專屬金鑰，別人猜不到、也看不到別人的紀錄）。把這個連結傳給個案，她打開後姓名與配方會自動鎖住不能改，其他都跟現在一樣。</p>
     <button onclick="generateClientLink()">產生個案專屬連結</button>
     <div class="form-field" id="clientLinkBox" style="display:none; margin-top:14px;">
-      <div class="form-label">個案專屬連結（點一下可全選複製）</div>
+      <div class="form-label">個案專屬連結（點一下可全選複製，傳給個案本人）</div>
       <input type="text" class="fill-line" id="clientLinkOutput" readonly onclick="this.select()">
+    </div>
+    <div class="form-field private-note-box" id="profilerLinkBox" style="display:none; margin-top:14px;">
+      <div class="form-label">側寫師檢視連結<span class="label-hint">（只有你自己用，絕對不要傳給個案）</span></div>
+      <input type="text" class="fill-line" id="profilerLinkOutput" readonly onclick="this.select()">
     </div>
     <p class="prep-note">要準備下一位個案前，請先點這個按鈕清空這台電腦上暫存的資料，避免上一位個案的內容不小心被夾帶進下一位個案的畫面裡。</p>
     <button onclick="resetLocalData()" style="background:#a08c7e;">清空本機資料，準備下一位個案</button>
@@ -786,7 +852,7 @@ hr {
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 1 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day1-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day1-date"></span>
         </div>
 
         <div class="field-block">
@@ -803,13 +869,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day1-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(1)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day1-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day1-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 2 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day2-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day2-date"></span>
         </div>
 
         <div class="field-block">
@@ -826,13 +904,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day2-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(2)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day2-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day2-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 3 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day3-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day3-date"></span>
         </div>
 
         <div class="field-block">
@@ -849,13 +939,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day3-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(3)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day3-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day3-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 4 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day4-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day4-date"></span>
         </div>
 
         <div class="field-block">
@@ -872,13 +974,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day4-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(4)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day4-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day4-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 5 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day5-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day5-date"></span>
         </div>
 
         <div class="field-block">
@@ -895,13 +1009,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day5-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(5)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day5-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day5-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 6 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day6-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day6-date"></span>
         </div>
 
         <div class="field-block">
@@ -918,13 +1044,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day6-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(6)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day6-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day6-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 7 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day7-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day7-date"></span>
         </div>
 
         <div class="field-block">
@@ -940,6 +1078,18 @@ hr {
         <div class="field-block">
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day7-life"></textarea>
+        </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(7)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day7-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day7-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
         </div>
       </div>
 
@@ -961,6 +1111,12 @@ hr {
         </div>
         <textarea class="fill-area tall profiler-text" rows="3" readonly id="week1-profiler-message" placeholder="側寫師尚未留言"></textarea>
       </div>
+      
+
+      <div class="field-block private-note-box profiler-note-box" style="display:none;">
+        <div class="field-label">側寫師私人附註（個案看不到）</div>
+        <textarea class="fill-area tall" rows="3" id="week1-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+      </div>
       </div>
 
     </div>
@@ -979,7 +1135,7 @@ hr {
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 8 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day8-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day8-date"></span>
         </div>
 
         <div class="field-block">
@@ -996,13 +1152,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day8-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(8)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day8-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day8-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 9 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day9-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day9-date"></span>
         </div>
 
         <div class="field-block">
@@ -1019,13 +1187,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day9-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(9)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day9-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day9-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 10 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day10-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day10-date"></span>
         </div>
 
         <div class="field-block">
@@ -1042,13 +1222,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day10-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(10)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day10-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day10-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 11 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day11-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day11-date"></span>
         </div>
 
         <div class="field-block">
@@ -1065,13 +1257,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day11-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(11)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day11-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day11-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 12 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day12-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day12-date"></span>
         </div>
 
         <div class="field-block">
@@ -1088,13 +1292,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day12-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(12)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day12-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day12-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 13 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day13-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day13-date"></span>
         </div>
 
         <div class="field-block">
@@ -1111,13 +1327,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day13-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(13)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day13-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day13-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 14 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day14-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day14-date"></span>
         </div>
 
         <div class="field-block">
@@ -1133,6 +1361,18 @@ hr {
         <div class="field-block">
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day14-life"></textarea>
+        </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(14)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day14-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day14-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
         </div>
       </div>
 
@@ -1154,6 +1394,12 @@ hr {
         </div>
         <textarea class="fill-area tall profiler-text" rows="3" readonly id="week2-profiler-message" placeholder="側寫師尚未留言"></textarea>
       </div>
+      
+
+      <div class="field-block private-note-box profiler-note-box" style="display:none;">
+        <div class="field-label">側寫師私人附註（個案看不到）</div>
+        <textarea class="fill-area tall" rows="3" id="week2-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+      </div>
       </div>
 
     </div>
@@ -1172,7 +1418,7 @@ hr {
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 15 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day15-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day15-date"></span>
         </div>
 
         <div class="field-block">
@@ -1189,13 +1435,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day15-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(15)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day15-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day15-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 16 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day16-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day16-date"></span>
         </div>
 
         <div class="field-block">
@@ -1212,13 +1470,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day16-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(16)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day16-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day16-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 17 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day17-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day17-date"></span>
         </div>
 
         <div class="field-block">
@@ -1235,13 +1505,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day17-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(17)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day17-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day17-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 18 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day18-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day18-date"></span>
         </div>
 
         <div class="field-block">
@@ -1258,13 +1540,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day18-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(18)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day18-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day18-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 19 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day19-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day19-date"></span>
         </div>
 
         <div class="field-block">
@@ -1281,13 +1575,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day19-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(19)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day19-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day19-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 20 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day20-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day20-date"></span>
         </div>
 
         <div class="field-block">
@@ -1304,13 +1610,25 @@ hr {
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day20-life"></textarea>
         </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(20)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day20-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day20-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
+        </div>
       </div>
 
 
       <div class="day-card">
         <div class="day-head">
           <span class="day-num">第 21 天</span>
-          <span class="day-date">日期：<input type="text" class="fill-inline" data-key="day21-date" placeholder="__/__"></span>
+          <span class="day-date">日期：<input type="date" class="fill-inline" data-key="day21-date"></span>
         </div>
 
         <div class="field-block">
@@ -1326,6 +1644,18 @@ hr {
         <div class="field-block">
           <div class="field-label">睡眠、飲食與人際關係的狀態</div>
           <textarea class="fill-area" rows="2" data-key="day21-life"></textarea>
+        </div>
+      
+
+        <div class="field-block no-print" style="margin-top:14px;">
+          <button class="action-btn" onclick="submitDayFinal(21)">送出這天的紀錄給側寫師</button>
+          <div class="sent-status" id="day21-sent-status"></div>
+        </div>
+      
+
+        <div class="field-block private-note-box profiler-note-box" style="display:none;">
+          <div class="field-label">側寫師私人附註（個案看不到）</div>
+          <textarea class="fill-area" rows="2" id="day21-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
         </div>
       </div>
 
@@ -1346,6 +1676,12 @@ hr {
           <span class="profiler-badge">由側寫師填寫</span>
         </div>
         <textarea class="fill-area tall profiler-text" rows="3" readonly id="week3-profiler-message" placeholder="側寫師尚未留言"></textarea>
+      </div>
+      
+
+      <div class="field-block private-note-box profiler-note-box" style="display:none;">
+        <div class="field-label">側寫師私人附註（個案看不到）</div>
+        <textarea class="fill-area tall" rows="3" id="week3-profiler-note" placeholder="只有你自己看得到的附註"></textarea>
       </div>
       </div>
 
@@ -1386,17 +1722,61 @@ hr {
   var debounceTimers = {};
 
   // 個案專屬連結（?name=...&key=...）：偵測到就記住姓名與金鑰，畫面稍後會鎖住姓名與配方欄位
+  // 側寫師檢視連結（?name=...&pkey=...）：只有側寫師自己拿著，用來唯讀瀏覽個案資料＋寫私人附註，
+  // 這個模式完全不碰本機儲存（localStorage），避免跟個案自己或其他個案的資料互相污染
   var urlParams = new URLSearchParams(location.search);
   var urlName = urlParams.get('name');
   var urlKey = urlParams.get('key');
+  var urlPKey = urlParams.get('pkey');
   var isClientMode = !!(urlName && urlKey);
+  var isProfilerMode = !!(urlName && urlPKey);
   if (isClientMode) {
     localStorage.setItem(STORAGE_PREFIX + 'basic-name', urlName);
     localStorage.setItem(STORAGE_PREFIX + 'access-key', urlKey);
+    var privacyNoteEl = document.getElementById('privacyNote');
+    if (privacyNoteEl) privacyNoteEl.style.display = '';
   }
 
   function getAccessKey() {
     return localStorage.getItem(STORAGE_PREFIX + 'access-key') || '';
+  }
+
+  // 基本資料／每日紀錄改成「使用者自己決定要不要送出」，用這幾個function記錄哪些已經送出過
+  var DAY_LOCK_WINDOW_MS = 24 * 60 * 60 * 1000; // 每日紀錄：第一次送出後 24 小時內可重複修改，超過就鎖定
+
+  function isSent(flagKey) {
+    return localStorage.getItem(STORAGE_PREFIX + 'sent-' + flagKey) === '1';
+  }
+  function markSent(flagKey) {
+    localStorage.setItem(STORAGE_PREFIX + 'sent-' + flagKey, '1');
+  }
+  function getSentAt(flagKey) {
+    var v = localStorage.getItem(STORAGE_PREFIX + 'sent-' + flagKey + '-at');
+    return v ? parseInt(v, 10) : null;
+  }
+  function setSentAt(flagKey, timestamp) {
+    // 只記錄「第一次送出」的時間，之後重送不會改變，24小時視窗才會準
+    if (!getSentAt(flagKey)) {
+      localStorage.setItem(STORAGE_PREFIX + 'sent-' + flagKey + '-at', String(timestamp));
+    }
+  }
+  function markSentWithTime(flagKey) {
+    markSent(flagKey);
+    setSentAt(flagKey, Date.now());
+  }
+  function isDayLocked(dayKey) {
+    var sentAt = getSentAt(dayKey);
+    if (!sentAt) return false;
+    return (Date.now() - sentAt) > DAY_LOCK_WINDOW_MS;
+  }
+  function lockDayFields(day) {
+    ['date', 'mood', 'dream', 'life'].forEach(function (suffix) {
+      var el = document.querySelector('[data-key="day' + day + '-' + suffix + '"]');
+      if (el) {
+        el.setAttribute('readonly', 'readonly');
+        el.classList.add('locked');
+      }
+    });
   }
 
   function showToast(text) {
@@ -1428,6 +1808,25 @@ hr {
 
   function getVal(key) {
     return localStorage.getItem(STORAGE_PREFIX + key) || '';
+  }
+
+  // 開始日期一設定，第 1～21 天的日期就自動往後排，不用一天一天自己選
+  function updateDayDatesFromStart() {
+    var startVal = getVal('basic-startdate');
+    if (!startVal) return;
+    var startDate = new Date(startVal + 'T00:00:00');
+    if (isNaN(startDate.getTime())) return;
+    for (var d = 1; d <= 21; d++) {
+      var dayDate = new Date(startDate.getTime());
+      dayDate.setDate(dayDate.getDate() + (d - 1));
+      var yyyy = dayDate.getFullYear();
+      var mm = String(dayDate.getMonth() + 1).padStart(2, '0');
+      var dd = String(dayDate.getDate()).padStart(2, '0');
+      var iso = yyyy + '-' + mm + '-' + dd;
+      var el = document.querySelector('[data-key="day' + d + '-date"]');
+      if (el) el.value = iso;
+      localStorage.setItem(STORAGE_PREFIX + 'day' + d + '-date', iso);
+    }
   }
 
   function submitBasic() {
@@ -1487,29 +1886,13 @@ hr {
   }
 
   function scheduleSync(el) {
+    // 只有「配方」（側寫師自己填）跟「週回顧」還是打字停頓就自動同步；
+    // 基本資料、每日紀錄改成要使用者自己按「送出」才會真的傳出去，見 submitBasicFinal / submitDayFinal
     var key = el.dataset.key;
-    var groupId;
-    if (key.indexOf('day') === 0) {
-      groupId = key.split('-')[0];
-    } else if (key.indexOf('week') === 0) {
-      groupId = key.split('-')[0];
-    } else if (key.indexOf('recipe') === 0) {
-      groupId = 'recipe';
-    } else {
-      groupId = 'basic';
-    }
+    var groupId = key.indexOf('recipe') === 0 ? 'recipe' : key.split('-')[0];
     clearTimeout(debounceTimers[groupId]);
     debounceTimers[groupId] = setTimeout(function () {
-      var promise;
-      if (groupId === 'basic') {
-        promise = submitBasic();
-      } else if (groupId === 'recipe') {
-        promise = submitRecipe();
-      } else if (groupId.indexOf('week') === 0) {
-        promise = submitWeekSummary(groupId.replace('week', ''));
-      } else {
-        promise = submitDaily(groupId.replace('day', ''));
-      }
+      var promise = groupId === 'recipe' ? submitRecipe() : submitWeekSummary(groupId.replace('week', ''));
       if (!syncEnabled()) {
         showToast('已儲存在本機');
         return;
@@ -1521,11 +1904,13 @@ hr {
   }
 
   function resyncAll() {
+    // 只重新送出「已經送出過」的項目（修補上次可能失敗的同步），
+    // 還沒被使用者主動送出的基本資料／每日紀錄草稿，不會被這裡偷偷送出去
     if (!syncEnabled()) return;
-    if (getVal('basic-name')) submitBasic();
+    if (isSent('basic') && getVal('basic-name')) submitBasic();
     if (getVal('recipe-client-name')) submitRecipe();
     for (var d = 1; d <= 21; d++) {
-      if (getVal('day' + d + '-mood') || getVal('day' + d + '-dream') || getVal('day' + d + '-life') || getVal('day' + d + '-date')) {
+      if (isSent('day' + d) && (getVal('day' + d + '-mood') || getVal('day' + d + '-dream') || getVal('day' + d + '-life') || getVal('day' + d + '-date'))) {
         submitDaily(d);
       }
     }
@@ -1536,20 +1921,36 @@ hr {
     });
   }
 
-  fields.forEach(function (el) {
-    var key = STORAGE_PREFIX + el.dataset.key;
-    var saved = localStorage.getItem(key);
-    if (saved !== null) {
-      el.value = saved;
-    } else if (el.value) {
-      // 個案專屬檔案裡由側寫師預先寫入的配方／姓名，第一次打開時存進本機
-      localStorage.setItem(key, el.value);
-    }
-    el.addEventListener('input', function () {
-      localStorage.setItem(key, el.value);
-      scheduleSync(el);
+  if (isProfilerMode) {
+    // 側寫師檢視模式：完全不碰本機儲存，所有個案自己的欄位一律唯讀，只有私人附註欄位可以打字
+    fields.forEach(function (el) {
+      el.setAttribute('readonly', 'readonly');
+      el.classList.add('locked');
     });
-  });
+  } else {
+    fields.forEach(function (el) {
+      var key = STORAGE_PREFIX + el.dataset.key;
+      var saved = localStorage.getItem(key);
+      if (saved !== null) {
+        el.value = saved;
+      } else if (el.value) {
+        // 個案專屬檔案裡由側寫師預先寫入的配方／姓名，第一次打開時存進本機
+        localStorage.setItem(key, el.value);
+      }
+      el.addEventListener('input', function () {
+        localStorage.setItem(key, el.value);
+        var k = el.dataset.key;
+        if (k === 'basic-startdate') {
+          updateDayDatesFromStart();
+        }
+        if (k.indexOf('recipe') === 0 || k.indexOf('week') === 0) {
+          scheduleSync(el);
+        }
+        // 基本資料／每日紀錄只存在本機，等使用者自己按「送出」按鈕才會同步出去
+      });
+    });
+    updateDayDatesFromStart();
+  }
 
   window.generateClientLink = function () {
     var name = getVal('recipe-client-name');
@@ -1588,6 +1989,15 @@ hr {
         var output = document.getElementById('clientLinkOutput');
         output.value = url;
         box.style.display = '';
+
+        if (json.pkey) {
+          var purl = location.origin + location.pathname + '?name=' + encodeURIComponent(name) + '&pkey=' + encodeURIComponent(json.pkey);
+          var pbox = document.getElementById('profilerLinkBox');
+          var poutput = document.getElementById('profilerLinkOutput');
+          poutput.value = purl;
+          pbox.style.display = '';
+        }
+
         output.focus();
         output.select();
         showToast('連結已產生');
@@ -1619,6 +2029,85 @@ hr {
 
   function showInvalidLinkMessage() {
     document.body.innerHTML = '<div style="max-width:480px;margin:80px auto;padding:32px;text-align:center;font-family:\'Noto Serif TC\',serif;color:#6b5c52;line-height:1.9;">這個連結似乎有誤或已經失效，請跟你的精油側寫師確認一下連結是否正確。</div>';
+  }
+
+  function lockBasicFields() {
+    var keys = ['basic-birth', 'basic-job', 'basic-history', 'basic-breathing', 'basic-skin', 'basic-sleep', 'basic-expectation', 'basic-startdate'];
+    for (var d = 1; d <= 21; d++) keys.push('day' + d + '-date');
+    keys.forEach(function (k) {
+      var el = document.querySelector('[data-key="' + k + '"]');
+      if (el) {
+        el.setAttribute('readonly', 'readonly');
+        el.classList.add('locked');
+      }
+    });
+    var btn = document.getElementById('basicSubmitBtn');
+    if (btn) {
+      btn.disabled = true;
+      btn.textContent = '已送出';
+    }
+  }
+
+  window.submitBasicFinal = function () {
+    var btn = document.getElementById('basicSubmitBtn');
+    var status = document.getElementById('basicSentStatus');
+    if (btn) { btn.disabled = true; btn.textContent = '送出中…'; }
+    submitBasic().then(function (success) {
+      if (success) {
+        markSent('basic');
+        lockBasicFields();
+        if (status) { status.textContent = '已送出，內容已鎖定，無法再修改'; status.classList.add('sent'); }
+        showToast('已送出給精油側寫師');
+      } else {
+        if (btn) { btn.disabled = false; btn.textContent = '送出基本資料給側寫師'; }
+        if (status) status.textContent = '送出失敗，請檢查網路連線後再試一次';
+        showToast('送出失敗，請稍後再試');
+      }
+    });
+  };
+
+  window.submitDayFinal = function (day) {
+    if (isDayLocked('day' + day)) return; // 保險：已經超過24小時鎖定就不該還能觸發
+    var btn = document.querySelector('[onclick="submitDayFinal(' + day + ')"]');
+    var status = document.getElementById('day' + day + '-sent-status');
+    if (btn) { btn.disabled = true; btn.textContent = '送出中…'; }
+    submitDaily(day).then(function (success) {
+      if (success) {
+        markSentWithTime('day' + day);
+        updateDayStatusUI(day);
+        showToast('已送出給精油側寫師');
+      } else {
+        if (btn) { btn.disabled = false; btn.textContent = '送出這天的紀錄給側寫師'; }
+        if (status) status.textContent = '送出失敗，請檢查網路連線後再試一次';
+        showToast('送出失敗，請稍後再試');
+      }
+    });
+  };
+
+  function updateDayStatusUI(day) {
+    var dayKey = 'day' + day;
+    if (!isSent(dayKey)) return;
+    var status = document.getElementById(dayKey + '-sent-status');
+    var btn = document.querySelector('[onclick="submitDayFinal(' + day + ')"]');
+    if (isDayLocked(dayKey)) {
+      lockDayFields(day);
+      if (status) { status.textContent = '已送出，超過 24 小時，內容已鎖定'; status.classList.add('sent'); }
+      if (btn) { btn.disabled = true; btn.textContent = '已鎖定'; }
+    } else {
+      if (status) { status.textContent = '已送出給側寫師．24 小時內可重複修改'; status.classList.add('sent'); }
+      if (btn) { btn.disabled = false; btn.textContent = '重新送出這天的紀錄'; }
+    }
+  }
+
+  function applySentUI() {
+    if (isSent('basic')) {
+      lockBasicFields();
+      var basicStatus = document.getElementById('basicSentStatus');
+      if (basicStatus) { basicStatus.textContent = '已送出，內容已鎖定，無法再修改'; basicStatus.classList.add('sent'); }
+    }
+    for (var di = 1; di <= 21; di++) {
+      updateDayStatusUI(di);
+    }
   }
 
   window.resetLocalData = function () {
@@ -1659,6 +2148,9 @@ hr {
       setIfEmpty('basic-sleep', mine.basic.sleep);
       setIfEmpty('basic-expectation', mine.basic.expectation);
       setIfEmpty('basic-startdate', mine.basic.startdate);
+      updateDayDatesFromStart();
+      // 試算表上已經有基本資料，代表之前已經送出過了，換裝置打開也要維持鎖定狀態
+      markSent('basic');
     }
     if (mine.daily) {
       Object.keys(mine.daily).forEach(function (dayKey) {
@@ -1668,6 +2160,9 @@ hr {
         setIfEmpty(dayKey + '-mood', entry.mood);
         setIfEmpty(dayKey + '-dream', entry.dream);
         setIfEmpty(dayKey + '-life', entry.life);
+        markSent(dayKey);
+        // 換裝置打開時，24小時視窗要以「第一次送出」的原始時間為準，不能從現在重新起算
+        if (entry.firstSentAt) setSentAt(dayKey, entry.firstSentAt);
       });
     }
     if (mine.week) {
@@ -1712,6 +2207,7 @@ hr {
         });
         applyMineData(json.data.mine);
         if (isClientMode) lockClientFields();
+        applySentUI();
         // 把剛從試算表補回本機、以及本機原本就有但可能上次同步失敗的資料，重新送一次
         resyncAll();
       })
@@ -1721,7 +2217,135 @@ hr {
       });
   };
 
-  loadMyData();
+  // ===== 側寫師檢視模式（?name=...&pkey=...）=====
+  // 完全不經過 localStorage：資料直接從伺服器寫進畫面，個案自己的欄位一律唯讀，
+  // 只有「側寫師私人附註」欄位可以打字，打完自動存檔（不會影響個案看到的任何內容）。
+
+  function setFieldDirect(key, value) {
+    var el = document.querySelector('[data-key="' + key + '"]');
+    if (el && value) el.value = value;
+  }
+
+  function setNoteFieldDirect(id, value) {
+    var el = document.getElementById(id);
+    if (el && value) el.value = value;
+  }
+
+  function noteFieldIdForTarget(target) {
+    return target === 'basic' ? 'basicProfilerNote' : (target + '-profiler-note');
+  }
+
+  function showProfilerNoteBoxes() {
+    document.querySelectorAll('.profiler-note-box').forEach(function (el) {
+      el.style.display = '';
+    });
+  }
+
+  var noteDebounceTimers = {};
+  function submitNote(target) {
+    var el = document.getElementById(noteFieldIdForTarget(target));
+    if (!el) return Promise.resolve(false);
+    return postToSheet({
+      type: 'note',
+      name: urlName,
+      pkey: urlPKey,
+      target: target,
+      text: el.value
+    });
+  }
+  function wireNoteField(target) {
+    var el = document.getElementById(noteFieldIdForTarget(target));
+    if (!el) return;
+    el.addEventListener('input', function () {
+      clearTimeout(noteDebounceTimers[target]);
+      noteDebounceTimers[target] = setTimeout(function () {
+        submitNote(target).then(function (success) {
+          showToast(success ? '附註已儲存' : '附註儲存失敗，請稍後再試');
+        });
+      }, 1200);
+    });
+  }
+  function wireAllNoteFields() {
+    wireNoteField('basic');
+    for (var d = 1; d <= 21; d++) wireNoteField('day' + d);
+    [1, 2, 3].forEach(function (w) { wireNoteField('week' + w); });
+  }
+
+  window.loadProfilerView = function () {
+    if (!syncEnabled()) return;
+    var url = SHEET_ENDPOINT + '?name=' + encodeURIComponent(urlName) + '&pkey=' + encodeURIComponent(urlPKey);
+    fetch(url)
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (!json || !json.data || !json.data.mine) {
+          showInvalidLinkMessage();
+          return;
+        }
+        var mine = json.data.mine;
+
+        setFieldDirect('basic-name', urlName);
+        if (mine.basic) {
+          setFieldDirect('basic-birth', mine.basic.birth);
+          setFieldDirect('basic-job', mine.basic.job);
+          setFieldDirect('basic-history', mine.basic.history);
+          setFieldDirect('basic-breathing', mine.basic.breathing);
+          setFieldDirect('basic-skin', mine.basic.skin);
+          setFieldDirect('basic-sleep', mine.basic.sleep);
+          setFieldDirect('basic-expectation', mine.basic.expectation);
+          setFieldDirect('basic-startdate', mine.basic.startdate);
+          setNoteFieldDirect('basicProfilerNote', mine.basic.note);
+        }
+        if (mine.daily) {
+          Object.keys(mine.daily).forEach(function (dayKey) {
+            var entry = mine.daily[dayKey];
+            if (!entry) return;
+            setFieldDirect(dayKey + '-date', entry.date);
+            setFieldDirect(dayKey + '-mood', entry.mood);
+            setFieldDirect(dayKey + '-dream', entry.dream);
+            setFieldDirect(dayKey + '-life', entry.life);
+            setNoteFieldDirect(dayKey + '-profiler-note', entry.note);
+          });
+        }
+        if (mine.week) {
+          ['week1', 'week2', 'week3'].forEach(function (w) {
+            var entry = mine.week[w];
+            if (!entry) return;
+            setFieldDirect(w + '-review', entry.review);
+            setFieldDirect(w + '-message', entry.message);
+            setNoteFieldDirect(w + '-profiler-note', entry.note);
+            var msgEl = document.getElementById(w + '-profiler-message');
+            if (msgEl && json.data[w]) msgEl.value = json.data[w];
+          });
+        }
+        if (mine.recipe) {
+          setFieldDirect('recipe-client-name', urlName);
+          setFieldDirect('recipe-concentration', mine.recipe.concentration);
+          setFieldDirect('recipe-carrier-volume', mine.recipe.carrierVolume);
+          setFieldDirect('recipe-oil1-name', mine.recipe.oil1Name);
+          setFieldDirect('recipe-oil1-drops', mine.recipe.oil1Drops);
+          setFieldDirect('recipe-oil2-name', mine.recipe.oil2Name);
+          setFieldDirect('recipe-oil2-drops', mine.recipe.oil2Drops);
+          setFieldDirect('recipe-oil3-name', mine.recipe.oil3Name);
+          setFieldDirect('recipe-oil3-drops', mine.recipe.oil3Drops);
+          setFieldDirect('recipe-location', mine.recipe.location);
+        }
+
+        showProfilerNoteBoxes();
+        wireAllNoteFields();
+        var prepToolbar = document.getElementById('prepToolbar');
+        if (prepToolbar) prepToolbar.parentNode.removeChild(prepToolbar);
+      })
+      .catch(function () {
+        showInvalidLinkMessage();
+      });
+  };
+
+  if (isProfilerMode) {
+    loadProfilerView();
+  } else {
+    applySentUI();
+    loadMyData();
+  }
 })();
 </script>
 
