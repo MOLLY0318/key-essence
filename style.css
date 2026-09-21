@@ -776,6 +776,48 @@ ul.credential-list.panel-list li::before {
 }
 .jotform-embed iframe { display: block; border-radius: 16px; }
 
+/* ── SHARE BAR ── */
+.share-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2.5rem 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--sand);
+}
+.share-bar .share-label {
+  font-size: 0.9rem;
+  color: var(--umber);
+}
+.share-bar .share-icons {
+  display: flex;
+  gap: 0.7rem;
+}
+.share-bar .share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 1.2rem;
+  border-radius: 50px;
+  border: 1px solid rgba(199, 173, 122, 0.35);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--ink);
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+.share-bar .share-btn:hover {
+  background: var(--champagne);
+  color: var(--ink);
+  transform: translateY(-2px);
+}
+
 /* ── FAQ (Q&A accordion) ── */
 .faq-list {
   max-width: 700px;
