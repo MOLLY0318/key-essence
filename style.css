@@ -749,7 +749,7 @@ footer.site-footer .footer-meta {
   pointer-events: none;
   background-color: var(--sand);
   background-image:
-    linear-gradient(rgba(232, 222, 209, 0.28), rgba(232, 222, 209, 0.28)),
+    linear-gradient(rgba(232, 222, 209, 0.62), rgba(232, 222, 209, 0.62)),
     url('images/backgrounds/bg-light-curtain.webp');
   background-size: cover;
   background-position: center;
