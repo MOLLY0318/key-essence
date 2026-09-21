@@ -310,6 +310,17 @@ section.alt {
   gap: 3rem;
   margin-top: 1rem;
 }
+.tool-grid.credentials-grid {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+.tool-grid.credentials-grid .tool-item {
+  max-width: none;
+  margin: 0;
+}
+@media (max-width: 900px) {
+  .tool-grid.credentials-grid { grid-template-columns: 1fr; }
+}
 .tool-item {
   max-width: 680px;
   margin: 0 auto;
@@ -338,6 +349,10 @@ section.alt {
 .tool-item + .tool-item {
   padding-top: 2.5rem;
   border-top: 1px solid rgba(17, 27, 32, 0.08);
+}
+.tool-grid.credentials-grid .tool-item + .tool-item {
+  padding-top: 0;
+  border-top: none;
 }
 
 /* ── CARD GRID ── */
