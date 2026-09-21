@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>謝謝你留下了此刻的自己｜鑰．本質 Key Essence</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-light-texture" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html"><img class="nav-logo" src="images/logo-lockup-black-transparent.png" alt="鑰．本質 Key Essence"></a>
+    <div class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於</a>
+      <a href="mind-room.html">心靈整聊室</a>
+      <a href="craft-school.html">手作學院</a>
+      <a href="blog/index.html">文章</a>
+      <a href="market.html">市集體驗</a>
+      <a href="faq.html">常見問題</a>
+      <a href="contact.html">預約</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="eyebrow eyebrow-xl">THANK YOU</div>
+  <h1>謝謝你，留了一段時間給自己</h1>
+  <p>你的登記已經收到了。</p>
+</header>
+
+<section class="section-light-texture">
+  <div class="container">
+    <div class="section-head reveal reveal-fade">
+      <p>市集很吵，人來人往，但你還是在這裡停下腳步，留下了名字。這個小小的動作，其實已經是今天最溫柔的自我照顧——不是為了得到答案，而是先給自己一個被聽見的機會。</p>
+      <p>我們會依照現場登記的順序，安排你的體驗時段（每場約 15-20 分鐘）。如果當天候位人數較多，也會透過你留下的聯絡方式，通知你後續的梯次或其他延伸服務。</p>
+    </div>
+    <div class="notice-box reveal" style="max-width:640px;margin:0 auto 1.6rem;">
+      <strong>時間：</strong>2026/10/3(六)-10/4(日)，每日 15:00-20:00<br>
+      <strong>地點：</strong>四四南村（台北市松勤街 50 號）
+    </div>
+    <div class="section-head reveal reveal-fade" style="margin-top:0;">
+      <p>在那之前，如果你想先認識精油側寫在做什麼，或者想看看鑰．本質還有哪些陪伴的方式，都放在下面，慢慢看，不用急。</p>
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow eyebrow-xl">More</div>
+      <h2>順便看看鑰．本質還有這些陪伴</h2>
+    </div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-eyebrow">心靈整聊室</div>
+        <h3>一對一深度陪伴</h3>
+        <p>精油側寫、聲灸 Sound-Penetrate、人類圖與生命靈數的統合解析，陪你走更深一層的旅程。</p>
+        <a href="mind-room.html" class="btn dark">了解服務 →</a>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">手作學院</div>
+        <h3>團體工作坊</h3>
+        <p>療癒擴香石、毛根花創作、風鈴手作，把科學芳療知識化為手心的溫度。</p>
+        <a href="craft-school.html" class="btn dark">了解服務 →</a>
+      </div>
+      <div class="card">
+        <div class="card-eyebrow">文章</div>
+        <h3>精油側寫是什麼？</h3>
+        <p>還沒體驗過、想先了解精油側寫的原理與流程，可以先從這篇文章開始。</p>
+        <a href="blog/oil-profiling.html" class="btn dark">閱讀文章 →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo-lockup-champagne.png" alt="鑰．本質">
+  <div class="footer-tagline">讓改變從你自己裡面發生</div>
+  <div class="footer-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於</a>
+    <a href="mind-room.html">心靈整聊室</a>
+    <a href="craft-school.html">手作學院</a>
+    <a href="blog/index.html">文章</a>
+    <a href="market.html">市集體驗</a>
+    <a href="faq.html">常見問題</a>
+    <a href="contact.html">預約</a>
+  </div>
+  <div class="footer-meta">© 2026 鑰．本質 Key Essence ｜ 服務內容為身心陪伴與覺察工具，非醫療診斷或治療行為</div>
+</footer>
+
+<script>
+(function () {
+  var revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    revealEls.forEach(function (el) { io.observe(el); });
+  } else {
+    revealEls.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+})();
+</script>
+
+</body>
+</html>

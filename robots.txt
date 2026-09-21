@@ -1,5 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /oil21-record.html
+Disallow: /market-thanks.html
 
 Sitemap: https://molly0318.github.io/key-essence/sitemap.xml
