@@ -762,6 +762,20 @@ ul.credential-list.panel-list li::before {
   background: linear-gradient(var(--brass), var(--champagne));
 }
 
+/* ── JOTFORM EMBED ── */
+.jotform-embed {
+  max-width: 640px;
+  margin: 3rem auto 0;
+  padding: 0.5rem;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow:
+    0 1px 2px rgba(17, 27, 32, 0.05),
+    0 22px 40px -18px rgba(17, 27, 32, 0.18);
+  overflow: hidden;
+}
+.jotform-embed iframe { display: block; border-radius: 16px; }
+
 /* ── FAQ (Q&A accordion) ── */
 .faq-list {
   max-width: 700px;
