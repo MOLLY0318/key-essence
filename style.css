@@ -16,9 +16,10 @@
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 
 body {
+  overflow-x: hidden;
   background: var(--mist);
   color: var(--ink);
   font-family: 'Noto Sans TC', sans-serif;
@@ -911,6 +912,9 @@ section.section-light-texture {
 /* slideInLeft-equivalent */
 .reveal.reveal-left { transform: translateX(-56px); }
 .reveal.reveal-left.is-visible { transform: translateX(0); }
+/* slideInRight-equivalent */
+.reveal.reveal-right { transform: translateX(56px); }
+.reveal.reveal-right.is-visible { transform: translateX(0); }
 /* cascading stagger for groups of siblings that reveal together */
 .about-sandwich.reveal-group > .reveal:nth-child(2) { transition-delay: 0.12s; }
 .about-sandwich.reveal-group > .reveal:nth-child(3) { transition-delay: 0.22s; }
