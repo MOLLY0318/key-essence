@@ -818,6 +818,30 @@ ul.credential-list.panel-list li::before {
   transform: translateY(-2px);
 }
 
+.share-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 32px;
+  transform: translate(-50%, 16px);
+  max-width: min(90vw, 420px);
+  padding: 0.9rem 1.4rem;
+  border-radius: 50px;
+  background: var(--ink);
+  color: var(--mist);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  text-align: center;
+  box-shadow: 0 18px 40px -14px rgba(17, 27, 32, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 200;
+}
+.share-toast.is-visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 /* ── FAQ (Q&A accordion) ── */
 .faq-list {
   max-width: 700px;
