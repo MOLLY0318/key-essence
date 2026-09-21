@@ -700,28 +700,37 @@ ul.credential-list.panel-list li::before {
   background: linear-gradient(var(--brass), var(--champagne));
 }
 
-/* ── FAQ (Q&A list) ── */
+/* ── FAQ (Q&A accordion) ── */
 .faq-list {
   max-width: 700px;
   margin: 3rem auto 0;
   display: flex;
   flex-direction: column;
+  gap: 1.1rem;
 }
 .faq-item {
-  padding: 1.6rem 0;
-  border-bottom: 1px solid var(--sand);
+  border: 1px solid var(--rose);
+  border-radius: 20px;
 }
-.faq-item:first-child { padding-top: 0; }
-.faq-item:last-child { border-bottom: none; }
 .faq-q {
   display: flex;
   gap: 0.7rem;
   align-items: baseline;
+  list-style: none;
+  cursor: pointer;
+  background: var(--mist);
+  border-radius: 20px;
+  padding: 1.1rem 1.4rem;
   font-family: 'Noto Serif TC', serif;
   font-weight: 600;
   font-size: 1.05rem;
   color: var(--deep);
-  margin-bottom: 0.6rem;
+  transition: border-radius 0.2s ease;
+}
+.faq-q::-webkit-details-marker { display: none; }
+.faq-item[open] .faq-q {
+  border-radius: 20px 20px 0 0;
+  border-bottom: 1px solid var(--rose);
 }
 .faq-q .faq-mark {
   flex-shrink: 0;
@@ -729,19 +738,28 @@ ul.credential-list.panel-list li::before {
   font-family: 'Noto Serif TC', serif;
   font-weight: 700;
 }
+.faq-q::after {
+  content: '+';
+  margin-left: auto;
+  flex-shrink: 0;
+  font-size: 1.3rem;
+  color: var(--brass);
+  transition: transform 0.2s ease;
+}
+.faq-item[open] .faq-q::after {
+  content: '+';
+  transform: rotate(45deg);
+}
 .faq-a {
   display: flex;
   gap: 0.7rem;
   align-items: flex-start;
+  background: var(--sand);
+  border-radius: 0 0 20px 20px;
+  padding: 1.2rem 1.4rem 1.4rem;
   color: var(--umber);
   font-size: 0.94rem;
   line-height: 1.85;
-}
-.faq-a .faq-mark {
-  flex-shrink: 0;
-  color: var(--bluegray);
-  font-family: 'Noto Serif TC', serif;
-  font-weight: 600;
 }
 
 /* ── FOOTER (dark bookend) ── */
