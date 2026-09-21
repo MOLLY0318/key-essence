@@ -793,6 +793,7 @@ ul.credential-list.panel-list li::before {
 }
 .share-bar .share-icons {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.7rem;
 }
 .share-bar .share-btn {
