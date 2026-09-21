@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>普羅芳精油選購｜鑰．本質 Key Essence</title>
+<meta name="description" content="瀏覽法國普羅芳 PRANARÔM 全系列精油、純露、植物油與芳療用品，勾選想要的品項後透過 LINE 送出訂購清單。">
+<link rel="canonical" href="https://molly0318.github.io/key-essence/shop.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="鑰．本質 Key Essence">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:url" content="https://molly0318.github.io/key-essence/shop.html">
+<meta property="og:title" content="普羅芳精油選購｜鑰．本質 Key Essence">
+<meta property="og:description" content="瀏覽法國普羅芳 PRANARÔM 全系列精油、純露、植物油與芳療用品，勾選想要的品項後透過 LINE 送出訂購清單。">
+<meta property="og:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="普羅芳精油選購｜鑰．本質 Key Essence">
+<meta name="twitter:description" content="瀏覽法國普羅芳 PRANARÔM 全系列精油、純露、植物油與芳療用品，勾選想要的品項後透過 LINE 送出訂購清單。">
+<meta name="twitter:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="bg-light-texture" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html"><img class="nav-logo" src="images/logo-lockup-black-transparent.png" alt="鑰．本質 Key Essence"></a>
+    <div class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於 Molly</a>
+      <a href="mind-room.html">心靈整聊室</a>
+      <a href="craft-school.html">手作學院</a>
+      <a href="blog/index.html">文章</a>
+      <a href="market.html">市集體驗</a>
+      <a href="faq.html">常見問題</a>
+      <a href="contact.html">預約</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="eyebrow eyebrow-xl">SHOP</div>
+  <h1>普羅芳精油選購</h1>
+  <p>法國 PRANARÔM 全系列精油、純露、植物油與芳療用品。挑選您需要的品項與數量，複製訂購清單後傳給我，我會親自為您核對並安排取貨方式。</p>
+</header>
+
+<section>
+  <div class="container">
+
+    <div class="notice-box" style="margin-bottom:1rem;">
+      <strong>訂購方式：</strong>勾選品項加入清單 → 點右下角「查看清單」→ 填寫姓名／電話／寄送方式／地址 → 複製訂單內容，貼到跟我既有的 LINE 對話傳給我，我會回覆核對金額（滿 NT$2,000 免運）與付款方式（現金／匯款／LINE Pay）。
+    </div>
+
+    <p style="text-align:center; margin-bottom:2.2rem;">
+      <button type="button" id="catalogOpenBtn" style="background:none; border:none; color:var(--brass); text-decoration:underline; font-size:1em; cursor:pointer; font-family:inherit;">查看完整商品型錄 PDF（含商品照片）→</button>
+    </p>
+
+    <div class="shop-filter" id="shopFilter"></div>
+
+    <div class="shop-grid" id="shopGrid"></div>
+
+  </div>
+</section>
+
+<button class="cart-fab" id="cartFab" type="button">
+  查看清單 <span class="cart-fab-count" id="cartFabCount">0</span>
+</button>
+
+<div class="craft-modal" id="cartModal">
+  <div class="craft-modal-backdrop" id="cartModalBackdrop"></div>
+  <div class="craft-modal-box cart-modal-box">
+    <button class="craft-modal-close" id="cartModalClose" type="button" aria-label="關閉">✕</button>
+    <div class="craft-modal-title-row">
+      <div class="craft-modal-title">我的訂購清單</div>
+      <button class="cart-clear-btn" id="cartClearBtn" type="button">清空清單</button>
+    </div>
+
+    <div class="cart-list" id="cartList"></div>
+
+    <div class="cart-summary">
+      <span>總數量 <strong id="cartTotalQty">0</strong></span>
+      <span>總金額 NT$<strong id="cartTotalPrice">0</strong></span>
+    </div>
+    <div class="cart-note" style="margin-top:-0.6rem;">上面是原價小計，實際折扣與是否符合「滿 NT$2,000 免運」，我核對訂單時會直接跟您說。</div>
+
+    <div class="cart-customer-form">
+      <div class="cart-field">
+        <label for="custName">姓名</label>
+        <input type="text" id="custName" placeholder="怎麼稱呼您">
+      </div>
+      <div class="cart-field">
+        <label for="custPhone">電話</label>
+        <input type="tel" id="custPhone" placeholder="方便聯繫的電話">
+      </div>
+      <div class="cart-field cart-field-wide">
+        <label>寄送方式</label>
+        <div class="cart-radio-row">
+          <label><input type="radio" name="custShip" value="郵寄"> 郵寄</label>
+          <label><input type="radio" name="custShip" value="7-11店到店"> 7-11 店到店</label>
+          <label><input type="radio" name="custShip" value="全家店到店"> 全家店到店</label>
+          <label><input type="radio" name="custShip" value="面交"> 面交</label>
+        </div>
+      </div>
+      <div class="cart-field cart-field-wide">
+        <label for="custAddress">地址／門市／面交地點</label>
+        <input type="text" id="custAddress" placeholder="郵寄請填完整地址；超商請填門市名稱；面交請填約定地點">
+      </div>
+    </div>
+
+    <div class="cart-warning">⚠️ 請先不要直接付款。等我確認商品現貨與折扣後金額，回覆告知您實際應付金額與商品狀況後，再進行付款（現金／匯款／LINE Pay）。</div>
+
+    <div class="cart-actions">
+      <button class="btn solid" id="cartCopyBtn" type="button">複製訂單內容</button>
+    </div>
+    <div class="cart-note">複製後，貼到跟我既有的 LINE 對話傳給我即可。還沒加我的話，LINE 搜尋 <strong>@864ihpsq</strong> 加入。</div>
+  </div>
+</div>
+
+<div class="craft-modal" id="catalogModal">
+  <div class="craft-modal-backdrop" id="catalogModalBackdrop"></div>
+  <div class="craft-modal-box catalog-modal-box">
+    <button class="craft-modal-close" id="catalogModalClose" type="button" aria-label="關閉">✕</button>
+    <div class="craft-modal-title">完整商品型錄</div>
+    <iframe id="catalogFrame" class="catalog-iframe" src="" title="普羅芳商品型錄"></iframe>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo-lockup-champagne.png" alt="鑰．本質">
+  <div class="footer-tagline">讓改變從你自己裡面發生</div>
+  <div class="footer-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於 Molly</a>
+    <a href="mind-room.html">心靈整聊室</a>
+    <a href="craft-school.html">手作學院</a>
+    <a href="blog/index.html">文章</a>
+    <a href="market.html">市集體驗</a>
+    <a href="faq.html">常見問題</a>
+    <a href="contact.html">預約</a>
+  </div>
+  <div class="footer-meta">© 2026 鑰．本質 Key Essence ｜ 服務內容為身心陪伴與覺察工具，非醫療診斷或治療行為</div>
+</footer>
+
+<script src="shop-data.js"></script>
+<script src="shop.js"></script>
+</body>
+</html>

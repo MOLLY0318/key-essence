@@ -2,5 +2,7 @@ User-agent: *
 Allow: /
 Disallow: /oil21-record.html
 Disallow: /market-thanks.html
+Disallow: /shop.html
+Disallow: /files/
 
 Sitemap: https://molly0318.github.io/key-essence/sitemap.xml
