@@ -325,6 +325,10 @@ section.alt {
   font-size: 1.25rem;
   margin-bottom: 0.9rem;
 }
+.tool-item h3.credential-label {
+  font-size: clamp(1.8rem, 3.4vw, 2.2rem);
+  font-weight: 800;
+}
 .tool-item p {
   margin-bottom: 0.9rem;
 }
@@ -545,8 +549,9 @@ section.alt {
   margin: 0 auto 1.2rem;
 }
 .badge-card h3 {
-  font-size: 1.05rem;
-  line-height: 1.5;
+  font-size: 1.55rem;
+  font-weight: 300;
+  line-height: 1.4;
 }
 .about-text .closing-line {
   font-size: 1.1rem;
@@ -577,7 +582,8 @@ ul.credential-list { list-style: none; }
 ul.credential-list li {
   padding: 0.6rem 0;
   border-bottom: 1px solid var(--sand);
-  font-size: 0.97rem;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: var(--ink);
 }
 ul.credential-list li::before {
@@ -711,7 +717,8 @@ footer.site-footer .footer-divider {
 footer.site-footer .footer-tagline {
   color: var(--sand);
   font-family: 'Noto Serif TC', serif;
-  font-size: 1.25rem;
+  font-weight: 300;
+  font-size: 1.65rem;
   margin-bottom: 1.8rem;
 }
 footer.site-footer .footer-links {
