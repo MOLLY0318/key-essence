@@ -262,9 +262,19 @@
     document.getElementById('cartModal').classList.remove('open');
   }
 
+  function isMobileDevice() {
+    return /iPhone|iPod|Android/i.test(navigator.userAgent);
+  }
+
   function openCatalogModal() {
+    const pdfPath = 'files/普羅芳商品型錄.pdf';
+    if (isMobileDevice()) {
+      // 手機版 Safari 在 iframe 裡的 PDF 無法用手勢捲動，改成開新分頁用原生檢視器
+      window.open(pdfPath, '_blank');
+      return;
+    }
     const frame = document.getElementById('catalogFrame');
-    if (!frame.getAttribute('src')) frame.setAttribute('src', 'files/普羅芳商品型錄.pdf');
+    if (!frame.getAttribute('src')) frame.setAttribute('src', pdfPath);
     document.getElementById('catalogModal').classList.add('open');
   }
   function closeCatalogModal() {
