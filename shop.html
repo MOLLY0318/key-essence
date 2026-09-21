@@ -55,9 +55,10 @@
       <strong>訂購方式：</strong>勾選品項加入清單 → 點右下角「查看清單」→ 填寫姓名／電話／寄送方式／地址 → 複製訂單內容，貼到跟我既有的 LINE 對話傳給我，我會回覆核對金額（滿 NT$2,000 免運）與付款方式（現金／匯款／LINE Pay）。
     </div>
 
-    <p style="text-align:center; margin-bottom:2.2rem;">
+    <p style="text-align:center; margin-bottom:0.5rem;">
       <button type="button" id="catalogOpenBtn" style="background:none; border:none; color:var(--brass); text-decoration:underline; font-size:1em; cursor:pointer; font-family:inherit;">查看完整商品型錄 PDF（含商品照片）→</button>
     </p>
+    <p style="text-align:center; margin-bottom:2.2rem; font-size:0.8rem; color:var(--bluegray);">型錄僅供參考商品外觀與介紹，實際售價請以上方選購清單為準</p>
 
     <div class="shop-filter" id="shopFilter"></div>
 
@@ -125,6 +126,7 @@
   <div class="craft-modal-box catalog-modal-box">
     <button class="craft-modal-close" id="catalogModalClose" type="button" aria-label="關閉">✕</button>
     <div class="craft-modal-title">完整商品型錄</div>
+    <div class="cart-note" style="margin-bottom:0.4rem;">⚠️ 型錄內頁價格僅供參考，實際售價請以選購清單為準</div>
     <iframe id="catalogFrame" class="catalog-iframe" src="" title="普羅芳商品型錄"></iframe>
   </div>
 </div>
