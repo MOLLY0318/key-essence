@@ -727,7 +727,7 @@ const SHOP_PRODUCTS = [
     "name": "波旁天竺葵",
     "latin": "Pelargonium x asperum bourbon",
     "size": "10ml",
-    "price": 1080,
+    "price": 980,
     "desc": "",
     "img": ""
   },
@@ -1367,7 +1367,7 @@ const SHOP_PRODUCTS = [
     "name": "清新喉",
     "latin": "Throat spray",
     "size": "15ml",
-    "price": 780,
+    "price": 980,
     "desc": "針對口腔與喉部設計的植萃噴霧，在季節轉換或頻繁用聲後，協助緩解黏膜的緊繃與不適感，同時維持口腔環境的清爽平衡。",
     "img": ""
   },
