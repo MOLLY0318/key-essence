@@ -4,6 +4,8 @@
   const CUSTOMER_KEY = 'ke-shop-customer-v1';
 
   let activeCategory = '全部';
+  // 從 LINE 連結帶入 ?cat=系列A,系列B 時，同時顯示多個系列
+  let activeCats = null;
   let cart = loadCart();
   let customer = loadCustomer();
 
@@ -50,12 +52,13 @@
     const el = document.getElementById('shopFilter');
     const cats = ['全部'].concat(SHOP_CATEGORIES);
     el.innerHTML = cats.map(function (c) {
-      const active = c === activeCategory ? ' active' : '';
+      const active = (activeCats ? activeCats.indexOf(c) !== -1 : c === activeCategory) ? ' active' : '';
       return '<button type="button" class="shop-filter-btn' + active + '" data-cat="' + escapeAttr(c) + '">' + escapeHtml(c) + '</button>';
     }).join('');
     el.querySelectorAll('.shop-filter-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         activeCategory = btn.getAttribute('data-cat');
+        activeCats = null;
         renderFilters();
         renderGrid();
       });
@@ -65,9 +68,11 @@
   // ── 商品格 ──
   function renderGrid() {
     const el = document.getElementById('shopGrid');
-    const list = activeCategory === '全部'
-      ? SHOP_PRODUCTS
-      : SHOP_PRODUCTS.filter(function (p) { return p.cat === activeCategory; });
+    const list = activeCats
+      ? SHOP_PRODUCTS.filter(function (p) { return activeCats.indexOf(p.cat) !== -1; })
+      : activeCategory === '全部'
+        ? SHOP_PRODUCTS
+        : SHOP_PRODUCTS.filter(function (p) { return p.cat === activeCategory; });
 
     el.innerHTML = list.map(function (p) {
       const qty = cart[p.id] ? cart[p.id].qty : 1;
@@ -290,10 +295,24 @@
   function escapeAttr(s) { return escapeHtml(s); }
   function cssEscape(s) { return String(s).replace(/"/g, '\\"'); }
 
+  function applyCatParam() {
+    const raw = new URLSearchParams(location.search).get('cat');
+    if (!raw) return false;
+    const cats = raw.split(',').map(function (c) { return c.trim(); })
+      .filter(function (c) { return SHOP_CATEGORIES.indexOf(c) !== -1; });
+    if (!cats.length) return false;
+    if (cats.length === 1) { activeCategory = cats[0]; } else { activeCats = cats; }
+    return true;
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    const fromLink = applyCatParam();
     renderFilters();
     renderGrid();
     updateCartFab();
+    if (fromLink) {
+      document.getElementById('shopFilter').scrollIntoView({ block: 'start' });
+    }
 
     document.getElementById('cartFab').addEventListener('click', openCartModal);
     document.getElementById('cartModalClose').addEventListener('click', closeCartModal);
