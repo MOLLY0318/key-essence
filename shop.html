@@ -130,12 +130,13 @@
 
     <div class="cart-warning">⚠️ 請先不要直接付款。等我確認商品現貨與折扣後金額，回覆告知您實際應付金額與商品狀況後，再進行付款（現金／匯款）。</div>
 
-    <div class="cart-actions">
-      <button class="btn solid" id="cartCopyBtn" type="button">複製訂單內容</button>
+    <div class="cart-note"><strong>① </strong>按下面的按鈕，會打開 LINE，訂單已經幫你打好，按「傳送」就完成。還沒加我的話，會先請你加入 <strong>@864ihpsq</strong>。</div>
+    <div class="cart-actions" style="margin-top:0.6rem;">
+      <button class="btn solid" id="cartSendBtn" type="button">把訂單傳到 LINE ›</button>
     </div>
-    <div class="cart-note"><strong>① </strong>複製後，貼到跟我既有的 LINE 對話傳給我。還沒加我的話，LINE 搜尋 <strong>@864ihpsq</strong> 加入。</div>
-    <div class="cart-note" style="margin-top:0.6rem;"><strong>② </strong>訂單傳好後，按下面這顆通知我，會收到確認訊息：</div>
-    <p style="text-align:center; margin-top:0.6rem;"><a class="btn" id="cartNotifyBtn" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E5%B7%B2%E4%B8%8B%E5%96%AE" target="_blank" rel="noopener">傳好了，通知 Molly ›</a></p>
+    <p style="text-align:center; margin:0.4rem 0 0;"><button type="button" id="cartCopyBtn" style="background:none; border:none; color:var(--bluegray); text-decoration:underline; cursor:pointer; font-family:inherit; font-size:0.85em;">用電腦或 LINE 打不開？改成複製訂單內容</button></p>
+    <div class="cart-note" style="margin-top:1rem;"><strong>② </strong>訂單傳出後，再按這裡通知我，會收到確認訊息：</div>
+    <p style="text-align:center; margin-top:0.6rem;"><a class="btn is-disabled" id="cartNotifyBtn" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E5%B7%B2%E4%B8%8B%E5%96%AE" aria-disabled="true" style="opacity:0.4; pointer-events:none;">傳好了，通知 Molly ›</a></p>
   </div>
 </div>
 
@@ -166,6 +167,6 @@
 </footer>
 
 <script src="shop-data.js?v=3"></script>
-<script src="shop.js?v=4"></script>
+<script src="shop.js?v=5"></script>
 </body>
 </html>

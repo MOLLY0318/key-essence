@@ -391,6 +391,7 @@
       const text = buildOrderText();
       if (!text) return;
       const btn = document.getElementById('cartCopyBtn');
+      enableNotify();
       const done = function () {
         const original = btn.textContent;
         btn.textContent = '已複製 ✓';
@@ -401,6 +402,24 @@
       } else {
         fallbackCopy(text, done);
       }
+    });
+
+    function enableNotify() {
+      const n = document.getElementById('cartNotifyBtn');
+      n.classList.remove('is-disabled');
+      n.removeAttribute('aria-disabled');
+      n.style.opacity = '';
+      n.style.pointerEvents = '';
+      try { sessionStorage.setItem('ke-order-sent', '1'); } catch (e) { /* 無法記住就算了 */ }
+    }
+    try { if (sessionStorage.getItem('ke-order-sent') === '1') enableNotify(); } catch (e) { /* ignore */ }
+
+    document.getElementById('cartSendBtn').addEventListener('click', function () {
+      const text = buildOrderText();
+      if (!text) { window.alert('清單是空的，先挑幾樣商品吧。'); return; }
+      if (!customer.name || !customer.phone) { window.alert('請先填寫姓名和電話，我才能跟你核對訂單喔。'); return; }
+      enableNotify();
+      window.location.href = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent(text);
     });
 
     document.getElementById('cartShareBtn').addEventListener('click', function () {
