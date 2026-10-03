@@ -305,13 +305,49 @@
     return true;
   }
 
+  // 從 Molly 傳的連結帶入 ?add=EO-056,BB-011*2，直接把清單放好
+  function applyAddParam() {
+    const params = new URLSearchParams(location.search);
+    const raw = params.get('add');
+    if (!raw) return false;
+    const picked = {};
+    raw.split(',').forEach(function (part) {
+      const m = part.trim().match(/^([A-Za-z]+-\d+)(?:[*:](\d+))?$/);
+      if (!m || !productById(m[1])) return;
+      picked[m[1]] = { qty: Math.max(1, parseInt(m[2] || '1', 10)) };
+    });
+    if (!Object.keys(picked).length) return false;
+    cart = picked;
+    saveCart();
+    params.delete('add');
+    const rest = params.toString();
+    history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + location.hash);
+    return true;
+  }
+
+  function buildShareLink() {
+    const ids = Object.keys(cart).filter(function (id) { return productById(id); });
+    if (!ids.length) return '';
+    const parts = ids.map(function (id) {
+      const q = cart[id].qty;
+      return q > 1 ? id + '*' + q : id;
+    });
+    return location.origin + location.pathname + '?add=' + parts.join(',');
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    const fromCartLink = applyAddParam();
     const fromLink = applyCatParam();
     renderFilters();
     renderGrid();
     updateCartFab();
     if (fromLink) {
       document.getElementById('shopFilter').scrollIntoView({ block: 'start' });
+    }
+    if (fromCartLink) {
+      openCartModal();
+      const note = document.getElementById('cartLinkNote');
+      if (note) note.style.display = 'block';
     }
 
     document.getElementById('cartFab').addEventListener('click', openCartModal);
@@ -364,6 +400,22 @@
         navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text, done); });
       } else {
         fallbackCopy(text, done);
+      }
+    });
+
+    document.getElementById('cartShareBtn').addEventListener('click', function () {
+      const link = buildShareLink();
+      if (!link) return;
+      const btn = document.getElementById('cartShareBtn');
+      const done = function () {
+        const original = btn.textContent;
+        btn.textContent = '連結已複製 ✓';
+        setTimeout(function () { btn.textContent = original; }, 1400);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(done).catch(function () { fallbackCopy(link, done); });
+      } else {
+        fallbackCopy(link, done);
       }
     });
 

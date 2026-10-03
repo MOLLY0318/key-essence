@@ -94,12 +94,14 @@
       <button class="cart-clear-btn" id="cartClearBtn" type="button">清空清單</button>
     </div>
 
+    <div class="cart-note" id="cartLinkNote" style="display:none; margin-bottom:0.8rem; color:var(--brass);">🌿 Molly 已經幫你把推薦的品項放進清單了，確認數量、填好資料，複製訂單傳回 LINE 就完成囉。</div>
     <div class="cart-list" id="cartList"></div>
 
     <div class="cart-summary">
       <span>總數量 <strong id="cartTotalQty">0</strong></span>
       <span>總金額 NT$<strong id="cartTotalPrice">0</strong></span>
     </div>
+    <p style="text-align:right; margin:-0.4rem 0 0.8rem;"><button type="button" id="cartShareBtn" style="background:none; border:none; color:var(--brass); text-decoration:underline; cursor:pointer; font-family:inherit; font-size:0.9em;">🔗 複製這份清單的連結</button></p>
     <div class="cart-note" style="margin-top:-0.6rem;">上面是原價小計，實際折扣與是否符合「滿 NT$2,000 免運」，我核對訂單時會直接跟您說。</div>
 
     <div class="cart-customer-form">
@@ -162,6 +164,6 @@
 </footer>
 
 <script src="shop-data.js?v=3"></script>
-<script src="shop.js?v=3"></script>
+<script src="shop.js?v=4"></script>
 </body>
 </html>
