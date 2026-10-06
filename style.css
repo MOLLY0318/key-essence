@@ -776,6 +776,9 @@ ul.credential-list.panel-list li::before {
 }
 .jotform-embed iframe { display: block; border-radius: 16px; }
 #experience { scroll-margin-top: 120px; }
+.thanks-qr { text-align: center; margin: 0 auto 2.4rem; }
+.thanks-qr img { width: 180px; margin: 0 auto 0.8rem; box-shadow: 0 12px 28px -12px rgba(17, 27, 32, 0.22); }
+.thanks-qr p { color: var(--bluegray); font-size: 0.85rem; }
 
 /* ── SHARE BAR ── */
 .share-bar {
