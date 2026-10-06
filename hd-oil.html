@@ -31,7 +31,6 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1137955562091197');
 fbq('track', 'PageView');
-fbq('track', 'ViewContent');
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
@@ -280,5 +279,21 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
 })();
 </script>
 
+<script>
+(function () {
+  var fired = false;
+  function check() {
+    if (fired || typeof window.fbq !== 'function') return;
+    var seen = (window.pageYOffset + window.innerHeight) / document.documentElement.scrollHeight;
+    if (seen >= 0.7) {
+      fired = true;
+      window.fbq('track', 'ViewContent', { content_name: '人類圖 × 精油側寫銷售頁', content_category: 'sales page' });
+      window.removeEventListener('scroll', check);
+    }
+  }
+  window.addEventListener('scroll', check, { passive: true });
+  window.addEventListener('load', check);
+})();
+</script>
 </body>
 </html>
