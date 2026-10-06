@@ -775,7 +775,23 @@ ul.credential-list.panel-list li::before {
   overflow: hidden;
 }
 .jotform-embed iframe { display: block; border-radius: 16px; }
-#experience { scroll-margin-top: 120px; }
+#experience, #book { scroll-margin-top: 120px; }
+.diff-list { list-style: none; margin-top: 1.4rem; }
+.diff-list li {
+  padding: 1rem 0;
+  border-top: 1px solid var(--sand);
+  color: var(--umber);
+  font-size: 0.97rem;
+  line-height: 1.8;
+}
+.diff-list li strong {
+  display: block;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 1.02rem;
+  color: var(--deep);
+  margin-bottom: 0.25rem;
+}
 .thanks-qr { text-align: center; margin: 0 auto 2.4rem; }
 .thanks-qr img { width: 180px; margin: 0 auto 0.8rem; box-shadow: 0 12px 28px -12px rgba(17, 27, 32, 0.22); }
 .thanks-qr p { color: var(--bluegray); font-size: 0.85rem; }
