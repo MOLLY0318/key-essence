@@ -74,14 +74,14 @@
 
     <div class="panel">
       <h2>③ 產生揭曉連結，貼給個案</h2>
-      <p>連結裡只有這三支油。個案點開後，會自己一張一張翻牌。</p>
+      <p>連結裡只有這三支油。個案點開後，會自己一張一張翻牌。<b>連結 3 小時後失效。</b></p>
       <div class="row"><button class="btn gold" onclick="makeReveal()">產生揭曉連結</button></div>
       <div class="row"><input id="revealLink" class="wide" readonly placeholder="先完成步驟 ②"><button class="btn" onclick="copy('revealLink',this)">複製</button></div>
     </div>
 
     <div class="panel">
       <h2>④ 講解完，產生結束連結</h2>
-      <p>個案點開後，會看到三支油的植物版小卡，上面有每支油的金句。講解完再傳，節奏由你決定。</p>
+      <p>個案點開後，會看到三支油的植物版小卡，上面有每支油的金句。講解完再傳，節奏由你決定。<b>連結 7 天後失效。</b></p>
       <div class="row"><button class="btn gold" onclick="makeClosing()">產生結束連結</button></div>
       <div class="row"><input id="closingLink" class="wide" readonly placeholder="先完成步驟 ②"><button class="btn" onclick="copy('closingLink',this)">複製</button></div>
     </div>
@@ -145,7 +145,7 @@ function tokenURL(data){
 function makeClosing(){
   if(!lookup()) return;
   const p=picks(); const o=p.map(n=>MAP[n-1]);
-  document.getElementById('closingLink').value=tokenURL({s:code,p,o,a:o.map(x=>(CARDS[x]||{}).a),b:o.map(x=>(CARDS[x]||{}).b),end:1});
+  document.getElementById('closingLink').value=tokenURL({s:code,p,o,a:o.map(x=>(CARDS[x]||{}).a),b:o.map(x=>(CARDS[x]||{}).b),end:1,x:Date.now()+7*24*3600*1000});
 }
 function renderCards(p){
   const faces=[['a','人物版・正面（個案揭曉時看到）'],['a_back','人物版・背面'],['b','植物版・正面＋金句（結束時看到）'],['b_back','植物版・背面']];
@@ -154,7 +154,7 @@ function renderCards(p){
 }
 function makeReveal(){
   if(!lookup()) return;
-  const p=picks(); const o=p.map(n=>MAP[n-1]); const data={s:code,p,o,a:o.map(x=>(CARDS[x]||{}).a)};
+  const p=picks(); const o=p.map(n=>MAP[n-1]); const data={s:code,p,o,a:o.map(x=>(CARDS[x]||{}).a),x:Date.now()+3*3600*1000};
   document.getElementById('revealLink').value=tokenURL(data);
 }
 function toggleMap(){

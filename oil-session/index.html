@@ -316,6 +316,13 @@
     </div>
   </section>
 
+  <!-- 99 已失效 -->
+  <section class="step" data-step="99">
+    <div class="eyebrow">鑰．本質</div>
+    <h1>這次的會談已經結束了</h1>
+    <p class="lead">謝謝你，願意花一段時間陪自己。<br>這個連結已經失效。如果想再聊聊，歡迎加入 LINE <b>@864ihpsq</b> 找 Molly。</p>
+  </section>
+
   <!-- 6 結束卡 -->
   <section class="step" data-step="6">
     <div class="eyebrow">STEP 6・帶走的話</div>
@@ -440,7 +447,7 @@ let timerId=null, breathId=null;
 function go(n){
   state.step=n; save();
   document.querySelectorAll('.step[data-step]').forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
-  document.getElementById('dots').style.display = (n===9) ? 'none' : '';
+  document.getElementById('dots').style.display = (n===9||n===99) ? 'none' : '';
   document.querySelectorAll('#dots span').forEach((d,i)=>d.classList.toggle('on', i<=n));
   clearInterval(timerId); clearInterval(breathId);
   if(n===0) fillForm();
@@ -526,14 +533,24 @@ function openCard(i){
 }
 
 // ---- 啟動 ----
+function expireAll(){ state={step:99, expired:true}; save(); }
+const NOW=Date.now();
 const rtok = params.get('r');
 if(rtok){
   const rv = decodeReveal(rtok);
-  if(rv && rv.end){ state.closing=rv; state.picks=rv.p; state.locked=true; state.pickStarted=true; if(!state.reveal) state.reveal={p:rv.p,o:rv.o,a:rv.a}; state.opened=3; state.step=6; save(); }
+  if(rv && rv.x && NOW>rv.x){ if(!(state.closing && state.closing.x && NOW<=state.closing.x)) expireAll(); }
+  else if(rv && rv.end){ state.closing=rv; state.picks=rv.p; state.locked=true; state.pickStarted=true; if(!state.reveal) state.reveal={p:rv.p,o:rv.o,a:rv.a}; state.opened=3; state.step=6; save(); }
   else if(rv){ state.reveal=rv; state.picks=rv.p; state.locked=true; state.pickStarted=true; if(!state.step||state.step<5) state.step=5; save(); }
   params.delete('r'); history.replaceState(null,'','?'+params.toString());
 }
-go(typeof state.step==='number' ? state.step : 0);
+// 已存的結果過期就清掉
+if(!state.expired){
+  const cOK = state.closing && (!state.closing.x || NOW<=state.closing.x);
+  const rOK = state.reveal && (!state.reveal.x || NOW<=state.reveal.x);
+  if(state.closing && !cOK) expireAll();
+  else if(!state.closing && state.reveal && state.reveal.x && !rOK) expireAll();
+}
+go(state.expired ? 99 : (typeof state.step==='number' ? state.step : 0));
 </script>
 </body>
 </html>
