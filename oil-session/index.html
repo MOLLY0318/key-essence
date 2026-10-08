@@ -146,10 +146,15 @@
   /* 放大檢視 */
   .zoomable{cursor:zoom-in}
   .zoom-hint{font-family:'Noto Sans TC';font-size:13px;color:var(--gray);text-align:center;margin-top:14px}
-  .lb{position:fixed;inset:0;background:rgba(17,27,32,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:56px 70px 70px}
+  .lb{position:fixed;inset:0;background:rgba(17,27,32,.94);display:none;align-items:center;justify-content:center;z-index:50;padding:46px 64px 52px}
+  .lb.zoom{display:block;overflow:auto;padding:46px 0 52px}
+  .lb.zoom img{max-width:none;max-height:none;width:min(1600px,96vw);display:block;margin:0 auto;cursor:zoom-out}
+  .lb:not(.zoom) img{cursor:zoom-in}
+  .lb .zbtn{top:12px;left:16px;width:auto;padding:0 16px;font-size:15px;font-family:'Noto Sans TC';letter-spacing:1px}
+  .lb.zoom .cap,.lb.zoom .x,.lb.zoom .zbtn,.lb.zoom .tip,.lb.zoom .prev,.lb.zoom .next{position:fixed}
   .lb.on{display:flex}
   .lb img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:#faf7f2}
-  .lb .cap{position:absolute;top:16px;left:0;right:0;text-align:center;color:#E8DED1;font-family:'Noto Sans TC';font-size:15px;letter-spacing:3px}
+  .lb .cap{position:absolute;top:16px;left:120px;right:80px;text-align:center;color:#E8DED1;font-family:'Noto Sans TC';font-size:15px;letter-spacing:3px}
   .lb button{position:absolute;background:rgba(245,241,234,.12);color:#F5F1EA;border:1px solid rgba(245,241,234,.35);border-radius:999px;font-size:22px;width:48px;height:48px;display:flex;align-items:center;justify-content:center}
   .lb .x{top:12px;right:16px}
   .lb .prev{left:12px;top:50%;transform:translateY(-50%)}
@@ -356,13 +361,14 @@
   </section>
 </div>
 
-<div class="lb" id="lb" onclick="if(event.target===this)closeLB()">
+<div class="lb" id="lb" onclick="if(event.target===this && !this.classList.contains('zoom'))closeLB()">
   <div class="cap" id="lbCap"></div>
   <button class="x" onclick="closeLB()" aria-label="關閉">✕</button>
+  <button class="zbtn" id="lbZoom" onclick="toggleZoom()">🔍 放大看小字</button>
   <button class="prev" onclick="stepLB(-1)" aria-label="上一張">‹</button>
-  <img id="lbImg" alt="">
+  <img id="lbImg" alt="" onclick="toggleZoom()">
   <button class="next" onclick="stepLB(1)" aria-label="下一張">›</button>
-  <div class="tip">點旁邊空白處或按 ✕ 回到整頁</div>
+  <div class="tip" id="lbTip">點卡片或「放大看小字」可以再放大｜點旁邊空白處或按 ✕ 回到整頁</div>
 </div>
 
 <script>
@@ -455,8 +461,10 @@ function fallbackCopy(txt){ const a=document.createElement('textarea'); a.value=
 let LB=[], LBi=0;
 function openLB(list,i){ LB=list; LBi=i; showLB(); document.getElementById('lb').classList.add('on'); }
 function showLB(){ const it=LB[LBi]; document.getElementById('lbImg').src=it.src; document.getElementById('lbCap').textContent=it.cap; const many=LB.length>1; document.querySelector('#lb .prev').style.display=many?'':'none'; document.querySelector('#lb .next').style.display=many?'':'none'; }
-function stepLB(d){ LBi=(LBi+d+LB.length)%LB.length; showLB(); }
-function closeLB(){ document.getElementById('lb').classList.remove('on'); }
+function stepLB(d){ LBi=(LBi+d+LB.length)%LB.length; showLB(); document.getElementById('lb').scrollTop=0; }
+function setZoom(on){ const lb=document.getElementById('lb'); lb.classList.toggle('zoom',on); document.getElementById('lbZoom').textContent= on?'↩︎ 看整張':'🔍 放大看小字'; document.getElementById('lbTip').textContent = on ? '上下滑動看整張卡｜點卡片回到整張' : '點卡片或「放大看小字」可以再放大｜點旁邊空白處或按 ✕ 回到整頁'; lb.scrollTop=0; }
+function toggleZoom(){ setZoom(!document.getElementById('lb').classList.contains('zoom')); }
+function closeLB(){ setZoom(false); document.getElementById('lb').classList.remove('on'); }
 document.addEventListener('keydown',e=>{ if(!document.getElementById('lb').classList.contains('on')) return; if(e.key==='Escape') closeLB(); if(e.key==='ArrowRight') stepLB(1); if(e.key==='ArrowLeft') stepLB(-1); });
 function revealList(){ const r=state.reveal; if(!r||!r.a) return []; const out=[]; for(let i=0;i<state.opened&&i<3;i++) if(r.a[i]) out.push({src:'cards/'+r.a[i], cap:LAYERS[i].no+'・'+LAYERS[i].name+'｜'+r.o[i]}); return out; }
 function closingList(){ const c=state.closing; if(!c) return []; return LAYERS.map((L,i)=>({src:'cards/'+c.b[i], cap:L.no+'・'+L.name+'｜'+c.o[i]})); }
