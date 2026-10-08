@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>線上精油側寫｜鑰．本質 Key Essence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#111B20; --deep:#18252B; --champ:#C7AD7A; --brass:#A8895F;
+    --mist:#F5F1EA; --sand:#E8DED1; --umber:#4B443C; --gray:#7E8D91;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{background:var(--mist);color:var(--deep);font-family:'Noto Serif TC',serif;-webkit-font-smoothing:antialiased}
+  button{font-family:inherit;cursor:pointer}
+  .wrap{max-width:980px;margin:0 auto;padding:28px 20px 60px}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
+  .brand{font-size:20px;letter-spacing:6px;font-weight:600}
+  .brand small{display:block;font-family:'Noto Sans TC';font-size:11px;letter-spacing:4px;color:var(--brass);font-weight:400}
+  .session{font-family:'Noto Sans TC';font-size:12px;color:var(--gray);letter-spacing:1px}
+  .dots{display:flex;gap:8px;justify-content:center;margin-bottom:26px}
+  .dots span{width:34px;height:4px;border-radius:2px;background:var(--sand)}
+  .dots span.on{background:var(--brass)}
+  .step{display:none;animation:fade .5s ease}
+  .step.active{display:block}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .eyebrow{font-family:'Noto Sans TC';font-size:13px;letter-spacing:6px;color:var(--brass);text-align:center}
+  h1{font-size:32px;font-weight:700;text-align:center;margin:10px 0 8px;line-height:1.4}
+  .lead{text-align:center;font-size:17px;line-height:1.9;color:var(--umber);max-width:640px;margin:0 auto 26px}
+  .actions{display:flex;justify-content:center;gap:12px;margin-top:28px;flex-wrap:wrap}
+  .btn{background:var(--deep);color:var(--mist);border:none;border-radius:999px;padding:14px 34px;font-size:17px;letter-spacing:2px;transition:transform .15s,opacity .2s}
+  .btn:hover{transform:translateY(-1px)}
+  .btn:disabled{opacity:.35;cursor:not-allowed;transform:none}
+  .btn.ghost{background:transparent;color:var(--deep);border:1.5px solid var(--sand)}
+  .btn.gold{background:var(--brass)}
+
+  /* 小卡 */
+  .flip{perspective:1600px;max-width:720px;margin:0 auto;cursor:pointer}
+  .flip-inner{position:relative;aspect-ratio:1120/794;transition:transform .9s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+  .flip.back .flip-inner{transform:rotateY(180deg)}
+  .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:6px;overflow:hidden;box-shadow:0 18px 40px rgba(24,37,43,.14)}
+  .face img{width:100%;height:100%;display:block}
+  .face.b{transform:rotateY(180deg)}
+  .hint{text-align:center;font-family:'Noto Sans TC';font-size:13px;color:var(--gray);margin-top:14px}
+
+  /* 準備 */
+  .prep{max-width:560px;margin:0 auto;display:grid;gap:12px}
+  .prep label{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--sand);border-radius:12px;padding:16px 20px;font-size:18px;cursor:pointer}
+  .prep input{width:22px;height:22px;accent-color:var(--brass)}
+
+  /* 冥想 */
+  .breath{width:240px;height:240px;margin:10px auto 0;position:relative;display:flex;align-items:center;justify-content:center}
+  .breath .ring{position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(199,173,122,.35),rgba(199,173,122,.08) 60%,transparent 70%);animation:breathe 10s ease-in-out infinite}
+  .breath .core{width:120px;height:120px;border-radius:50%;background:#fff;border:1.5px solid var(--champ);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--brass);letter-spacing:4px;z-index:1}
+  @keyframes breathe{0%{transform:scale(.55)}40%{transform:scale(1)}100%{transform:scale(.55)}}
+  .timer{text-align:center;font-family:'Noto Sans TC';color:var(--gray);margin-top:14px;font-size:14px;letter-spacing:2px}
+
+  /* 選號 */
+  .intent{max-width:620px;margin:6px auto 0;background:#fff;border:1px solid var(--sand);border-radius:16px;padding:34px 30px;text-align:center}
+  .intent-lead{font-size:17px;line-height:1.9;color:var(--umber)}
+  .intent-say{font-family:'Noto Sans TC';font-size:14px;letter-spacing:3px;color:var(--brass);margin-top:22px}
+  .intent-words{font-size:30px;font-weight:700;color:var(--deep);margin:10px 0 22px;letter-spacing:2px;line-height:1.5}
+  .intent-mini{text-align:center;font-size:18px;color:var(--brass);margin:4px 0 6px;letter-spacing:1px}
+  .picked{display:flex;justify-content:center;gap:14px;margin-bottom:22px}
+  .slot{width:86px;height:86px;border-radius:50%;border:1.5px dashed var(--champ);display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff}
+  .slot b{font-size:28px;color:var(--deep)}
+  .slot small{font-family:'Noto Sans TC';font-size:11px;color:var(--brass);letter-spacing:1px}
+  .slot.filled{border-style:solid;background:var(--deep)}
+  .slot.filled b{color:var(--mist)}
+  .slot.filled small{color:var(--champ)}
+  .grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px;max-width:760px;margin:0 auto}
+  .bottle{position:relative;aspect-ratio:3/4;border:none;background:transparent;padding:0}
+  .bottle svg{width:100%;height:100%;display:block;transition:transform .2s}
+  .bottle:hover svg{transform:translateY(-3px)}
+  .bottle .num{position:absolute;left:0;right:0;top:56%;text-align:center;font-family:'Noto Sans TC';font-weight:500;font-size:15px;color:var(--deep)}
+  .bottle.sel .num{color:var(--mist)}
+  .bottle .ord{position:absolute;top:-6px;right:-4px;width:22px;height:22px;border-radius:50%;background:var(--brass);color:#fff;font-family:'Noto Sans TC';font-size:12px;display:none;align-items:center;justify-content:center}
+  .bottle.sel .ord{display:flex}
+  .bottle:disabled{cursor:default}
+
+  /* 揭曉 */
+  .reveal{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:0 auto}
+  .rcard{perspective:1200px}
+  .rinner{position:relative;aspect-ratio:3/4.2;transition:transform 1s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+  .rcard.open .rinner{transform:rotateY(180deg)}
+  .rface{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:18px}
+  .rfront{background:var(--deep);color:var(--mist);border:1px solid var(--brass)}
+  .rfront .key{width:46px;opacity:.8;margin-bottom:12px}
+  .rfront .no{font-size:44px;color:var(--champ)}
+  .rfront .pickno{font-family:'Noto Sans TC';font-size:13px;color:#BFB7AA;margin-top:6px;letter-spacing:2px}
+  .rback{background:#fff;border:1.5px solid var(--champ);transform:rotateY(180deg)}
+  .rback .lbl{font-family:'Noto Sans TC';font-size:12px;letter-spacing:3px;color:var(--brass)}
+  .rback .oil{font-size:30px;font-weight:700;margin:14px 0 6px;line-height:1.35}
+  .rback .pickno{font-family:'Noto Sans TC';font-size:12px;color:var(--gray)}
+  .rback.img{padding:0;overflow:hidden;border:none;background:#faf7f2}
+  .rback.img img{width:100%;height:100%;object-fit:cover;display:block}
+  .closing-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;max-width:960px;margin:0 auto}
+  .closing-grid figure{margin:0;text-align:center}
+  .closing-grid img{width:100%;display:block;border-radius:6px;box-shadow:0 14px 34px rgba(24,37,43,.14)}
+  .closing-grid figcaption{font-family:'Noto Sans TC';font-size:13px;letter-spacing:3px;color:var(--brass);margin-bottom:10px}
+  @media (max-width:720px){.closing-grid{grid-template-columns:1fr;max-width:340px}}
+  .rmeta{margin-top:12px;text-align:center;min-height:112px;opacity:.35;transition:opacity .4s}
+  .rmeta.on{opacity:1}
+  .rmeta h3{font-size:19px;margin-bottom:6px}
+  .rmeta p{font-family:'Noto Sans TC';font-size:14px;line-height:1.7;color:var(--umber)}
+  .rmeta .btn{margin-top:12px;padding:10px 24px;font-size:15px}
+  .done{display:none;text-align:center;margin-top:30px;font-size:18px;color:var(--umber);line-height:1.9}
+  .done.on{display:block}
+
+
+  /* 資料填寫 */
+  .form{max-width:640px;margin:0 auto;display:grid;gap:18px}
+  .field label.t{display:block;font-size:17px;font-weight:600;margin-bottom:8px}
+  .field label.t em{font-style:normal;color:#B4553F;font-size:14px;margin-left:4px}
+  .field input[type=text],.field input[type=date],.field input[type=time]{width:100%;font-family:'Noto Sans TC';font-size:17px;padding:12px 14px;border:1px solid var(--sand);border-radius:10px;background:#fff;color:var(--deep)}
+  .field .note{font-family:'Noto Sans TC';font-size:13px;color:var(--gray);margin-top:6px;line-height:1.6}
+  .svc{display:grid;gap:10px}
+  .svc label{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid var(--sand);border-radius:12px;padding:14px 18px;cursor:pointer;transition:border-color .2s}
+  .svc label:has(input:checked){border-color:var(--brass);background:#FBF8F2}
+  .svc input{margin-top:5px;width:20px;height:20px;accent-color:var(--brass)}
+  .svc b{display:block;font-size:17px}
+  .svc span{font-family:'Noto Sans TC';font-size:14px;color:var(--umber)}
+  .group{display:none;background:#fff;border:1px solid var(--sand);border-radius:14px;padding:20px 22px;gap:16px}
+  .group.on{display:grid}
+  .group h3{font-size:16px;color:var(--brass);letter-spacing:2px}
+  .yn{display:flex;gap:18px;font-family:'Noto Sans TC';font-size:16px}
+  .yn label{display:flex;align-items:center;gap:6px;cursor:pointer}
+  .yn input{width:18px;height:18px;accent-color:var(--brass)}
+  .err{font-family:'Noto Sans TC';color:#B4553F;font-size:14px;text-align:center;min-height:20px}
+  .summary{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--sand);border-radius:14px;padding:22px 24px;font-family:'Noto Sans TC';font-size:15px;line-height:2;white-space:pre-line}
+
+  /* 主持人面板 */
+  .host{max-width:760px;margin:0 auto}
+  .panel{background:#fff;border:1px solid var(--sand);border-radius:14px;padding:22px 24px;margin-bottom:18px}
+  .panel h2{font-size:19px;margin-bottom:12px}
+  .panel p{font-family:'Noto Sans TC';font-size:14px;color:var(--umber);line-height:1.8}
+  .linkbox{display:flex;gap:8px;margin-top:10px}
+  .linkbox input{flex:1;font-family:'Noto Sans TC';font-size:14px;padding:10px 12px;border:1px solid var(--sand);border-radius:8px;background:var(--mist)}
+  .lookup{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+  .lookup input{width:90px;font-size:18px;padding:8px;text-align:center;border:1px solid var(--sand);border-radius:8px}
+  .result{margin-top:14px;display:grid;gap:8px}
+  .result div{font-size:17px}
+  table.map{width:100%;border-collapse:collapse;font-family:'Noto Sans TC';font-size:14px;margin-top:10px}
+  table.map td{border:1px solid var(--sand);padding:6px 8px}
+  table.map td:nth-child(odd){color:var(--brass);width:44px;text-align:center}
+
+  @media (max-width:720px){
+    h1{font-size:25px}
+    .grid{grid-template-columns:repeat(6,1fr);gap:8px}
+    .reveal{grid-template-columns:1fr;max-width:300px}
+    .slot{width:72px;height:72px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">鑰．本質<small>KEY ESSENCE</small></div>
+    <div class="session" id="sessionTag"></div>
+  </header>
+
+  <!-- ===== 個案流程 ===== -->
+  <div class="dots" id="dots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+
+  <!-- 0 填寫資料 -->
+  <section class="step" data-step="0">
+    <div class="eyebrow">開始之前</div>
+    <h1>先填一下你的資料</h1>
+    <p class="lead">這些資料只用在這次的解析，不會公開。</p>
+    <div class="form">
+      <div class="field">
+        <label class="t" for="fName">你的名字或代號<em>必填</em></label>
+        <input type="text" id="fName" placeholder="怎麼稱呼你">
+      </div>
+      <div class="field">
+        <label class="t">請選擇你這次要的服務<em>必填</em></label>
+        <div class="svc" id="svcList">
+          <label><input type="radio" name="svc" value="oil"><div><b>精油側寫線上陪伴</b><span>30 分鐘｜NT$600<br>盲抽三支精油，看見你此刻的身心狀態</span></div></label>
+          <label><input type="radio" name="svc" value="hd"><div><b>人類圖線上陪伴</b><span>30 分鐘｜NT$600<br>不是給你一份報告，是陪你看懂自己天生怎麼運作、現在卡在哪裡</span></div></label>
+          <label><input type="radio" name="svc" value="num"><div><b>生命靈數線上陪伴（含流年）</b><span>30 分鐘｜NT$600<br>看見你的天賦與人生課題，也了解今年的流年方向</span></div></label>
+          <label><input type="radio" name="svc" value="all"><div><b>三項統合解析</b><span>線上人類圖＋精油側寫＋生命靈數｜90 分鐘<br>三項合購 NT$1,600（分開預約共 NT$1,800）</span></div></label>
+        </div>
+      </div>
+
+      <div class="group" id="gBirth">
+        <h3>出生資料</h3>
+        <div class="field"><label class="t" for="fDate">出生年月日（西元）<em>必填</em></label><input type="date" id="fDate"></div>
+        <div class="field" id="wTime"><label class="t" for="fTime">出生時間<em>必填</em></label><input type="time" id="fTime"><div class="note">人類圖需要準確的出生時間，時間差一點，圖可能就不一樣。可以參考出生證明或媽媽手冊。</div></div>
+        <div class="field" id="wPlace"><label class="t" for="fPlace">出生地點<em>必填</em></label><input type="text" id="fPlace" placeholder="例如：台灣桃園"></div>
+      </div>
+
+      <div class="group" id="gNum">
+        <h3>生命靈數</h3>
+        <div class="field"><label class="t" for="fEng">護照上的英文名字<em>必填</em></label><input type="text" id="fEng" placeholder="例如：CHEN MEI-LING"></div>
+        <div class="field"><label class="t">是否改過名字？<em>必填</em></label>
+          <div class="yn"><label><input type="radio" name="renamed" value="否"> 沒有</label><label><input type="radio" name="renamed" value="是"> 有改過</label></div>
+        </div>
+        <div class="field" id="wOld" style="display:none"><label class="t">改名前的英文名字，你還記得嗎？<em>必填</em></label>
+          <div class="yn"><label><input type="radio" name="oldknown" value="記得"> 我還記得改之前的英文名字</label><label><input type="radio" name="oldknown" value="不記得"> 我不記得</label></div>
+          <div class="note">不記得也沒關係，會談時 Molly 會再跟你確認。</div>
+        </div>
+        <div class="field" id="wOldName" style="display:none"><label class="t" for="fOld">改名前的英文名字<em>必填</em></label><input type="text" id="fOld" placeholder="例如：CHEN YA-TING"></div>
+      </div>
+
+      <div class="err" id="formErr"></div>
+    </div>
+    <div class="actions"><button class="btn" onclick="submitIntake()">送出，下一步</button></div>
+  </section>
+
+  <!-- 0b 不含精油側寫：完成頁 -->
+  <section class="step" data-step="9">
+    <div class="eyebrow">資料填好了</div>
+    <h1 id="doneTitle">謝謝你</h1>
+    <p class="lead">請按下面的按鈕複製你的資料，貼到 Google Meet 的聊天室傳給 Molly。</p>
+    <div class="summary" id="summaryBox"></div>
+    <div class="actions"><button class="btn" onclick="copySummary(this)">複製資料</button><button class="btn ghost" onclick="go(0)">回去修改</button></div>
+  </section>
+
+  <!-- 1 說明小卡 -->
+  <section class="step" data-step="1">
+    <div class="eyebrow">STEP 1・認識精油側寫</div>
+    <h1>什麼是精油側寫？</h1>
+    <p class="lead">點一下卡片，翻到背面看看：等一下你會選出三支精油，分別代表三個層次。</p>
+    <div class="flip" id="introCard" onclick="this.classList.toggle('back')">
+      <div class="flip-inner">
+        <div class="face"><img src="images/card-front.jpg" alt="什麼是精油側寫？"></div>
+        <div class="face b"><img src="images/card-back.jpg" alt="1 現在／自我、2 過程／超我、3 源頭／本我"></div>
+      </div>
+    </div>
+    <p class="hint">點卡片可以翻面</p>
+    <div class="actions"><button class="btn" onclick="go(2)">我了解了，下一步</button></div>
+  </section>
+
+  <!-- 2 準備 -->
+  <section class="step" data-step="2">
+    <div class="eyebrow">STEP 2・準備</div>
+    <h1>先讓身體準備好</h1>
+    <p class="lead">完成一項就勾一項，不用急。</p>
+    <div class="prep" id="prepList">
+      <label><input type="checkbox"> 去洗個手，回到座位</label>
+      <label><input type="checkbox"> 找一個安靜、不會被打擾的位置</label>
+      <label><input type="checkbox"> 手機調成靜音，關掉其他視窗</label>
+      <label><input type="checkbox"> 坐得舒服一點，雙腳踩在地上</label>
+    </div>
+    <div class="actions"><button class="btn ghost" onclick="go(1)">上一步</button><button class="btn" id="prepNext" onclick="go(3)" disabled>都準備好了</button></div>
+  </section>
+
+  <!-- 3 冥想 -->
+  <section class="step" data-step="3">
+    <div class="eyebrow">STEP 3・靜心</div>
+    <h1>跟著光圈，慢慢呼吸</h1>
+    <p class="lead">光圈變大時吸氣，變小時吐氣。<br>讓思緒慢下來，身體從「應付」回到「感受」。</p>
+    <div class="breath"><div class="ring"></div><div class="core" id="breathWord">吸氣</div></div>
+    <div class="timer" id="timer">00:00</div>
+    <div class="actions"><button class="btn ghost" onclick="go(2)">上一步</button><button class="btn" onclick="go(4)">我準備好了</button></div>
+  </section>
+
+  <!-- 4 選號 -->
+  <section class="step" data-step="4">
+    <div class="eyebrow">STEP 4・選出你的三支油</div>
+    <h1>1～48 號，每一號都是一支不同的精油</h1>
+
+    <div id="pickIntro">
+      <div class="intent">
+        <p class="intent-lead">選號碼之前，先放下所有的念頭。<br>不用想要選哪一號，也不用想等一下會抽到什麼。</p>
+        <p class="intent-say">心裡只想著這一句：</p>
+        <p class="intent-words">「請協助我恢復身心平衡」</p>
+        <p class="intent-lead">默念幾次，覺得心安靜下來了，再開始選。</p>
+      </div>
+      <div class="actions"><button class="btn ghost" onclick="go(3)">回到靜心</button><button class="btn" onclick="startPicking()">我準備好了，開始選</button></div>
+    </div>
+
+    <div id="pickArea" style="display:none">
+      <p class="intent-mini">心裡想著：「請協助我恢復身心平衡」</p>
+      <p class="lead">憑直覺點三個號碼。第一個是「現在」，第二個是「過程」，第三個是「源頭」。<br>每一支都只抽一次，點下去就定了。</p>
+      <div class="picked">
+        <div class="slot" id="slot0"><b>?</b><small>1 現在</small></div>
+        <div class="slot" id="slot1"><b>?</b><small>2 過程</small></div>
+        <div class="slot" id="slot2"><b>?</b><small>3 源頭</small></div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <div class="actions"><button class="btn gold" id="confirmBtn" onclick="confirmPicks()" disabled>前往揭曉</button></div>
+    </div>
+  </section>
+
+  <!-- 5 揭曉 -->
+  <section class="step" data-step="5">
+    <div class="eyebrow">STEP 5・揭曉</div>
+    <h1>一支一支，慢慢看</h1>
+    <p class="lead" id="tellMolly"></p>
+    <div class="reveal" id="reveal"></div>
+    <div class="done" id="done">三支油都揭曉了。<br>接下來，Molly 會陪你一支一支看懂它們。<br>講解完，Molly 會再傳一個「結束連結」給你。</div>
+    <div style="margin-top:34px">
+      <p class="lead" style="margin-bottom:12px">也請把你的資料和號碼，複製貼到 Google Meet 的聊天室給 Molly：</p>
+      <div class="summary" id="revealSummary"></div>
+      <div class="actions"><button class="btn ghost" onclick="copyReveal(this)">複製資料</button></div>
+    </div>
+  </section>
+
+  <!-- 6 結束卡 -->
+  <section class="step" data-step="6">
+    <div class="eyebrow">STEP 6・帶走的話</div>
+    <h1>謝謝你，陪自己走了這一段</h1>
+    <p class="lead">這三支油，各有一句話想留給你。</p>
+    <div class="closing-grid" id="closingGrid"></div>
+    <p class="lead" style="margin-top:34px">願你帶著它們，慢慢回到自己。<br>鑰．本質　Molly</p>
+  </section>
+</div>
+
+<script>
+const LAYERS = [
+  {no:1, name:"現在／自我", desc:"目前的心理狀態，外在呈現的個性特質"},
+  {no:2, name:"過程／超我", desc:"從原因到現況，內在深層的個性歷程"},
+  {no:3, name:"源頭／本我", desc:"導致現況的心理原因，通常較隱藏、不自知"}
+];
+
+// ---- 場次（精油名單不放在這一頁；揭曉時由 Molly 傳來的揭曉連結帶入抽到的三支）----
+const params = new URLSearchParams(location.search);
+let code = (params.get('s') || '').toUpperCase().replace(/[^A-Z0-9]/g,'');
+function makeCode(){ const c='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let s=''; for(let i=0;i<5;i++) s+=c[Math.floor(Math.random()*c.length)]; return s; }
+if(!code){ code = makeCode(); params.set('s', code); history.replaceState(null,'','?'+params.toString()); }
+function decodeReveal(tok){ try{ const b=tok.replace(/-/g,'+').replace(/_/g,'/'); const j=JSON.parse(decodeURIComponent(escape(atob(b)))); if(Array.isArray(j.p)&&Array.isArray(j.o)&&j.p.length===3&&j.o.length===3) return j; }catch(e){} return null; }
+document.getElementById('sessionTag').textContent = '場次碼 ' + code;
+
+// ---- 狀態保存（重新整理也不會不見）----
+const KEY = 'ke-oil-' + code;
+let state = {step:0, picks:[], locked:false, opened:0, pickStarted:false, intake:null, reveal:null, closing:null};
+try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s) state = Object.assign(state, s); }catch(e){}
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} }
+
+// ---- 資料填寫 ----
+const SVC = {
+  oil:{name:'精油側寫線上陪伴（30 分鐘｜NT$600）', hd:false, num:false, oil:true},
+  hd:{name:'人類圖線上陪伴（30 分鐘｜NT$600）', hd:true, num:false, oil:false},
+  num:{name:'生命靈數線上陪伴・含流年（30 分鐘｜NT$600）', hd:false, num:true, oil:false},
+  all:{name:'三項統合解析（90 分鐘｜三項合購 NT$1,600）', hd:true, num:true, oil:true}
+};
+const $ = id => document.getElementById(id);
+function curSvc(){ const r=document.querySelector('input[name=svc]:checked'); return r ? r.value : null; }
+function updateForm(){
+  const s=SVC[curSvc()]||{};
+  $('gBirth').classList.toggle('on', !!(s.hd||s.num));
+  $('wTime').style.display = s.hd ? '' : 'none';
+  $('wPlace').style.display = s.hd ? '' : 'none';
+  $('gNum').classList.toggle('on', !!s.num);
+  const rn=(document.querySelector('input[name=renamed]:checked')||{}).value;
+  const ok=(document.querySelector('input[name=oldknown]:checked')||{}).value;
+  $('wOld').style.display = (s.num && rn==='是') ? '' : 'none';
+  $('wOldName').style.display = (s.num && rn==='是' && ok==='記得') ? '' : 'none';
+}
+document.addEventListener('change', e=>{ if(e.target.name==='renamed'||e.target.name==='oldknown') updateForm(); });
+document.querySelectorAll('input[name=svc]').forEach(r=>r.addEventListener('change',updateForm));
+function fillForm(){
+  const d=state.intake; if(!d) return;
+  $('fName').value=d.name||''; const r=document.querySelector(`input[name=svc][value="${d.svc}"]`); if(r) r.checked=true;
+  $('fDate').value=d.date||''; $('fTime').value=d.time||''; $('fPlace').value=d.place||''; $('fEng').value=d.eng||'';
+  const rn=document.querySelector(`input[name=renamed][value="${d.renamed}"]`); if(rn) rn.checked=true;
+  const ok=document.querySelector(`input[name=oldknown][value="${d.oldknown}"]`); if(ok) ok.checked=true;
+  $('fOld').value=d.oldname||'';
+  updateForm();
+}
+function summaryText(){
+  const d=state.intake, s=SVC[d.svc]; const L=[`名字／代號：${d.name}`, `服務：${s.name}`];
+  if(s.hd||s.num) L.push(`出生年月日：${d.date}`);
+  if(s.hd){ L.push(`出生時間：${d.time}`); L.push(`出生地點：${d.place}`); }
+  if(s.num){ L.push(`護照英文名字：${d.eng}`); L.push(`是否改過名：${d.renamed}`);
+    if(d.renamed==='是') L.push(d.oldknown==='記得' ? `改名前的英文名字：${d.oldname}` : '改名前的英文名字：不記得'); }
+  L.push(`場次碼：${code}`);
+  return L.join('\n');
+}
+function submitIntake(){
+  const svc=curSvc(), s=SVC[svc]||{}, name=$('fName').value.trim();
+  const d={name, svc, date:$('fDate').value, time:$('fTime').value, place:$('fPlace').value.trim(), eng:$('fEng').value.trim(),
+           renamed:(document.querySelector('input[name=renamed]:checked')||{}).value||'',
+           oldknown:(document.querySelector('input[name=oldknown]:checked')||{}).value||'', oldname:$('fOld').value.trim()};
+  const miss=[];
+  if(!name) miss.push('名字或代號'); if(!svc) miss.push('服務項目');
+  if(s.hd||s.num){ if(!d.date) miss.push('出生年月日'); }
+  if(s.hd){ if(!d.time) miss.push('出生時間'); if(!d.place) miss.push('出生地點'); }
+  if(s.num){ if(!d.eng) miss.push('護照英文名字'); if(!d.renamed) miss.push('是否改過名');
+    if(d.renamed==='是'){ if(!d.oldknown) miss.push('是否記得改名前的英文名字'); else if(d.oldknown==='記得' && !d.oldname) miss.push('改名前的英文名字'); } }
+  if(miss.length){ $('formErr').textContent='還沒填：'+miss.join('、'); return; }
+  $('formErr').textContent=''; state.intake=d; save();
+  if(s.oil) go(1); else go(9);
+}
+function copySummary(btn){
+  const txt=summaryText();
+  const done=()=>{ btn.textContent='已複製 ✓'; setTimeout(()=>btn.textContent='複製資料',1800); };
+  try{ navigator.clipboard.writeText(txt).then(done,()=>{fallbackCopy(txt);done();}); }catch(e){ fallbackCopy(txt); done(); }
+}
+function copyReveal(btn){ const txt=$('revealSummary').textContent; try{ navigator.clipboard.writeText(txt); }catch(e){ fallbackCopy(txt); } btn.textContent='已複製 ✓'; setTimeout(()=>btn.textContent='複製資料',1800); }
+function fallbackCopy(txt){ const a=document.createElement('textarea'); a.value=txt; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); }
+
+// ---- 步驟切換 ----
+let timerId=null, breathId=null;
+function go(n){
+  state.step=n; save();
+  document.querySelectorAll('.step[data-step]').forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
+  document.getElementById('dots').style.display = (n===9) ? 'none' : '';
+  document.querySelectorAll('#dots span').forEach((d,i)=>d.classList.toggle('on', i<=n));
+  clearInterval(timerId); clearInterval(breathId);
+  if(n===0) fillForm();
+  if(n===9){ $('doneTitle').textContent='謝謝你，'+state.intake.name; $('summaryBox').textContent=summaryText(); }
+  if(n===3) startBreath();
+  if(n===4){ showPickArea(state.pickStarted); renderGrid(); }
+  if(n===5) renderReveal();
+  if(n===6) renderClosing();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// 準備清單
+document.querySelectorAll('#prepList input').forEach(cb=>cb.addEventListener('change',()=>{
+  document.getElementById('prepNext').disabled = ![...document.querySelectorAll('#prepList input')].every(x=>x.checked);
+}));
+
+// 冥想：10 秒一循環，4 秒吸、6 秒吐（跟光圈動畫同步）
+function startBreath(){
+  const t0=Date.now(); const word=document.getElementById('breathWord'); const tm=document.getElementById('timer');
+  const tick=()=>{ const s=(Date.now()-t0)/1000; word.textContent = (s%10)<4 ? '吸氣' : '吐氣'; const m=Math.floor(s/60), ss=Math.floor(s%60); tm.textContent=String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); };
+  const ring=document.querySelector('.breath .ring'); ring.style.animation='none'; void ring.offsetWidth; ring.style.animation='';
+  tick(); breathId=setInterval(tick,250);
+}
+
+// 選號
+function showPickArea(on){ document.getElementById('pickIntro').style.display = on?'none':'block'; document.getElementById('pickArea').style.display = on?'block':'none'; }
+function startPicking(){ state.pickStarted=true; save(); showPickArea(true); window.scrollTo({top:0,behavior:'smooth'}); }
+function bottleSVG(sel){
+  const body = sel ? '#18252B' : '#FFFFFF', line = '#A8895F', cap = sel ? '#A8895F' : '#E8DED1';
+  return `<svg viewBox="0 0 60 80"><rect x="22" y="4" width="16" height="12" rx="2" fill="${cap}" stroke="${line}" stroke-width="1.2"/><path d="M25 16h10v6c7 3 11 8 11 15v33c0 3-2 6-6 6H20c-4 0-6-3-6-6V37c0-7 4-12 11-15z" fill="${body}" stroke="${line}" stroke-width="1.4"/></svg>`;
+}
+function renderGrid(){
+  const g=document.getElementById('grid'); g.innerHTML='';
+  for(let n=1;n<=48;n++){
+    const i=state.picks.indexOf(n), sel=i>=0;
+    const b=document.createElement('button'); b.className='bottle'+(sel?' sel':''); b.disabled=state.locked;
+    b.innerHTML=bottleSVG(sel)+`<span class="num">${n}</span><span class="ord">${i+1}</span>`;
+    b.onclick=()=>togglePick(n); g.appendChild(b);
+  }
+  for(let k=0;k<3;k++){ const s=document.getElementById('slot'+k), v=state.picks[k]; s.classList.toggle('filled',!!v); s.querySelector('b').textContent=v||'?'; }
+  document.getElementById('confirmBtn').disabled = state.picks.length!==3;
+}
+function togglePick(n){
+  if(state.locked) return;
+  if(state.picks.includes(n) || state.picks.length>=3) return;
+  state.picks.push(n);
+  if(state.picks.length===3) state.locked=true;
+  save(); renderGrid();
+}
+function confirmPicks(){ if(state.picks.length!==3) return; state.locked=true; save(); go(5); }
+
+// 揭曉
+function renderReveal(){
+  const waiting = !state.reveal;
+  document.getElementById('tellMolly').innerHTML = waiting
+    ? `請把你選的號碼告訴 Molly：<b>${state.picks.join('、')}</b><br>Molly 會在 Google Meet 聊天室傳一個「揭曉連結」給你，<br>點開之後，就能一張一張翻牌。`
+    : `你選的號碼：<b>${state.picks.join('、')}</b><br>跟著 Molly 的引導，一支一支揭曉。`;
+  if(state.intake) $('revealSummary').textContent = summaryText() + `\n選的號碼：${state.picks.join('、')}`;
+  const r=document.getElementById('reveal'); r.innerHTML='';
+  LAYERS.forEach((L,i)=>{
+    const n=state.picks[i], open=!waiting&&i<state.opened, active=!waiting&&i===state.opened;
+    const col=document.createElement('div');
+    col.innerHTML=`
+      <div class="rcard${open?' open':''}" id="rc${i}"><div class="rinner">
+        <div class="rface rfront"><svg class="key" viewBox="0 0 64 24" fill="none" stroke="#C7AD7A" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M20 12h40M50 12v7M56 12v5"/></svg><div class="no">${L.no}</div><div class="pickno">${n} 號</div></div>
+        <div class="rface rback${(!waiting&&state.reveal.a&&state.reveal.a[i])?' img':''}">${(!waiting&&state.reveal.a&&state.reveal.a[i])?`<img src="cards/${state.reveal.a[i]}" alt="${state.reveal.o[i]}">`:`<div class="lbl">${L.no}・${L.name}</div><div class="oil">${waiting?'':state.reveal.o[i]}</div><div class="pickno">${n} 號</div>`}</div>
+      </div></div>
+      <div class="rmeta${(open||active||waiting)?' on':''}"><h3>${L.no}　${L.name}</h3><p>${L.desc}</p>${active?`<button class="btn" onclick="openCard(${i})">揭曉第 ${L.no} 支</button>`:''}</div>`;
+    r.appendChild(col);
+  });
+  document.getElementById('done').classList.toggle('on', !waiting && state.opened>=3);
+}
+function renderClosing(){
+  const c=state.closing; const g=document.getElementById('closingGrid'); if(!c||!g) return;
+  g.innerHTML = LAYERS.map((L,i)=>`<figure><figcaption>${L.no}・${L.name}</figcaption><img src="cards/${c.b[i]}" alt="${c.o[i]}"></figure>`).join('');
+}
+function openCard(i){
+  if(!state.reveal) return;
+  document.getElementById('rc'+i).classList.add('open');
+  state.opened=i+1; save();
+  setTimeout(renderReveal, 1050);
+}
+
+// ---- 啟動 ----
+const rtok = params.get('r');
+if(rtok){
+  const rv = decodeReveal(rtok);
+  if(rv && rv.end){ state.closing=rv; state.picks=rv.p; state.locked=true; state.pickStarted=true; if(!state.reveal) state.reveal={p:rv.p,o:rv.o,a:rv.a}; state.opened=3; state.step=6; save(); }
+  else if(rv){ state.reveal=rv; state.picks=rv.p; state.locked=true; state.pickStarted=true; if(!state.step||state.step<5) state.step=5; save(); }
+  params.delete('r'); history.replaceState(null,'','?'+params.toString());
+}
+go(typeof state.step==='number' ? state.step : 0);
+</script>
+</body>
+</html>
