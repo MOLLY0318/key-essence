@@ -133,6 +133,16 @@
   .summary{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--sand);border-radius:14px;padding:22px 24px;font-family:'Noto Sans TC';font-size:15px;line-height:2;white-space:pre-line}
 
 
+
+  .notice{max-width:620px;margin:0 auto 22px;background:#FFF8EC;border:1.5px solid var(--champ);border-radius:12px;padding:14px 20px;text-align:center;font-size:17px;line-height:1.8;color:var(--deep)}
+  .notice b{color:#8A5A1E}
+  .prep-count{text-align:center;font-family:'Noto Sans TC';font-size:15px;color:#B4553F;margin-top:16px}
+  .prep-count.ok{color:var(--brass)}
+  .breath-done{display:none;text-align:center;font-size:19px;color:var(--deep);margin-top:16px;line-height:1.8}
+  .breath-done.on{display:block}
+  .btn.pulse{animation:pulse 1.6s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(168,137,95,.55)}50%{box-shadow:0 0 0 12px rgba(168,137,95,0)}}
+
   /* 放大檢視 */
   .zoomable{cursor:zoom-in}
   .zoom-hint{font-family:'Noto Sans TC';font-size:13px;color:var(--gray);text-align:center;margin-top:14px}
@@ -225,11 +235,21 @@
     <div class="actions"><button class="btn" onclick="submitIntake()">送出，下一步</button></div>
   </section>
 
+  <!-- 0a 含精油側寫：先把資料傳給 Molly -->
+  <section class="step" data-step="8">
+    <div class="eyebrow">把資料傳給 Molly</div>
+    <h1 id="sendTitle">謝謝你</h1>
+    <p class="notice">這些資料還<b>沒有</b>傳給 Molly。<br>請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>送出，再按「下一步」。</p>
+    <div class="summary" id="sendBox"></div>
+    <div class="actions"><button class="btn gold" onclick="copySummary(this);document.getElementById('sendNext').classList.add('pulse')">複製資料</button><button class="btn" id="sendNext" onclick="go(1)">貼好了，下一步</button></div>
+    <p style="text-align:center;margin-top:14px"><button class="btn ghost" style="padding:8px 18px;font-size:14px" onclick="go(0)">回去修改</button></p>
+  </section>
+
   <!-- 0b 不含精油側寫：完成頁 -->
   <section class="step" data-step="9">
     <div class="eyebrow">資料填好了</div>
     <h1 id="doneTitle">謝謝你</h1>
-    <p class="lead">請按下面的按鈕複製你的資料，貼到 Google Meet 的聊天室傳給 Molly。</p>
+    <p class="notice">這些資料還<b>沒有</b>傳給 Molly。<br>請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>送出。</p>
     <div class="summary" id="summaryBox"></div>
     <div class="actions"><button class="btn" onclick="copySummary(this)">複製資料</button><button class="btn ghost" onclick="go(0)">回去修改</button></div>
   </section>
@@ -253,24 +273,26 @@
   <section class="step" data-step="2">
     <div class="eyebrow">STEP 2・準備</div>
     <h1>先讓身體準備好</h1>
-    <p class="lead">完成一項就勾一項，不用急。</p>
+    <p class="notice">下面<b>四項都要完成</b>，<b>每一項都要打勾</b>，才能進入下一步。</p>
     <div class="prep" id="prepList">
       <label><input type="checkbox"> 去洗個手，回到座位</label>
       <label><input type="checkbox"> 找一個安靜、不會被打擾的位置</label>
       <label><input type="checkbox"> 手機調成靜音，關掉其他視窗</label>
       <label><input type="checkbox"> 坐得舒服一點，雙腳踩在地上</label>
     </div>
-    <div class="actions"><button class="btn ghost" onclick="go(1)">上一步</button><button class="btn" id="prepNext" onclick="go(3)" disabled>都準備好了</button></div>
+    <p class="prep-count" id="prepCount">已完成 0／4 項</p>
+    <div class="actions"><button class="btn ghost" onclick="go(1)">上一步</button><button class="btn" id="prepNext" onclick="go(3)" disabled>四項都完成了，下一步</button></div>
   </section>
 
   <!-- 3 冥想 -->
   <section class="step" data-step="3">
     <div class="eyebrow">STEP 3・靜心</div>
-    <h1>跟著光圈，慢慢呼吸</h1>
-    <p class="lead">光圈變大時吸氣，變小時吐氣。<br>讓思緒慢下來，身體從「應付」回到「感受」。</p>
+    <h1>跟著光圈，深呼吸三次</h1>
+    <p class="lead">光圈變大時<b>吸氣</b>，變小時<b>吐氣</b>。<br>讓思緒慢下來，身體從「應付」回到「感受」。</p>
     <div class="breath"><div class="ring"></div><div class="core" id="breathWord">吸氣</div></div>
-    <div class="timer" id="timer">00:00</div>
-    <div class="actions"><button class="btn ghost" onclick="go(2)">上一步</button><button class="btn" onclick="go(4)">我準備好了</button></div>
+    <div class="timer" id="timer">第 1 次／共 3 次</div>
+    <p class="breath-done" id="breathDone">三次深呼吸完成了 🌿<br>請按下面的「<b>下一步</b>」</p>
+    <div class="actions"><button class="btn ghost" onclick="go(2)">上一步</button><button class="btn" id="breathNext" onclick="go(4)">下一步</button></div>
   </section>
 
   <!-- 4 選號 -->
@@ -417,7 +439,7 @@ function submitIntake(){
     if(d.renamed==='是'){ if(!d.oldknown) miss.push('是否記得改名前的英文名字'); else if(d.oldknown==='記得' && !d.oldname) miss.push('改名前的英文名字'); } }
   if(miss.length){ $('formErr').textContent='還沒填：'+miss.join('、'); return; }
   $('formErr').textContent=''; state.intake=d; save();
-  if(s.oil) go(1); else go(9);
+  if(s.oil) go(8); else go(9);
 }
 function copySummary(btn){
   const txt=summaryText();
@@ -448,9 +470,11 @@ function go(n){
   state.step=n; save();
   document.querySelectorAll('.step[data-step]').forEach(s=>s.classList.toggle('active', +s.dataset.step===n));
   document.getElementById('dots').style.display = (n===9||n===99) ? 'none' : '';
+  if(n===8) document.getElementById('dots').querySelectorAll('span').forEach((d,i)=>d.classList.toggle('on', i<1));
   document.querySelectorAll('#dots span').forEach((d,i)=>d.classList.toggle('on', i<=n));
   clearInterval(timerId); clearInterval(breathId);
   if(n===0) fillForm();
+  if(n===8){ $('sendTitle').textContent='謝謝你，'+state.intake.name; $('sendBox').textContent=summaryText(); }
   if(n===9){ $('doneTitle').textContent='謝謝你，'+state.intake.name; $('summaryBox').textContent=summaryText(); }
   if(n===3) startBreath();
   if(n===4){ showPickArea(state.pickStarted); renderGrid(); }
@@ -461,13 +485,20 @@ function go(n){
 
 // 準備清單
 document.querySelectorAll('#prepList input').forEach(cb=>cb.addEventListener('change',()=>{
-  document.getElementById('prepNext').disabled = ![...document.querySelectorAll('#prepList input')].every(x=>x.checked);
+  const all=[...document.querySelectorAll('#prepList input')], n=all.filter(x=>x.checked).length;
+  document.getElementById('prepNext').disabled = n<all.length;
+  const pc=document.getElementById('prepCount');
+  pc.textContent = n<all.length ? `已完成 ${n}／${all.length} 項，還有 ${all.length-n} 項要打勾` : '四項都完成了，可以按下一步 ✓';
+  pc.classList.toggle('ok', n===all.length);
 }));
 
 // 冥想：10 秒一循環，4 秒吸、6 秒吐（跟光圈動畫同步）
 function startBreath(){
   const t0=Date.now(); const word=document.getElementById('breathWord'); const tm=document.getElementById('timer');
-  const tick=()=>{ const s=(Date.now()-t0)/1000; word.textContent = (s%10)<4 ? '吸氣' : '吐氣'; const m=Math.floor(s/60), ss=Math.floor(s%60); tm.textContent=String(m).padStart(2,'0')+':'+String(ss).padStart(2,'0'); };
+  const done=document.getElementById('breathDone'), nb=document.getElementById('breathNext'); done.classList.remove('on'); nb.classList.remove('pulse');
+  const tick=()=>{ const s=(Date.now()-t0)/1000; const k=Math.floor(s/10)+1;
+    if(k>3){ word.textContent='完成'; tm.textContent='三次完成'; done.classList.add('on'); nb.classList.add('pulse'); return; }
+    word.textContent = (s%10)<4 ? '吸氣' : '吐氣'; tm.textContent=`第 ${k} 次／共 3 次`; };
   const ring=document.querySelector('.breath .ring'); ring.style.animation='none'; void ring.offsetWidth; ring.style.animation='';
   tick(); breathId=setInterval(tick,250);
 }
