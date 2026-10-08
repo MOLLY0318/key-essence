@@ -198,22 +198,14 @@
   <!-- 0 填寫資料 -->
   <section class="step" data-step="0">
     <div class="eyebrow">開始之前</div>
-    <h1>先填一下你的資料</h1>
-    <p class="lead">這些資料只用在這次的解析，不會公開。</p>
+    <h1>先告訴 Molly 怎麼稱呼你</h1>
+    <p class="lead">這是一次線上精油側寫。名字只用在這次的解析，不會公開。</p>
     <div class="form">
       <div class="field">
         <label class="t" for="fName">你的名字或代號<em>必填</em></label>
         <input type="text" id="fName" placeholder="怎麼稱呼你">
       </div>
-      <div class="field">
-        <label class="t">請選擇你這次要的服務<em>必填</em></label>
-        <div class="svc" id="svcList">
-          <label><input type="radio" name="svc" value="oil"><div><b>精油側寫線上陪伴</b><span>30 分鐘｜NT$600<br>盲抽三支精油，看見你此刻的身心狀態</span></div></label>
-          <label><input type="radio" name="svc" value="hd"><div><b>人類圖線上陪伴</b><span>30 分鐘｜NT$600<br>不是給你一份報告，是陪你看懂自己天生怎麼運作、現在卡在哪裡</span></div></label>
-          <label><input type="radio" name="svc" value="num"><div><b>生命靈數線上陪伴（含流年）</b><span>30 分鐘｜NT$600<br>看見你的天賦與人生課題，也了解今年的流年方向</span></div></label>
-          <label><input type="radio" name="svc" value="all"><div><b>三項統合解析</b><span>線上人類圖＋精油側寫＋生命靈數｜90 分鐘<br>三項合購 NT$1,600（分開預約共 NT$1,800）</span></div></label>
-        </div>
-      </div>
+      <input type="radio" name="svc" value="oil" checked hidden>
 
       <div class="group" id="gBirth">
         <h3>出生資料</h3>
@@ -237,7 +229,7 @@
 
       <div class="err" id="formErr"></div>
     </div>
-    <div class="actions"><button class="btn" onclick="submitIntake()">送出，下一步</button></div>
+    <div class="actions"><button class="btn" onclick="submitIntake()">下一步</button></div>
   </section>
 
   <!-- 0a 含精油側寫：先把資料傳給 Molly -->
@@ -394,7 +386,7 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e
 
 // ---- 資料填寫 ----
 const SVC = {
-  oil:{name:'精油側寫線上陪伴（30 分鐘｜NT$600）', hd:false, num:false, oil:true},
+  oil:{name:'線上精油側寫', hd:false, num:false, oil:true},
   hd:{name:'人類圖線上陪伴（30 分鐘｜NT$600）', hd:true, num:false, oil:false},
   num:{name:'生命靈數線上陪伴・含流年（30 分鐘｜NT$600）', hd:false, num:true, oil:false},
   all:{name:'三項統合解析（90 分鐘｜三項合購 NT$1,600）', hd:true, num:true, oil:true}
@@ -446,7 +438,7 @@ function submitIntake(){
   if(miss.length){ $('formErr').textContent='還沒填：'+miss.join('、'); return; }
   $('formErr').textContent=''; state.intake=d; save();
   sendForm(intakeForForm());
-  if(s.oil) go(8); else go(9);
+  go(1);
 }
 function copySummary(btn){
   const txt=summaryText();
