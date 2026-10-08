@@ -239,7 +239,7 @@
   <section class="step" data-step="8">
     <div class="eyebrow">把資料傳給 Molly</div>
     <h1 id="sendTitle">謝謝你</h1>
-    <p class="notice">這些資料還<b>沒有</b>傳給 Molly。<br>請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>送出，再按「下一步」。</p>
+    <p class="notice">你的資料已經<b>自動傳給 Molly</b> 了 🌿<br>為了保險，也請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>，再按「下一步」。</p>
     <div class="summary" id="sendBox"></div>
     <div class="actions"><button class="btn gold" onclick="copySummary(this);document.getElementById('sendNext').classList.add('pulse')">複製資料</button><button class="btn" id="sendNext" onclick="go(1)">貼好了，下一步</button></div>
     <p style="text-align:center;margin-top:14px"><button class="btn ghost" style="padding:8px 18px;font-size:14px" onclick="go(0)">回去修改</button></p>
@@ -249,7 +249,7 @@
   <section class="step" data-step="9">
     <div class="eyebrow">資料填好了</div>
     <h1 id="doneTitle">謝謝你</h1>
-    <p class="notice">這些資料還<b>沒有</b>傳給 Molly。<br>請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>送出。</p>
+    <p class="notice">你的資料已經<b>自動傳給 Molly</b> 了 🌿<br>為了保險，也請按「<b>複製資料</b>」，貼到 Google Meet 的<b>聊天室</b>。</p>
     <div class="summary" id="summaryBox"></div>
     <div class="actions"><button class="btn" onclick="copySummary(this)">複製資料</button><button class="btn ghost" onclick="go(0)">回去修改</button></div>
   </section>
@@ -439,6 +439,7 @@ function submitIntake(){
     if(d.renamed==='是'){ if(!d.oldknown) miss.push('是否記得改名前的英文名字'); else if(d.oldknown==='記得' && !d.oldname) miss.push('改名前的英文名字'); } }
   if(miss.length){ $('formErr').textContent='還沒填：'+miss.join('、'); return; }
   $('formErr').textContent=''; state.intake=d; save();
+  sendForm(intakeForForm());
   if(s.oil) go(8); else go(9);
 }
 function copySummary(btn){
@@ -463,6 +464,25 @@ document.addEventListener('click',e=>{
   const ri=e.target.closest('.rback.img'); if(ri){ const i=+ri.dataset.i; const list=revealList(); const k=list.findIndex(x=>x.src.endsWith(state.reveal.a[i])); if(k>=0) openLB(list,k); return; }
   const ci=e.target.closest('#closingGrid img'); if(ci){ openLB(closingList(), +ci.dataset.i); }
 });
+
+
+// ---- 自動傳到 Molly 的 Google 表單（線上精油側寫｜個案資料）----
+const GFORM='https://docs.google.com/forms/d/e/1FAIpQLSc_YVa6qvY2vjnKfn7pQo01Qx2ooMLSG4GiTN-P7RUB37DRzA/formResponse';
+const GF={name:'entry.108959354', svc:'entry.1490145494', date:'entry.1070276544', time:'entry.35463699', place:'entry.2028116209', eng:'entry.1013199985', renamed:'entry.1454972578', oldname:'entry.1983591974', code:'entry.1884944455', picks:'entry.1781801493'};
+function sendForm(obj){
+  try{
+    const body=new URLSearchParams();
+    Object.entries(obj).forEach(([k,v])=>{ if(GF[k] && v) body.append(GF[k], v); });
+    fetch(GFORM,{method:'POST',mode:'no-cors',body}).catch(()=>{});
+  }catch(e){}
+}
+function intakeForForm(){
+  const d=state.intake, s=SVC[d.svc]; const o={name:d.name, svc:s.name, code};
+  if(s.hd||s.num) o.date=d.date;
+  if(s.hd){ o.time=d.time; o.place=d.place; }
+  if(s.num){ o.eng=d.eng; o.renamed=d.renamed; if(d.renamed==='是') o.oldname = d.oldknown==='記得' ? d.oldname : '不記得'; }
+  return o;
+}
 
 // ---- 步驟切換 ----
 let timerId=null, breathId=null;
@@ -528,7 +548,7 @@ function togglePick(n){
   if(state.picks.length===3) state.locked=true;
   save(); renderGrid();
 }
-function confirmPicks(){ if(state.picks.length!==3) return; state.locked=true; save(); go(5); }
+function confirmPicks(){ if(state.picks.length!==3) return; state.locked=true; save(); if(state.intake) sendForm({name:state.intake.name, svc:'（選號）', code, picks:state.picks.join('、')}); go(5); }
 
 // 揭曉
 function renderReveal(){
