@@ -132,6 +132,21 @@
   .err{font-family:'Noto Sans TC';color:#B4553F;font-size:14px;text-align:center;min-height:20px}
   .summary{max-width:640px;margin:0 auto;background:#fff;border:1px solid var(--sand);border-radius:14px;padding:22px 24px;font-family:'Noto Sans TC';font-size:15px;line-height:2;white-space:pre-line}
 
+
+  /* 放大檢視 */
+  .zoomable{cursor:zoom-in}
+  .zoom-hint{font-family:'Noto Sans TC';font-size:13px;color:var(--gray);text-align:center;margin-top:14px}
+  .lb{position:fixed;inset:0;background:rgba(17,27,32,.92);display:none;align-items:center;justify-content:center;z-index:50;padding:56px 70px 70px}
+  .lb.on{display:flex}
+  .lb img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 20px 60px rgba(0,0,0,.4);background:#faf7f2}
+  .lb .cap{position:absolute;top:16px;left:0;right:0;text-align:center;color:#E8DED1;font-family:'Noto Sans TC';font-size:15px;letter-spacing:3px}
+  .lb button{position:absolute;background:rgba(245,241,234,.12);color:#F5F1EA;border:1px solid rgba(245,241,234,.35);border-radius:999px;font-size:22px;width:48px;height:48px;display:flex;align-items:center;justify-content:center}
+  .lb .x{top:12px;right:16px}
+  .lb .prev{left:12px;top:50%;transform:translateY(-50%)}
+  .lb .next{right:12px;top:50%;transform:translateY(-50%)}
+  .lb .tip{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#BFB7AA;font-family:'Noto Sans TC';font-size:13px}
+  @media (max-width:720px){.lb{padding:56px 10px 60px}.lb .prev,.lb .next{top:auto;bottom:10px;transform:none}}
+
   /* 主持人面板 */
   .host{max-width:760px;margin:0 auto}
   .panel{background:#fff;border:1px solid var(--sand);border-radius:14px;padding:22px 24px;margin-bottom:18px}
@@ -292,6 +307,7 @@
     <h1>一支一支，慢慢看</h1>
     <p class="lead" id="tellMolly"></p>
     <div class="reveal" id="reveal"></div>
+    <p class="zoom-hint" id="zoomHint" style="display:none">👆 點翻開的小卡，可以單張放大看</p>
     <div class="done" id="done">三支油都揭曉了。<br>接下來，Molly 會陪你一支一支看懂它們。<br>講解完，Molly 會再傳一個「結束連結」給你。</div>
     <div style="margin-top:34px">
       <p class="lead" style="margin-bottom:12px">也請把你的資料和號碼，複製貼到 Google Meet 的聊天室給 Molly：</p>
@@ -306,8 +322,18 @@
     <h1>謝謝你，陪自己走了這一段</h1>
     <p class="lead">這三支油，各有一句話想留給你。</p>
     <div class="closing-grid" id="closingGrid"></div>
+    <p class="zoom-hint">👆 點小卡，可以單張放大看</p>
     <p class="lead" style="margin-top:34px">願你帶著它們，慢慢回到自己。<br>鑰．本質　Molly</p>
   </section>
+</div>
+
+<div class="lb" id="lb" onclick="if(event.target===this)closeLB()">
+  <div class="cap" id="lbCap"></div>
+  <button class="x" onclick="closeLB()" aria-label="關閉">✕</button>
+  <button class="prev" onclick="stepLB(-1)" aria-label="上一張">‹</button>
+  <img id="lbImg" alt="">
+  <button class="next" onclick="stepLB(1)" aria-label="下一張">›</button>
+  <div class="tip">點旁邊空白處或按 ✕ 回到整頁</div>
 </div>
 
 <script>
@@ -394,6 +420,21 @@ function copySummary(btn){
 function copyReveal(btn){ const txt=$('revealSummary').textContent; try{ navigator.clipboard.writeText(txt); }catch(e){ fallbackCopy(txt); } btn.textContent='已複製 ✓'; setTimeout(()=>btn.textContent='複製資料',1800); }
 function fallbackCopy(txt){ const a=document.createElement('textarea'); a.value=txt; document.body.appendChild(a); a.select(); document.execCommand('copy'); a.remove(); }
 
+
+// ---- 單張放大 ----
+let LB=[], LBi=0;
+function openLB(list,i){ LB=list; LBi=i; showLB(); document.getElementById('lb').classList.add('on'); }
+function showLB(){ const it=LB[LBi]; document.getElementById('lbImg').src=it.src; document.getElementById('lbCap').textContent=it.cap; const many=LB.length>1; document.querySelector('#lb .prev').style.display=many?'':'none'; document.querySelector('#lb .next').style.display=many?'':'none'; }
+function stepLB(d){ LBi=(LBi+d+LB.length)%LB.length; showLB(); }
+function closeLB(){ document.getElementById('lb').classList.remove('on'); }
+document.addEventListener('keydown',e=>{ if(!document.getElementById('lb').classList.contains('on')) return; if(e.key==='Escape') closeLB(); if(e.key==='ArrowRight') stepLB(1); if(e.key==='ArrowLeft') stepLB(-1); });
+function revealList(){ const r=state.reveal; if(!r||!r.a) return []; const out=[]; for(let i=0;i<state.opened&&i<3;i++) if(r.a[i]) out.push({src:'cards/'+r.a[i], cap:LAYERS[i].no+'・'+LAYERS[i].name+'｜'+r.o[i]}); return out; }
+function closingList(){ const c=state.closing; if(!c) return []; return LAYERS.map((L,i)=>({src:'cards/'+c.b[i], cap:L.no+'・'+L.name+'｜'+c.o[i]})); }
+document.addEventListener('click',e=>{
+  const ri=e.target.closest('.rback.img'); if(ri){ const i=+ri.dataset.i; const list=revealList(); const k=list.findIndex(x=>x.src.endsWith(state.reveal.a[i])); if(k>=0) openLB(list,k); return; }
+  const ci=e.target.closest('#closingGrid img'); if(ci){ openLB(closingList(), +ci.dataset.i); }
+});
+
 // ---- 步驟切換 ----
 let timerId=null, breathId=null;
 function go(n){
@@ -465,16 +506,17 @@ function renderReveal(){
     col.innerHTML=`
       <div class="rcard${open?' open':''}" id="rc${i}"><div class="rinner">
         <div class="rface rfront"><svg class="key" viewBox="0 0 64 24" fill="none" stroke="#C7AD7A" stroke-width="2"><circle cx="12" cy="12" r="8"/><path d="M20 12h40M50 12v7M56 12v5"/></svg><div class="no">${L.no}</div><div class="pickno">${n} 號</div></div>
-        <div class="rface rback${(!waiting&&state.reveal.a&&state.reveal.a[i])?' img':''}">${(!waiting&&state.reveal.a&&state.reveal.a[i])?`<img src="cards/${state.reveal.a[i]}" alt="${state.reveal.o[i]}">`:`<div class="lbl">${L.no}・${L.name}</div><div class="oil">${waiting?'':state.reveal.o[i]}</div><div class="pickno">${n} 號</div>`}</div>
+        <div class="rface rback${(!waiting&&state.reveal.a&&state.reveal.a[i])?' img zoomable':''}" data-i="${i}">${(!waiting&&state.reveal.a&&state.reveal.a[i])?`<img src="cards/${state.reveal.a[i]}" alt="${state.reveal.o[i]}">`:`<div class="lbl">${L.no}・${L.name}</div><div class="oil">${waiting?'':state.reveal.o[i]}</div><div class="pickno">${n} 號</div>`}</div>
       </div></div>
       <div class="rmeta${(open||active||waiting)?' on':''}"><h3>${L.no}　${L.name}</h3><p>${L.desc}</p>${active?`<button class="btn" onclick="openCard(${i})">揭曉第 ${L.no} 支</button>`:''}</div>`;
     r.appendChild(col);
   });
   document.getElementById('done').classList.toggle('on', !waiting && state.opened>=3);
+  document.getElementById('zoomHint').style.display = (!waiting && state.opened>0 && state.reveal.a) ? '' : 'none';
 }
 function renderClosing(){
   const c=state.closing; const g=document.getElementById('closingGrid'); if(!c||!g) return;
-  g.innerHTML = LAYERS.map((L,i)=>`<figure><figcaption>${L.no}・${L.name}</figcaption><img src="cards/${c.b[i]}" alt="${c.o[i]}"></figure>`).join('');
+  g.innerHTML = LAYERS.map((L,i)=>`<figure><figcaption>${L.no}・${L.name}</figcaption><img class="zoomable" data-i="${i}" src="cards/${c.b[i]}" alt="${c.o[i]}"></figure>`).join('');
 }
 function openCard(i){
   if(!state.reveal) return;
