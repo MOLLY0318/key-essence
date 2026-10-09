@@ -1582,3 +1582,10 @@ footer.site-footer .footer-social a:hover {
   .shop-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 1rem; }
   .cart-fab { right: 1rem; bottom: 1rem; padding: 0.8rem 1.2rem; font-size: 0.82rem; }
 }
+
+/* 心靈整聊室：服務分段標題 */
+.svc-group { font-family: 'Noto Serif TC', serif; font-size: 1.35rem; color: #6f5a3a; margin: 56px 0 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(176,151,110,0.35); }
+.svc-group:first-of-type { margin-top: 24px; }
+.svc-group-note { color: #7a6d5c; font-size: 0.95rem; margin: 0 0 20px; }
+.svc-links { margin-top: 16px; text-align: center; }
+@media (max-width: 900px) { #mind .grid-3 { grid-template-columns: 1fr; } }
