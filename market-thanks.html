@@ -60,14 +60,23 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
     <div class="notice-box reveal" style="max-width:640px;margin:0 auto 1.6rem;">
       <strong>下一步：</strong>請加入官方 LINE <a href="https://line.me/R/ti/p/@864ihpsq" target="_blank" rel="noopener" style="color:#b0976e;">@864ihpsq</a>，加入後請務必主動傳一句話給我（例如你的姓名），我才會看到你，接著幫你安排時間——只加好友、沒有傳訊息，我是不會知道你已經填過表單的喔，這樣預約才算正式成立。
     </div>
-    <div class="thanks-qr reveal reveal-fade">
+    <div class="notice-box reveal" style="max-width:640px;margin:0 auto 1.6rem;">
+      <strong>確認與匯款：</strong>加入 LINE 後，我會先跟你確認要預約的服務與時間，確認好才會提供匯款帳戶／QR code。請在預約時段前 4 小時內完成匯款，並把我需要的資料（例如人類圖需要的出生年月日、時間、地點）一併給我，能縮短諮詢時的等待時間。如果到預約前 4 小時，LINE 還沒確認、匯款還沒完成，或資料還沒給我，這個預約就不算成立。每個時段只開放一位，以優先完成匯款的人為準。
+    </div>
+    <div class="notice-box reveal" style="max-width:640px;margin:0 auto 1.6rem;">
+      <strong>預約須知：</strong>預約時段前 48 小時可免費改期一次；48 小時內取消或當天無故未到，當次費用將無法退還。時段後面通常還有下一位個案在等，遲到會直接影響到你這次的時段長度，沒辦法延後結束時間，建議提前一點抵達或上線。完整的付款、退費、不可抗力條款，請見<a href="faq.html" style="color:#b0976e;">常見問題 Q&A →</a>
+    </div>
+    <div class="notice-box reveal reveal-fade" style="max-width:640px;margin:0 auto 1.6rem;text-align:center;">
+      <label for="confirmRead" style="display:inline-flex;align-items:flex-start;gap:0.6rem;cursor:pointer;text-align:left;">
+        <input type="checkbox" id="confirmRead" style="margin-top:0.3rem;width:18px;height:18px;flex-shrink:0;">
+        <span>我已閱讀並確認上方的「確認與匯款」與「預約須知」，請顯示官方 LINE QR code</span>
+      </label>
+    </div>
+    <div class="thanks-qr reveal reveal-fade" id="lineQr" style="display:none;">
       <a href="https://line.me/R/ti/p/@864ihpsq" target="_blank" rel="noopener">
         <img src="images/qr-line.png" alt="LINE 官方帳號 QR Code">
       </a>
       <p>用手機掃描，或直接點圖片加入 LINE</p>
-    </div>
-    <div class="notice-box reveal" style="max-width:640px;margin:0 auto 1.6rem;">
-      <strong>預約須知：</strong>預約時段前 48 小時可免費改期一次；48 小時內取消或當天無故未到，當次費用將無法退還。時段後面通常還有下一位個案在等，遲到會直接影響到你這次的時段長度，沒辦法延後結束時間，建議提前一點抵達或上線。完整的付款、退費、不可抗力條款，請見<a href="faq.html" style="color:#b0976e;">常見問題 Q&A →</a>
     </div>
     <div class="section-head reveal reveal-fade" style="margin-top:0;">
       <p>在那之前，如果你想先認識精油側寫在做什麼，或者想看看鑰．本質還有哪些陪伴的方式，都放在下面，慢慢看，不用急。</p>
@@ -120,6 +129,21 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
 </footer>
 
 <script>
+(function () {
+  var confirmBox = document.getElementById('confirmRead');
+  var qr = document.getElementById('lineQr');
+  if (confirmBox && qr) {
+    confirmBox.addEventListener('change', function () {
+      if (confirmBox.checked) {
+        qr.style.display = '';
+        qr.classList.add('is-visible');
+      } else {
+        qr.style.display = 'none';
+      }
+    });
+  }
+})();
+
 (function () {
   var revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
