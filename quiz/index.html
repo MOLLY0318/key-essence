@@ -171,6 +171,12 @@ button { font: inherit; cursor: pointer; }
 .extend-out { display: none; margin-top: 1rem; }
 .extend-out.show { display: block; }
 .extend-out .note { font-size: 0.85rem; color: var(--bluegray); margin: 0.6rem 0 1rem; }
+.line-fallback { border-top: 1px solid rgba(199, 173, 122, 0.25); padding-top: 1rem; font-size: 0.88rem; }
+.line-fallback p { font-size: 0.88rem; }
+.copy-row { display: flex; gap: 8px; align-items: center; background: rgba(245, 241, 234, 0.08); border: 1px solid rgba(199, 173, 122, 0.35); border-radius: 3px; padding: 0.5rem 0.6rem; margin: 0.7rem 0; }
+.copy-row span { flex: 1; color: var(--mist); font-size: 0.85rem; word-break: break-all; }
+.copy-btn { background: var(--champagne); border: 0; color: var(--ink); border-radius: 3px; padding: 0.35rem 0.8rem; font-size: 0.85rem; white-space: nowrap; }
+.line-qr { width: 140px; margin: 0.6rem auto 0; background: #fff; padding: 6px; border-radius: 4px; }
 .privacy { font-size: 0.82rem; color: var(--bluegray); border-top: 1px solid rgba(199, 173, 122, 0.25); padding-top: 0.8rem; margin-top: 1rem; }
 
 .foot { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 1.4rem 0 2.6rem; text-align: center; }
@@ -289,6 +295,13 @@ button { font: inherit; cursor: pointer; }
         <p>到官方 LINE 留下你的<b>西元出生年月日、出生時間（越準越好）、出生地</b>，Molly 會依你的人類圖，搭配這次測驗的結果，親自回覆你更完整的分析和精油建議。</p>
         <p class="privacy">你的出生資料只用來排盤和回覆你，只有 Molly 會看到，不會提供給其他人。</p>
         <a class="btn line block" id="lineUnknown" href="#" style="margin-top:1rem;">到官方 LINE 留下出生資料</a>
+      </div>
+
+      <div class="extend-out line-fallback" id="outFallback">
+        <p><b>用電腦看這一頁嗎？</b>電腦上按鈕可能只會打開 LINE 首頁。請用手機掃描 QR code 加入鑰．本質官方 LINE，再傳這段文字：</p>
+        <div class="copy-row"><span id="lineText"></span><button class="copy-btn" id="copyBtn">複製</button></div>
+        <img class="line-qr" src="../images/qr-line.png" alt="鑰．本質官方 LINE QR Code（@864ihpsq）">
+        <p class="note" style="text-align:center;">LINE ID：@864ihpsq</p>
       </div>
 
       <div class="extend-out" id="outSkip">
@@ -474,6 +487,7 @@ let answers = [];      // 每題選到的中心 key
 let step = 0;          // 目前題號；等於 QUESTIONS.length 時是同分題
 let tieKeys = [];
 let mainKey = null;
+let unknownText = '';
 
 // 小鑰插圖；圖檔還沒放進 images/ 時顯示暫代框
 function figure(key, mood, alt) {
@@ -588,7 +602,8 @@ function renderResult() {
   }).join('');
 
   const litNames = lit.map(k => CENTERS[k].short).join('、');
-  $('lineUnknown').href = lineUrl(`九中心測驗｜主要：${c.name}｜亮起：${litNames}｜我想排盤`);
+  unknownText = `九中心測驗｜主要：${c.name}｜亮起：${litNames}｜我想排盤`;
+  $('lineUnknown').href = lineUrl(unknownText);
 
   document.querySelectorAll('.choice').forEach(b => b.classList.remove('picked'));
   document.querySelectorAll('.extend-out').forEach(o => o.classList.remove('show'));
@@ -603,10 +618,15 @@ document.querySelectorAll('.choice').forEach(btn => {
     if (k === 'open' || k === 'defined') {
       // LINE 關鍵字：例「喉嚨中心｜空白」「G中心｜有定義」
       const name = CENTERS[mainKey].name.replace(' ', '');
-      $('lineKnown').href = lineUrl(`${name}｜${k === 'open' ? '空白' : '有定義'}`);
+      const text = `${name}｜${k === 'open' ? '空白' : '有定義'}`;
+      $('lineKnown').href = lineUrl(text);
+      $('lineText').textContent = text;
       $('outKnown').classList.add('show');
+      $('outFallback').classList.add('show');
     } else if (k === 'unknown') {
+      $('lineText').textContent = unknownText;
       $('outUnknown').classList.add('show');
+      $('outFallback').classList.add('show');
     } else {
       $('outSkip').classList.add('show');
     }
@@ -618,6 +638,16 @@ function start() {
   renderQuestion();
   show('quiz');
 }
+
+$('copyBtn').addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText($('lineText').textContent);
+    $('copyBtn').textContent = '已複製';
+  } catch (e) {
+    $('copyBtn').textContent = '請手動複製';
+  }
+  setTimeout(() => { $('copyBtn').textContent = '複製'; }, 2000);
+});
 
 $('startBtn').addEventListener('click', start);
 $('againBtn').addEventListener('click', start);
