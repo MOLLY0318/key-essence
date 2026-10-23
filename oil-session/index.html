@@ -361,7 +361,7 @@
     <div class="more">
       <div class="more-t">🌿 想讓精油多陪你一段嗎？</div>
       <div class="more-r"><b>專屬調配油</b><span>到桃園現場，依你這次的三支精油，親手調一瓶 50ml 屬於你的調配油</span><i>NT$2,200</i></div>
-      <div class="more-r"><b>21 天深度陪伴</b><span>到桃園現場親手調 100ml，再加上每週 1 次線上引導會談，共 3 次；結束後送你一份專屬報告書</span><i>NT$6,000</i></div>
+      <div class="more-r"><b>21 天深度陪伴</b><span>到桃園現場親手調 100ml，再加上每週 1 次線上引導會談，共 3 次；結束後送你一份專屬報告書</span><i>NT$6,800</i></div>
       <p class="more-n">調配油要你親手調製，所以要到桃園現場進行（不另外收費），線上沒辦法提供調油。<br>想了解的話，在 LINE（@864ihpsq）跟 Molly 說一聲就好。</p>
     </div>
   </section>
@@ -401,9 +401,9 @@ function save(){ try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e
 // ---- 資料填寫 ----
 const SVC = {
   oil:{name:'線上精油側寫', hd:false, num:false, oil:true},
-  hd:{name:'人類圖線上陪伴（30 分鐘｜NT$600）', hd:true, num:false, oil:false},
-  num:{name:'生命靈數線上陪伴・含流年（30 分鐘｜NT$600）', hd:false, num:true, oil:false},
-  all:{name:'三項統合解析（90 分鐘｜三項合購 NT$1,600）', hd:true, num:true, oil:true}
+  hd:{name:'人類圖陪伴（1 小時｜NT$1,600）', hd:true, num:false, oil:false},
+  num:{name:'生命靈數陪伴・含流年（1 小時｜NT$1,600）', hd:false, num:true, oil:false},
+  all:{name:'三項統合解析（2 小時｜NT$3,200）', hd:true, num:true, oil:true}
 };
 const $ = id => document.getElementById(id);
 function curSvc(){ const r=document.querySelector('input[name=svc]:checked'); return r ? r.value : null; }
