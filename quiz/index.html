@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>最近，哪裡最累？｜鑰．本質 Key Essence</title>
+<meta name="description" content="9 個生活小情境，約 3 分鐘，看看最近哪一個能量中心最需要照顧，並找到一支陪你的精油。">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="鑰．本質 Key Essence">
+<meta property="og:title" content="最近，哪裡最累？｜九大中心狀態掃描">
+<meta property="og:description" content="9 個生活小情境，約 3 分鐘，看看最近哪一個能量中心最需要照顧，並找到一支陪你的精油。">
+<meta property="og:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* 色票來源：200_Reference/brand-assets/key-essence/palette.md（與官網 style.css 相同） */
+:root {
+  --ink: #111B20;
+  --deep: #18252B;
+  --graphite: #26343A;
+  --champagne: #C7AD7A;
+  --brass: #A8895F;
+  --mist: #F5F1EA;
+  --sand: #E8DED1;
+  --umber: #4B443C;
+  --bluegray: #7E8D91;
+  --rose: #8A7468;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
+body {
+  background: var(--mist);
+  color: var(--umber);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+h1, h2, h3, .serif { font-family: 'Noto Serif TC', serif; color: var(--deep); letter-spacing: 0.04em; }
+img { max-width: 100%; display: block; }
+button { font: inherit; cursor: pointer; }
+
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+/* 頁首 */
+.brand-bar { border-bottom: 1px solid rgba(168, 137, 95, 0.35); background: var(--mist); }
+.brand-bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand-bar img { height: 40px; width: auto; }
+.brand-bar .brand-name { text-align: right; line-height: 1.25; }
+.brand-bar .brand-name b { display: block; font-family: 'Noto Serif TC', serif; color: var(--deep); font-size: 0.95rem; letter-spacing: 0.12em; }
+.brand-bar .brand-name span { font-size: 0.62rem; letter-spacing: 0.32em; color: var(--brass); }
+
+.screen { display: none; }
+.screen.active { display: block; animation: fade .35s ease; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* 深色標題區 */
+.dark-block {
+  background: linear-gradient(180deg, var(--ink), var(--deep));
+  color: var(--mist);
+  text-align: center;
+  padding: 2.6rem 16px 2.4rem;
+}
+.dark-block h1, .dark-block h2 { color: var(--mist); }
+.eyebrow { font-size: 0.72rem; letter-spacing: 0.32em; color: var(--champagne); margin-bottom: 0.8rem; }
+.gold-line { width: 48px; height: 1px; background: var(--champagne); margin: 1.2rem auto; border: 0; }
+
+/* 首頁 */
+.home h1 { font-size: 2rem; line-height: 1.4; }
+.home .lead { color: var(--sand); font-size: 1rem; }
+.home-figures { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 1.8rem auto 0.4rem; max-width: 420px; }
+.home-figures img { aspect-ratio: 1; object-fit: contain; background: var(--mist); border-radius: 6px; }
+.home-body { padding: 1.8rem 16px 2.6rem; text-align: center; }
+.home-body p { margin-bottom: 1rem; }
+.meta { font-size: 0.85rem; color: var(--bluegray); }
+
+.btn {
+  display: inline-block;
+  border: 1px solid var(--deep);
+  background: var(--deep);
+  color: var(--mist);
+  padding: 0.85rem 2.2rem;
+  border-radius: 3px;
+  letter-spacing: 0.12em;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background .2s, color .2s;
+}
+.btn:hover { background: var(--graphite); }
+.btn.ghost { background: transparent; color: var(--deep); }
+.btn.ghost:hover { background: var(--sand); }
+.btn.line { background: #06C755; border-color: #06C755; color: #fff; }
+.btn.block { display: block; width: 100%; text-align: center; }
+
+/* 題目頁 */
+.quiz-top { padding: 1.4rem 0 0.6rem; display: flex; align-items: center; gap: 12px; }
+.progress { flex: 1; height: 3px; background: var(--sand); border-radius: 2px; overflow: hidden; }
+.progress i { display: block; height: 100%; background: var(--champagne); transition: width .3s; }
+.qcount { font-size: 0.8rem; letter-spacing: 0.15em; color: var(--brass); white-space: nowrap; }
+.q-figure { width: 120px; margin: 0.6rem auto 0.4rem; }
+.q-figure img { aspect-ratio: 1; object-fit: contain; }
+.q-title { font-size: 1.3rem; line-height: 1.6; margin: 0.6rem 0 1.2rem; }
+.options { display: grid; gap: 10px; }
+.option {
+  text-align: left;
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  padding: 0.95rem 1rem;
+  color: var(--umber);
+  line-height: 1.7;
+  transition: border-color .2s, background .2s;
+}
+.option:hover { border-color: var(--champagne); }
+.option.picked { border-color: var(--brass); background: var(--sand); }
+.option .tag { color: var(--brass); font-family: 'Noto Serif TC', serif; margin-right: 0.4rem; }
+.hint { text-align: center; font-size: 0.82rem; color: var(--bluegray); margin: 1rem 0; }
+.back { background: none; border: 0; color: var(--bluegray); font-size: 0.9rem; padding: 0.4rem 0 2rem; }
+.back[disabled] { visibility: hidden; }
+
+/* 結果頁 */
+.result-hero h2 { font-size: 1.65rem; line-height: 1.45; }
+.result-hero .center-name { color: var(--champagne); font-size: 0.95rem; letter-spacing: 0.2em; }
+.result-figure { width: 220px; margin: 1.4rem auto 0; background: var(--mist); border-radius: 8px; padding: 8px; }
+.result-figure img { aspect-ratio: 1; object-fit: contain; }
+
+.grid-wrap { padding: 2rem 0 0.6rem; text-align: center; }
+.grid-wrap h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
+.grid-wrap .meta { margin-bottom: 1rem; }
+.nine { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.cell {
+  border: 1px solid var(--sand);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.5);
+  padding: 6px 4px 8px;
+  font-size: 0.8rem;
+  color: var(--bluegray);
+  opacity: 0.55;
+}
+.cell img, .cell .ph { width: 64%; margin: 0 auto 2px; aspect-ratio: 1; object-fit: contain; }
+.cell img { filter: grayscale(1); opacity: 0.5; }
+.cell .ph { font-size: 0.56rem; }
+.cell.lit { opacity: 1; background: #fff; border-color: var(--champagne); color: var(--deep); }
+.cell.lit img { filter: none; opacity: 1; }
+.cell.main { border-width: 2px; border-color: var(--brass); box-shadow: 0 6px 18px -10px rgba(168, 137, 95, 0.8); }
+.cell .score { display: block; font-size: 0.7rem; color: var(--brass); letter-spacing: 0.1em; }
+
+.block { padding: 1.6rem 0; border-bottom: 1px solid rgba(168, 137, 95, 0.25); }
+.block h3 { font-size: 1.05rem; margin-bottom: 0.5rem; }
+.block h3::before { content: ''; display: inline-block; width: 14px; height: 1px; background: var(--champagne); vertical-align: middle; margin-right: 0.6rem; }
+.gentle { background: var(--sand); border-radius: 4px; padding: 1rem 1.1rem; margin-bottom: 0.4rem; }
+
+.oil-card { display: grid; grid-template-columns: 1fr 110px; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--sand); border-radius: 6px; padding: 1.1rem; }
+.oil-card .oil-name { font-family: 'Noto Serif TC', serif; font-size: 1.35rem; color: var(--deep); }
+.oil-card .oil-part { font-size: 0.8rem; color: var(--brass); letter-spacing: 0.1em; }
+.oil-card img { aspect-ratio: 1; object-fit: contain; }
+.alt-oils { font-size: 0.9rem; color: var(--umber); margin-top: 0.8rem; line-height: 1.8; }
+.alt-oils b { color: var(--brass); font-weight: 500; }
+.ask { font-family: 'Noto Serif TC', serif; color: var(--deep); font-size: 1.1rem; line-height: 1.8; text-align: center; padding: 0.6rem 0.4rem; }
+
+/* 延伸層 */
+.extend { background: linear-gradient(180deg, var(--deep), var(--ink)); color: var(--sand); border-radius: 6px; padding: 1.6rem 1.2rem; margin: 1.6rem 0; }
+.extend h3 { color: var(--mist); font-size: 1.15rem; line-height: 1.6; margin-bottom: 0.4rem; }
+.extend p { font-size: 0.95rem; }
+.extend b { color: var(--champagne); font-weight: 500; }
+.choice-row { display: grid; gap: 8px; margin: 1rem 0 0.4rem; }
+.choice { background: transparent; border: 1px solid rgba(199, 173, 122, 0.5); color: var(--mist); padding: 0.75rem 1rem; border-radius: 3px; text-align: left; }
+.choice.picked { background: rgba(199, 173, 122, 0.18); border-color: var(--champagne); }
+.extend-out { display: none; margin-top: 1rem; }
+.extend-out.show { display: block; }
+.extend-out .note { font-size: 0.85rem; color: var(--bluegray); margin: 0.6rem 0 1rem; }
+.privacy { font-size: 0.82rem; color: var(--bluegray); border-top: 1px solid rgba(199, 173, 122, 0.25); padding-top: 0.8rem; margin-top: 1rem; }
+
+.foot { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 1.4rem 0 2.6rem; text-align: center; }
+.foot p { margin-bottom: 0.6rem; }
+.actions { display: grid; gap: 10px; padding: 0.4rem 0 1.4rem; }
+
+/* 插圖還沒放進來時的暫代圖 */
+.ph { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; text-align: center; background: repeating-linear-gradient(45deg, var(--sand), var(--sand) 6px, var(--mist) 6px, var(--mist) 12px); color: var(--brass); font-size: 0.72rem; line-height: 1.4; border-radius: 6px; padding: 4px; }
+</style>
+</head>
+<body>
+
+<header class="brand-bar">
+  <div class="wrap">
+    <a href="../index.html"><img src="../images/logo-lockup-black-transparent.png" alt="鑰．本質 Key Essence 官網"></a>
+    <div class="brand-name"><b>鑰．本質</b><span>KEY ESSENCE</span></div>
+  </div>
+</header>
+
+<!-- 首頁 -->
+<main id="home" class="screen active home">
+  <section class="dark-block">
+    <div class="eyebrow">九大中心狀態掃描</div>
+    <h1>最近，<br>哪裡最累？</h1>
+    <hr class="gold-line">
+    <p class="lead">9 個生活小情境，看看最近哪一個能量中心<br>最需要照顧，再找一支陪你的精油。</p>
+    <div class="home-figures" id="homeFigures"></div>
+  </section>
+  <section class="home-body">
+    <p>沒有對錯，選最像你最近的那一個就好。</p>
+    <p class="meta">約 3 分鐘・不需要登入・不需要知道自己的人類圖</p>
+    <p style="margin-top:1.4rem;"><button class="btn" id="startBtn">開始</button></p>
+  </section>
+</main>
+
+<!-- 題目頁 -->
+<main id="quiz" class="screen">
+  <div class="wrap">
+    <div class="quiz-top">
+      <div class="progress"><i id="bar"></i></div>
+      <div class="qcount" id="qcount"></div>
+    </div>
+    <div class="q-figure" id="qFigure"></div>
+    <h2 class="q-title" id="qTitle"></h2>
+    <div class="options" id="options"></div>
+    <p class="hint">沒有對錯，選最像你最近的那一個</p>
+    <button class="back" id="backBtn">‹ 上一題</button>
+  </div>
+</main>
+
+<!-- 結果頁 -->
+<main id="result" class="screen">
+  <section class="dark-block result-hero">
+    <div class="eyebrow">你最近最需要照顧的是</div>
+    <div class="center-name" id="rCenter"></div>
+    <h2 id="rTitle"></h2>
+    <div class="result-figure" id="rTense"></div>
+  </section>
+
+  <div class="wrap">
+    <section class="grid-wrap">
+      <h3>你的九宮狀態</h3>
+      <p class="meta" id="gridNote"></p>
+      <div class="nine" id="nine"></div>
+    </section>
+
+    <section class="block">
+      <h3>你最近可能是這樣</h3>
+      <p id="rLike"></p>
+    </section>
+    <section class="block">
+      <h3>這份敏感的另一面</h3>
+      <p id="rStrength"></p>
+    </section>
+    <section class="block">
+      <h3>容易卡住的地方</h3>
+      <p id="rStuck"></p>
+    </section>
+    <section class="block">
+      <h3>陪你的精油</h3>
+      <div class="oil-card">
+        <div>
+          <div class="oil-part" id="rPart"></div>
+          <div class="oil-name" id="rOil"></div>
+          <p id="rOilWhy" style="margin-top:0.5rem;"></p>
+        </div>
+        <div id="rCalm"></div>
+      </div>
+      <p class="alt-oils"><b>也可以選：</b><span id="rAlt"></span><br>家裡有其中一支就可以，聞聞看，選你最喜歡的那個味道。</p>
+    </section>
+    <section class="block">
+      <h3>今天問自己一句話</h3>
+      <p class="ask" id="rAsk"></p>
+    </section>
+    <section class="block">
+      <h3>一個小動作</h3>
+      <p class="gentle" id="rAction"></p>
+    </section>
+
+    <section class="extend">
+      <h3>想知道這份狀態，是你自己的，<br>還是從環境接收來的嗎？</h3>
+      <p>你的<b id="eCenter"></b>在人類圖上是空白，還是有定義？</p>
+      <div class="choice-row">
+        <button class="choice" data-k="open">空白</button>
+        <button class="choice" data-k="defined">有定義</button>
+        <button class="choice" data-k="unknown">我不知道</button>
+        <button class="choice" data-k="skip">先這樣就好</button>
+      </div>
+
+      <div class="extend-out" id="outKnown">
+        <p class="note">按下去會打開鑰．本質的官方 LINE，並帶入你的結果，傳出後就會收到延伸解讀。</p>
+        <a class="btn line block" id="lineKnown" href="#">傳到官方 LINE 看延伸解讀</a>
+      </div>
+
+      <div class="extend-out" id="outUnknown">
+        <p>到官方 LINE 留下你的<b>西元出生年月日、出生時間（越準越好）、出生地</b>，Molly 會依你的人類圖，搭配這次測驗的結果，親自回覆你更完整的分析和精油建議。</p>
+        <p class="privacy">你的出生資料只用來排盤和回覆你，只有 Molly 會看到，不會提供給其他人。</p>
+        <a class="btn line block" id="lineUnknown" href="#" style="margin-top:1rem;">到官方 LINE 留下出生資料</a>
+      </div>
+
+      <div class="extend-out" id="outSkip">
+        <p>好的，謝謝你今天停下來看看自己。想再多了解的時候，隨時回來。</p>
+      </div>
+    </section>
+
+    <div class="actions">
+      <button class="btn ghost block" id="againBtn">再測一次</button>
+    </div>
+
+    <footer class="foot">
+      <p>這是一份自我探索的小測驗，幫你看見最近的狀態，不是心理診斷，也不是人類圖排盤。</p>
+      <p>精油以嗅聞為主：滴在面紙或擴香石上聞就好。要塗抹在皮膚上請先稀釋；懷孕、哺乳、嬰幼兒、癲癇、慢性病或正在服藥的人，使用前請先諮詢專業人員。</p>
+      <p>© 鑰．本質 Key Essence</p>
+    </footer>
+  </div>
+</main>
+
+<script>
+// 內容與計分依據：Molly-Agent/100_Todo/projects/精油測驗-引流工具/人類圖九中心精油測驗-內容初稿.md
+const LINE_ID = '@864ihpsq';
+const IMG_DIR = 'images/';
+
+// 九宮排列順序（由上到下，大致對應人類圖中心的位置）
+const ORDER = ['head', 'ajna', 'throat', 'g', 'ego', 'spleen', 'sacral', 'solar', 'root'];
+
+const CENTERS = {
+  head: {
+    name: '頭頂中心', short: '頭頂', title: '一盞關不掉的燈',
+    tie: '「我的腦袋好吵，好想讓它安靜一下。」',
+    like: '腦袋一直亮著，白天沒想通的事、過去的畫面、明天可能發生的狀況，輪流跑出來。你很想找到一個答案，好像想通了才能放下。',
+    strength: '你對問題很敏銳，常常想到別人沒注意到的地方，也很願意學習。',
+    stuck: '把每個冒出來的問題都當成自己必須馬上解決的事，腦袋就休息不了。',
+    oil: '岩蘭草', part: '根', alt: '纈草',
+    why: '根是植物的神經系統，往下扎進土裡。岩蘭草沉穩、帶著泥土的氣味，陪你把一直往上衝的思緒，慢慢帶回地面。',
+    ask: '「我現在想不通的這件事，是我的問題，還是我從別人那裡接過來的？」',
+    action: '把一直想的那件事寫在紙上，寫完對自己說「先放在這裡」。滴一滴岩蘭草在面紙上，慢慢聞三次。'
+  },
+  ajna: {
+    name: '邏輯中心', short: '邏輯', title: '想先拿到地圖的人',
+    tie: '「我好想有人直接告訴我答案。」',
+    like: '還沒確定，就不太敢動。你會先問清楚、查清楚、排好計畫；有時明明心裡有想法，卻因為不確定對不對，又把話吞回去。',
+    strength: '你很會吸收不同的觀點，做事細心，考慮得很周全。',
+    stuck: '受不了不確定的感覺，越想弄清楚越焦慮，或是一直等到「有把握」才開始。',
+    oil: '桉油醇羅文莎葉', part: '葉', alt: '綠花白千層、桉油醇迷迭香',
+    why: '它像一陣爽朗的風，吹過之後，腦袋清楚了，也比較抓得到重點。不是想得更多，而是讓你看見最重要的那一件事。',
+    ask: '「我是真的需要現在就搞懂，還是只是受不了不確定的感覺？」',
+    action: '給自己 10 分鐘不查、不問、不排計畫。聞著桉油醇羅文莎葉，深呼吸三次，對自己說「我現在不用知道答案」。'
+  },
+  throat: {
+    name: '喉嚨中心', short: '喉嚨', title: '一個想被聽見的聲音',
+    tie: '「我好希望有人聽懂我。」',
+    like: '你很想說，很怕沒人懂。安靜下來會不自在，忍不住找話說；說的時候又常常一直解釋，擔心對方沒聽懂。',
+    strength: '你很能感受現場的氣氛，被問到的時候，往往說得很清楚、很動人。',
+    stuck: '因為怕沒被看見而急著開口，話反而說不清楚，說完更覺得沒人懂。',
+    oil: '甜橙', part: '果皮', alt: '葡萄柚、佛手柑',
+    why: '果皮把香氣自然散發出去，不用喊，人就會靠近。它陪你相信：你不用急著說，也會被聽見。',
+    ask: '「我現在想開口，是有人在問我，還是我怕自己沒被看見？」',
+    action: '想開口之前，先聞一聞甜橙，安靜地呼吸三次。今天試一次：等別人問了再說。'
+  },
+  g: {
+    name: 'G 中心', short: 'G', title: '在找回家的路',
+    tie: '「我好像弄丟了自己。」',
+    like: '你一直在想「我到底是誰、適合什麼」。到了不同的團體，就不自覺變成大家期待的樣子，回家才覺得不像自己；看著現在的生活，好像也不是自己要的樣子。',
+    strength: '你能適應各種環境，也很能看見不同的人。',
+    stuck: '容易被身邊的人和環境帶走，越找自己，越覺得找不到。',
+    oil: '真正薰衣草', part: '花', alt: '橙花、大馬士革玫瑰',
+    why: '花對應的是「我是不是被喜歡、被愛」。它陪你先在自己身上，感覺到被好好對待的感覺。',
+    ask: '「我待在這個地方、跟這些人在一起，身體覺得對嗎？」',
+    action: '找一個讓身體覺得舒服的角落，坐下來聞一聞真正薰衣草，感覺一下這個空間對你來說對不對。'
+  },
+  ego: {
+    name: '意志力中心', short: '意志力', title: '一直撐著的肩膀',
+    tie: '「我已經很努力了，卻還是覺得不夠好。」',
+    like: '看到需要，就自動扛起來；別人拜託你，很難說不。做不到的時候，你會覺得是自己不夠好，很難開口說「我也需要幫忙」。',
+    strength: '你的責任感很強，答應的事會盡力做到，是大家很放心的人。',
+    stuck: '承諾得太多，用做到多少來證明自己的價值；就算做到了，還是覺得不夠。',
+    oil: '大西洋雪松', part: '莖幹', alt: '檀香、黑胡椒',
+    why: '莖幹是植物的支撐，也是撐著的力氣。它陪你感覺到：你本來就站得住，不需要一直證明。',
+    ask: '「今天答應的事，是我想做，還是想證明自己？」',
+    action: '寫下今天答應的事，看看有沒有一件其實不是你想做的。聞著大西洋雪松，坐直，讓肩膀慢慢放下來。'
+  },
+  sacral: {
+    name: '薦骨中心', short: '薦骨', title: '燒到最後的柴火',
+    tie: '「我的電已經用完了。」',
+    like: '在人群裡很有精神，什麼都能做；回到家整個人倒下。明明很累了還是停不下來，常常做到一半，才發現自己早就沒電了。',
+    strength: '你投入的時候很有活力，很能陪大家一起把事情做起來。',
+    stuck: '不知道什麼時候夠了，做了很多不是自己真正想做的事，把自己用到透支。',
+    oil: '芫荽', part: '種子', alt: '芹菜籽、野胡蘿蔔',
+    why: '種子對應原本很有動力、後來被消磨的力氣。芫荽溫暖、帶點甜香，陪你把力氣先留給自己，等它慢慢長回來。',
+    ask: '「我現在是還有力氣，還是只是停不下來？」',
+    action: '今天在還沒累垮之前，先躺下 10 分鐘。把芫荽滴在面紙上，放在枕頭旁邊聞就好。'
+  },
+  solar: {
+    name: '情緒中心', short: '情緒', title: '快滿出來的水杯',
+    tie: '「我心裡積了好多，快滿出來了。」',
+    like: '別人的心情會傳到你身上，他低落你也跟著沉；有人語氣重一點，你就覺得是在針對你。不舒服的時候先忍下來，忍到某天突然爆開。',
+    strength: '你很能感受別人的情緒，體貼又細心，常常是最先發現別人不對勁的人。',
+    stuck: '為了不起衝突一直忍，情緒在身體裡越積越多，爆開之後又更想逃避。',
+    oil: '乳香', part: '樹脂', alt: '沒藥、安息香',
+    why: '樹脂是植物受傷後流出來、把傷口封住的東西。它陪你和心裡的傷待在一起，讓情緒有地方流動。',
+    ask: '「這份情緒是我的，還是我從別人那裡接過來的？」',
+    action: '聞著乳香，慢慢吐氣三次。把心裡的話手寫出來，不分析、不修改，寫完就好。'
+  },
+  spleen: {
+    name: '直覺中心', short: '直覺', title: '一直守夜的哨兵',
+    tie: '「我好擔心，心一直放不下。」',
+    like: '你一直繃著，擔心身體、家人、錢，怕漏掉什麼、怕出事，越想越不安。也可能剛好相反：身體已經在抗議，你卻先放一邊。',
+    strength: '你對危險和身體的訊號很敏銳，很會照顧大家的安全。',
+    stuck: '被別人的擔心綁住，心放不下來；或是忙著顧別人，忽略自己身體真正的提醒。',
+    oil: '歐洲洋杜松', part: '枝條與果實', alt: '馬鬱蘭、廣藿香',
+    why: '歐洲洋杜松用枝條和果實一起萃取。枝條是植物的防禦和界線，果實照顧的是求生的本能和膽小。它陪你分清楚：哪些害怕是身體真的在提醒你，哪些可以先放下。',
+    ask: '「我現在的害怕，是身體真的在提醒我，還是我把別人的擔心接過來了？」',
+    action: '把手放在身體最緊的地方，聞三次歐洲洋杜松，問問身體：「你真正想提醒我的是什麼？」'
+  },
+  root: {
+    name: '根部中心', short: '根部', title: '被追著跑的腳步',
+    tie: '「好多事在後面追著我。」',
+    like: '好多事在後面追著你，你想快點全部做完，好擺脫那種被追的感覺；也可能準備了很久，卻一直跨不出去。',
+    strength: '壓力來的時候，你很能把事情推動起來。',
+    stuck: '分不清哪些是真的急，哪些只是想快點擺脫壓力，結果一直跑，或是卡在起跑線上。',
+    oil: '生薑', part: '根', alt: '岩蘭草（被追著跑、需要先停下來的時候）',
+    why: '根是往下扎的力量。生薑溫暖又帶著推力，陪你先站穩，再把準備好的自己推出去。',
+    ask: '「今天讓我急的，是真的急，還是我想快點擺脫它？」<br>推不動的時候：「我已經準備好了，還在等什麼？」',
+    action: '雙腳踩在地上，聞一聞生薑。把待辦分成兩欄：「今天真的要做」和「只是想快點擺脫」，從第一欄挑一件，現在就做第一步。'
+  }
+};
+
+// 每個選項對應一個中心；每個中心在 9 題裡剛好出現 4 次
+const QUESTIONS = [
+  { q: '一天結束、終於回到家，你最常出現的狀態是？', o: [
+    ['腦袋還在轉，白天沒想通的事一直冒出來', 'head'],
+    ['很想找個人，把今天發生的事說一說', 'throat'],
+    ['明明很累了，手還停不下來，一直找事做', 'sacral'],
+    ['一點小事就容易被惹毛，或是誰都不想理', 'solar']]},
+  { q: '有人臨時拜託你幫一個忙，你心裡第一個反應是？', o: [
+    ['先答應再說，拒絕好像顯得自己不夠好', 'ego'],
+    ['要先問清楚所有細節，確定了才敢回答', 'ajna'],
+    ['覺得自己應該還有力氣，就接下來了，做到一半才發現早就沒電', 'sacral'],
+    ['腦中馬上跳出所有待辦，覺得被時間追著跑', 'root']]},
+  { q: '最近有件事一直沒有答案（例如工作、關係或身體），你會？', o: [
+    ['在腦中反覆想，一定要想出個所以然才放得下', 'head'],
+    ['開始往最壞的地方想，越查越擔心', 'spleen'],
+    ['開始懷疑「我到底想要什麼？我是誰？」', 'g'],
+    ['一直找人聊，常問對方「你懂我的意思嗎？」', 'throat']]},
+  { q: '到了一個新的團體或聚會，你通常？', o: [
+    ['不自覺變成大家期待的樣子，回家才覺得不像自己', 'g'],
+    ['現場很有精神，什麼都能聊、能做，回到家整個人倒下', 'sacral'],
+    ['很怕冷場，一安靜下來就忍不住找話說', 'throat'],
+    ['有人語氣重一點，你就覺得是在針對你', 'solar']]},
+  { q: '事情一多、截止日一個接一個，你最像？', o: [
+    ['想快點把事情全做完，好擺脫這種被追的感覺', 'root'],
+    ['一直在排計畫、查方法，總覺得還沒想清楚', 'ajna'],
+    ['咬牙全部扛下來，做不到就覺得自己很差', 'ego'],
+    ['身體已經在抗議（頭痛、胃痛、睡不好），還是先放一邊', 'spleen']]},
+  { q: '跟親近的人意見不合時，你通常？', o: [
+    ['先忍下來不想吵，忍到某天突然爆開', 'solar'],
+    ['其實知道自己怎麼想，卻不確定對不對，話又吞回去', 'ajna'],
+    ['一直解釋，很怕對方沒聽懂', 'throat'],
+    ['開始覺得是不是自己不夠好，不值得被好好對待', 'ego']]},
+  { q: '睡前躺在床上，最常讓你睡不著的是？', o: [
+    ['白天的畫面一直重播，或一直替明天先想好各種狀況', 'head'],
+    ['擔心身體、家人、錢，越想越不安', 'spleen'],
+    ['想到還有好多事沒做完，心一直很急', 'root'],
+    ['想著現在的生活，好像不是自己要的樣子', 'g']]},
+  { q: '照顧別人（家人、孩子、同事、個案）的時候，你最常？', o: [
+    ['看到需要就自動扛起來，很難說出「我也需要幫忙」', 'ego'],
+    ['一直做到體力見底，才發現自己早就累了', 'sacral'],
+    ['對方的情緒好像會傳到自己身上，他低落你也跟著沉', 'solar'],
+    ['隨時繃著，怕漏掉什麼、怕出事', 'spleen']]},
+  { q: '想到「接下來的自己」，你心裡比較常出現？', o: [
+    ['「我到底適合什麼？」一直在找方向', 'g'],
+    ['「是不是再上一堂課、再問一位老師，就能找到答案？」', 'head'],
+    ['「準備這麼久了，為什麼還是跨不出去？」', 'root'],
+    ['「等我想清楚、有把握了，再開始吧。」', 'ajna']]}
+];
+
+const LETTERS = ['A', 'B', 'C', 'D'];
+const $ = id => document.getElementById(id);
+
+let answers = [];      // 每題選到的中心 key
+let step = 0;          // 目前題號；等於 QUESTIONS.length 時是同分題
+let tieKeys = [];
+let mainKey = null;
+
+// 小鑰插圖；圖檔還沒放進 images/ 時顯示暫代框
+function figure(key, mood, alt) {
+  const label = `${CENTERS[key].short}・${mood === 'tense' ? '煩躁' : '放鬆'}`;
+  return `<img src="${IMG_DIR}xiaoyue-${key}-${mood}.jpg" alt="${alt}" data-ph="${label}" onerror="phFallback(this)">`;
+}
+function phFallback(img) {
+  const div = document.createElement('div');
+  div.className = 'ph';
+  div.innerHTML = `小鑰插圖<br>${img.dataset.ph}`;
+  img.replaceWith(div);
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.toggle('active', s.id === id));
+  window.scrollTo(0, 0);
+}
+
+function scores() {
+  const s = Object.fromEntries(ORDER.map(k => [k, 0]));
+  answers.forEach(k => { s[k] += 1; });
+  return s;
+}
+
+function renderQuestion() {
+  const isTie = step === QUESTIONS.length;
+  $('bar').style.width = `${(step / (QUESTIONS.length + (isTie ? 1 : 0))) * 100}%`;
+  $('qcount').textContent = isTie ? '最後一題' : `${step + 1} / ${QUESTIONS.length}`;
+  $('backBtn').disabled = step === 0;
+
+  let opts;
+  if (isTie) {
+    $('qTitle').textContent = '這幾句話，哪一句最像你今天的心情？';
+    opts = tieKeys.map(k => [CENTERS[k].tie, k]);
+    $('qFigure').innerHTML = '';
+  } else {
+    $('qTitle').textContent = QUESTIONS[step].q;
+    opts = QUESTIONS[step].o;
+    // 題目頁輪流放不同中心的小鑰，和該題選項無關，作答的人看不出對應
+    $('qFigure').innerHTML = figure(ORDER[(step * 4) % ORDER.length], 'tense', '');
+  }
+  $('options').innerHTML = opts.map(([text, key], i) =>
+    `<button class="option" data-key="${key}"><span class="tag">${isTie ? '・' : LETTERS[i]}</span>${text}</button>`
+  ).join('');
+  $('options').querySelectorAll('.option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      btn.classList.add('picked');
+      setTimeout(() => pick(btn.dataset.key), 180);
+    });
+  });
+}
+
+function pick(key) {
+  if (step === QUESTIONS.length) {
+    mainKey = key;
+    renderResult();
+    return;
+  }
+  answers[step] = key;
+  answers.length = step + 1;
+  step += 1;
+  if (step < QUESTIONS.length) { renderQuestion(); return; }
+
+  const s = scores();
+  const top = Math.max(...Object.values(s));
+  tieKeys = ORDER.filter(k => s[k] === top);
+  if (tieKeys.length > 1) {
+    renderQuestion();
+  } else {
+    mainKey = tieKeys[0];
+    renderResult();
+  }
+}
+
+function goBack() {
+  if (step === 0) return;
+  step -= 1;
+  answers.length = step;
+  renderQuestion();
+}
+
+function lineUrl(text) {
+  return `https://line.me/R/oaMessage/${LINE_ID}/?${encodeURIComponent(text)}`;
+}
+
+function renderResult() {
+  const s = scores();
+  const c = CENTERS[mainKey];
+  const lit = ORDER.filter(k => s[k] >= 2 || k === mainKey);
+
+  $('rCenter').textContent = c.name;
+  $('rTitle').textContent = c.title;
+  $('rTense').innerHTML = figure(mainKey, 'tense', `${c.name}：${c.title}`);
+  $('rLike').textContent = c.like;
+  $('rStrength').textContent = c.strength;
+  $('rStuck').textContent = c.stuck;
+  $('rPart').textContent = `萃取部位：${c.part}`;
+  $('rOil').textContent = c.oil;
+  $('rOilWhy').textContent = c.why;
+  $('rAlt').textContent = c.alt;
+  $('rCalm').innerHTML = figure(mainKey, 'calm', `${c.name}：放鬆下來的小鑰`);
+  $('rAsk').innerHTML = c.ask;
+  $('rAction').textContent = c.action;
+  $('eCenter').textContent = c.name;
+
+  $('gridNote').textContent = lit.length > 1
+    ? `有 ${lit.length} 個地方亮起來，代表你最近真的辛苦了。今天先從${c.name}照顧起。`
+    : `今天先從${c.name}照顧起。`;
+  $('nine').innerHTML = ORDER.map(k => {
+    const cls = ['cell', lit.includes(k) ? 'lit' : '', k === mainKey ? 'main' : ''].join(' ');
+    return `<div class="${cls}">${figure(k, 'tense', '')}${CENTERS[k].short}<span class="score">${'●'.repeat(s[k]) || '・'}</span></div>`;
+  }).join('');
+
+  const litNames = lit.map(k => CENTERS[k].short).join('、');
+  $('lineUnknown').href = lineUrl(`九中心測驗｜主要：${c.name}｜亮起：${litNames}｜我想排盤`);
+
+  document.querySelectorAll('.choice').forEach(b => b.classList.remove('picked'));
+  document.querySelectorAll('.extend-out').forEach(o => o.classList.remove('show'));
+  show('result');
+}
+
+document.querySelectorAll('.choice').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.choice').forEach(b => b.classList.toggle('picked', b === btn));
+    document.querySelectorAll('.extend-out').forEach(o => o.classList.remove('show'));
+    const k = btn.dataset.k;
+    if (k === 'open' || k === 'defined') {
+      // LINE 關鍵字：例「喉嚨中心｜空白」「G中心｜有定義」
+      const name = CENTERS[mainKey].name.replace(' ', '');
+      $('lineKnown').href = lineUrl(`${name}｜${k === 'open' ? '空白' : '有定義'}`);
+      $('outKnown').classList.add('show');
+    } else if (k === 'unknown') {
+      $('outUnknown').classList.add('show');
+    } else {
+      $('outSkip').classList.add('show');
+    }
+  });
+});
+
+function start() {
+  answers = []; step = 0; tieKeys = []; mainKey = null;
+  renderQuestion();
+  show('quiz');
+}
+
+$('startBtn').addEventListener('click', start);
+$('againBtn').addEventListener('click', start);
+$('backBtn').addEventListener('click', goBack);
+$('homeFigures').innerHTML = ['head', 'throat', 'solar'].map(k => figure(k, 'tense', '')).join('');
+</script>
+</body>
+</html>
