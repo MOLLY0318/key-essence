@@ -73,6 +73,8 @@ img { max-width: 100%; display: block; }
 // 精油與複方配對依據：Molly-Agent/100_Todo/projects/精油測驗-引流工具/LINE關鍵字回覆清單.md「擴香複方對照」
 // 選購按鈕用官網選購頁的 ?add=商品代碼，點了會把那一支放進清單
 const SHOP = '../shop.html?add=';
+// 預約在官方 LINE 裡完成，送出關鍵字「預約人類圖陪伴」觸發自動回覆
+const BOOK = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent('預約人類圖陪伴');
 
 const CENTERS = {
   head:   { name: '頭頂中心',   title: '一盞關不掉的燈',   oil: 'EO-091' },
@@ -218,7 +220,7 @@ function render() {
 
       <section class="book">
         <p>想更深入了解自己人類圖的不同面向，歡迎預約人類圖陪伴，線上或實體都可以。</p>
-        <a class="btn ghost" href="../contact.html">預約人類圖陪伴</a>
+        <a class="btn ghost" href="${BOOK}">到官方 LINE 預約人類圖陪伴</a>
       </section>
 
       <p class="foot"><a href="index.html" style="color:inherit">再做一次九大能量中心狀態掃描</a><br>© 鑰．本質 Key Essence</p>

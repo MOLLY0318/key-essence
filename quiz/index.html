@@ -313,7 +313,7 @@ button { font: inherit; cursor: pointer; }
 
     <section class="book">
       <p>想更深入了解自己人類圖的不同面向，歡迎預約<b>人類圖陪伴</b>，線上或實體都可以。</p>
-      <a class="btn block" href="../contact.html">預約人類圖陪伴</a>
+      <a class="btn block" id="bookBtn" href="#">到官方 LINE 預約人類圖陪伴</a>
     </section>
 
     <div class="actions">
@@ -655,6 +655,8 @@ $('copyBtn').addEventListener('click', async () => {
 });
 
 $('lineUnknown').href = lineUrl(LOOKUP_TEXT);
+// 預約在官方 LINE 裡完成（Molly 在 LINE 確認時段與收款），不連到官網預約頁
+$('bookBtn').href = lineUrl('預約人類圖陪伴');
 $('startBtn').addEventListener('click', start);
 $('againBtn').addEventListener('click', start);
 $('backBtn').addEventListener('click', goBack);
