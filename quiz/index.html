@@ -179,6 +179,9 @@ button { font: inherit; cursor: pointer; }
 .line-qr { width: 140px; margin: 0.6rem auto 0; background: #fff; padding: 6px; border-radius: 4px; }
 .privacy { font-size: 0.82rem; color: var(--bluegray); border-top: 1px solid rgba(199, 173, 122, 0.25); padding-top: 0.8rem; margin-top: 1rem; }
 
+.book { text-align: center; padding: 0.4rem 0 1rem; }
+.book p { margin-bottom: 0.8rem; }
+.book b { color: var(--deep); }
 .foot { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 1.4rem 0 2.6rem; text-align: center; }
 .foot p { margin-bottom: 0.6rem; }
 .actions { display: grid; gap: 10px; padding: 0.4rem 0 1.4rem; }
@@ -292,9 +295,8 @@ button { font: inherit; cursor: pointer; }
       </div>
 
       <div class="extend-out" id="outUnknown">
-        <p>到官方 LINE 留下你的<b>西元出生年月日、出生時間（越準越好）、出生地</b>，Molly 會依你的人類圖，搭配這次測驗的結果，親自回覆你更完整的分析和精油建議。</p>
-        <p class="privacy">你的出生資料只用來排盤和回覆你，只有 Molly 會看到，不會提供給其他人。</p>
-        <a class="btn line block" id="lineUnknown" href="#" style="margin-top:1rem;">到官方 LINE 留下出生資料</a>
+        <p>還不知道自己的盤也沒關係。到鑰．本質官方 LINE，會告訴你怎麼<b>免費查詢自己的人類圖</b>；查好之後回覆一句話，就能收到你的延伸解讀。</p>
+        <a class="btn line block" id="lineUnknown" href="#" style="margin-top:1rem;">到官方 LINE 查詢我的盤</a>
       </div>
 
       <div class="extend-out line-fallback" id="outFallback">
@@ -307,6 +309,11 @@ button { font: inherit; cursor: pointer; }
       <div class="extend-out" id="outSkip">
         <p>好的，謝謝你今天停下來看看自己。想再多了解的時候，隨時回來。</p>
       </div>
+    </section>
+
+    <section class="book">
+      <p>想更深入了解自己人類圖的不同面向，歡迎預約<b>人類圖陪伴</b>，線上或實體都可以。</p>
+      <a class="btn block" href="../contact.html">預約人類圖陪伴</a>
     </section>
 
     <div class="actions">
@@ -487,7 +494,8 @@ let answers = [];      // 每題選到的中心 key
 let step = 0;          // 目前題號；等於 QUESTIONS.length 時是同分題
 let tieKeys = [];
 let mainKey = null;
-let unknownText = '';
+// 不知道自己盤的人：固定文字，LINE 用關鍵字完全比對就能自動回覆查詢方式
+const LOOKUP_TEXT = '我想查自己的盤';
 
 // 小鑰插圖；圖檔還沒放進 images/ 時顯示暫代框
 function figure(key, mood, alt) {
@@ -601,9 +609,6 @@ function renderResult() {
     return `<div class="${cls}">${figure(k, 'tense', '')}${CENTERS[k].short}<span class="score">${'●'.repeat(s[k]) || '・'}</span></div>`;
   }).join('');
 
-  const litNames = lit.map(k => CENTERS[k].short).join('、');
-  unknownText = `九中心測驗｜主要：${c.name}｜亮起：${litNames}｜我想排盤`;
-  $('lineUnknown').href = lineUrl(unknownText);
 
   document.querySelectorAll('.choice').forEach(b => b.classList.remove('picked'));
   document.querySelectorAll('.extend-out').forEach(o => o.classList.remove('show'));
@@ -624,7 +629,7 @@ document.querySelectorAll('.choice').forEach(btn => {
       $('outKnown').classList.add('show');
       $('outFallback').classList.add('show');
     } else if (k === 'unknown') {
-      $('lineText').textContent = unknownText;
+      $('lineText').textContent = LOOKUP_TEXT;
       $('outUnknown').classList.add('show');
       $('outFallback').classList.add('show');
     } else {
@@ -649,6 +654,7 @@ $('copyBtn').addEventListener('click', async () => {
   setTimeout(() => { $('copyBtn').textContent = '複製'; }, 2000);
 });
 
+$('lineUnknown').href = lineUrl(LOOKUP_TEXT);
 $('startBtn').addEventListener('click', start);
 $('againBtn').addEventListener('click', start);
 $('backBtn').addEventListener('click', goBack);
