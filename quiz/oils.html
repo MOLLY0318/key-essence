@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>陪你的香氣｜鑰．本質 Key Essence</title>
+<meta name="description" content="人類圖九大能量中心狀態掃描：依你的中心與空白／有定義，推薦一支單方精油和一款擴香複方。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* 色票來源：200_Reference/brand-assets/key-essence/palette.md（與測驗頁相同） */
+:root {
+  --ink: #111B20;
+  --deep: #18252B;
+  --graphite: #26343A;
+  --champagne: #C7AD7A;
+  --brass: #A8895F;
+  --mist: #F5F1EA;
+  --sand: #E8DED1;
+  --umber: #4B443C;
+  --bluegray: #7E8D91;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { overflow-x: hidden; }
+body { background: var(--mist); color: var(--umber); font-family: 'Noto Sans TC', sans-serif; font-size: 1.0625rem; line-height: 1.85; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: 'Noto Serif TC', serif; color: var(--deep); letter-spacing: 0.04em; }
+img { max-width: 100%; display: block; }
+.wrap { max-width: 560px; margin: 0 auto; padding: 0 16px; }
+
+.brand-bar { border-bottom: 1px solid rgba(168, 137, 95, 0.35); }
+.brand-bar .wrap { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand-bar img { height: 40px; width: auto; }
+.brand-bar .brand-name { text-align: right; line-height: 1.25; }
+.brand-bar .brand-name b { display: block; font-family: 'Noto Serif TC', serif; color: var(--deep); font-size: 0.95rem; letter-spacing: 0.12em; }
+.brand-bar .brand-name span { font-size: 0.62rem; letter-spacing: 0.32em; color: var(--brass); }
+
+.hero { background: linear-gradient(180deg, var(--ink), var(--deep)); color: var(--mist); text-align: center; padding: 2.2rem 16px 2.2rem; }
+.hero .eyebrow { font-size: 0.72rem; letter-spacing: 0.32em; color: var(--champagne); margin-bottom: 0.6rem; }
+.hero h1 { color: var(--mist); font-size: 1.7rem; line-height: 1.45; }
+.hero h1 em { font-style: normal; color: var(--champagne); }
+.hero p { color: var(--sand); font-size: 0.95rem; margin-top: 0.6rem; }
+.hero .pic { width: 180px; margin: 1.2rem auto 0; background: #fff; border-radius: 50%; overflow: hidden; }
+.hero .pic img { aspect-ratio: 1; object-fit: cover; }
+
+.oil { background: #fff; border: 1px solid var(--sand); border-radius: 6px; padding: 1.4rem 1.2rem; margin: 1.4rem 0; }
+.oil .kind { font-size: 0.78rem; letter-spacing: 0.2em; color: var(--brass); }
+.oil h2 { font-size: 1.55rem; margin: 0.2rem 0 0.2rem; }
+.oil .meta { font-size: 0.85rem; color: var(--bluegray); margin-bottom: 0.8rem; }
+.oil h3 { font-size: 0.98rem; margin: 1rem 0 0.3rem; }
+.oil h3::before { content: ''; display: inline-block; width: 12px; height: 1px; background: var(--champagne); vertical-align: middle; margin-right: 0.5rem; }
+.oil .tip { background: var(--mist); border-radius: 4px; padding: 0.8rem 0.9rem; font-size: 0.95rem; }
+.btn { display: block; text-align: center; margin-top: 1.1rem; border: 1px solid var(--deep); background: var(--deep); color: var(--mist); padding: 0.8rem 1rem; border-radius: 3px; letter-spacing: 0.1em; text-decoration: none; }
+.btn.ghost { background: transparent; color: var(--deep); }
+.note { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 0.4rem 0 1.2rem; }
+.book { text-align: center; padding: 0.6rem 0 1.4rem; }
+.foot { font-size: 0.78rem; color: var(--bluegray); text-align: center; padding: 1rem 0 2.4rem; }
+.missing { text-align: center; padding: 3rem 0; }
+</style>
+</head>
+<body>
+
+<header class="brand-bar">
+  <div class="wrap">
+    <a href="../index.html"><img src="../images/logo-lockup-black-transparent.png" alt="鑰．本質 Key Essence 官網"></a>
+    <div class="brand-name"><b>鑰．本質</b><span>KEY ESSENCE</span></div>
+  </div>
+</header>
+
+<main id="page"></main>
+
+<script>
+// 精油與複方配對依據：Molly-Agent/100_Todo/projects/精油測驗-引流工具/LINE關鍵字回覆清單.md「擴香複方對照」
+// 選購按鈕用官網選購頁的 ?add=商品代碼，點了會把那一支放進清單
+const SHOP = '../shop.html?add=';
+
+const CENTERS = {
+  head:   { name: '頭頂中心',   title: '一盞關不掉的燈',   oil: 'EO-091' },
+  ajna:   { name: '邏輯中心',   title: '想先拿到地圖的人', oil: 'EO-013' },
+  throat: { name: '喉嚨中心',   title: '一個想被聽見的聲音', oil: 'EO-025' },
+  g:      { name: 'G 中心',     title: '在找回家的路',     oil: 'EO-056' },
+  ego:    { name: '意志力中心', title: '一直撐著的肩膀',   oil: 'EO-010' },
+  sacral: { name: '薦骨中心',   title: '燒到最後的柴火',   oil: 'EO-029' },
+  solar:  { name: '情緒中心',   title: '快滿出來的水杯',   oil: 'EO-007' },
+  spleen: { name: '直覺中心',   title: '一直守夜的哨兵',   oil: 'EO-050' },
+  root:   { name: '根部中心',   title: '被追著跑的腳步',   oil: 'EO-093' }
+};
+
+// 單方精油：與測驗結果頁同一支
+const OILS = {
+  'EO-091': { name: '岩蘭草', part: '根', size: '5ml',
+    why: '根是植物的神經系統，往下扎進土裡。岩蘭草沉穩、帶著泥土的氣味，陪你把一直往上衝的思緒，慢慢帶回地面。',
+    use: '把一直想的那件事寫在紙上，寫完對自己說「先放在這裡」。滴一滴岩蘭草在面紙上，慢慢聞三次。' },
+  'EO-013': { name: '桉油醇羅文莎葉', part: '葉', size: '10ml',
+    why: '它像一陣爽朗的風，吹過之後，腦袋清楚了，也比較抓得到重點。不是想得更多，而是讓你看見最重要的那一件事。',
+    use: '給自己 10 分鐘不查、不問、不排計畫。聞著桉油醇羅文莎葉，深呼吸三次，對自己說「我現在不用知道答案」。' },
+  'EO-025': { name: '甜橙', part: '果皮', size: '10ml',
+    why: '果皮把香氣自然散發出去，不用喊，人就會靠近。它陪你相信：你不用急著說，也會被聽見。',
+    use: '想開口之前，先聞一聞甜橙，安靜地呼吸三次。今天試一次：等別人問了再說。' },
+  'EO-056': { name: '真正薰衣草', part: '花', size: '5ml',
+    why: '花對應的是「我是不是被喜歡、被愛」。它陪你先在自己身上，感覺到被好好對待的感覺。',
+    use: '找一個讓身體覺得舒服的角落，坐下來聞一聞真正薰衣草，感覺一下這個空間對你來說對不對。' },
+  'EO-010': { name: '大西洋雪松', part: '莖幹', size: '10ml',
+    why: '莖幹是植物的支撐，也是撐著的力氣。它陪你感覺到：你本來就站得住，不需要一直證明。',
+    use: '寫下今天答應的事，看看有沒有一件其實不是你想做的。聞著大西洋雪松，坐直，讓肩膀慢慢放下來。' },
+  'EO-029': { name: '芫荽', part: '種子', size: '10ml',
+    why: '種子對應原本很有動力、後來被消磨的力氣。芫荽溫暖、帶點甜香，陪你把力氣先留給自己，等它慢慢長回來。',
+    use: '今天在還沒累垮之前，先躺下 10 分鐘。把芫荽滴在面紙上，放在枕頭旁邊聞就好。' },
+  'EO-007': { name: '乳香', part: '樹脂', size: '5ml',
+    why: '樹脂是植物受傷後流出來、把傷口封住的東西。它陪你和心裡的傷待在一起，讓情緒有地方流動。',
+    use: '聞著乳香，慢慢吐氣三次。把心裡的話手寫出來，不分析、不修改，寫完就好。' },
+  'EO-050': { name: '歐洲洋杜松', part: '枝條與果實', size: '5ml',
+    why: '歐洲洋杜松用枝條和果實一起萃取。枝條是植物的防禦和界線，果實照顧的是求生的本能和膽小。它陪你分清楚：哪些害怕是身體真的在提醒你，哪些可以先放下。',
+    use: '把手放在身體最緊的地方，聞三次歐洲洋杜松，問問身體：「你真正想提醒我的是什麼？」' },
+  'EO-093': { name: '生薑', part: '根', size: '5ml',
+    why: '根是往下扎的力量。生薑溫暖又帶著推力，陪你先站穩，再把準備好的自己推出去。',
+    use: '雙腳踩在地上，聞一聞生薑。把待辦分成兩欄：「今天真的要做」和「只是想快點擺脫」，從第一欄挑一件，現在就做第一步。' }
+};
+
+// 普羅芳 ARÔME 擴香複方（成分依法國販售頁，以瓶身標籤為準）
+const BLENDS = {
+  'AR-002': { name: '冥想', mood: '沉靜、深遠的木質與樹脂香',
+    with: '穗甘松、乳香、錫蘭肉桂、廣藿香、甜橙、萊姆、佛手柑' },
+  'AR-003': { name: '陽光橙橘', mood: '明亮、清新的柑橘香',
+    with: '檸檬、佛手柑、萊姆、甜橙、紅橘、苦橙葉、綠薄荷、八角' },
+  'AR-004': { name: '普羅旺斯', mood: '柔和的花草與木質香',
+    with: '薰衣草、迷迭香、松' },
+  'AR-005': { name: '活力能量', mood: '清爽、通透的葉片香',
+    with: '松、桉油醇羅文莎葉、薄荷、尤加利' },
+  'AR-006': { name: '貴族尤加利', mood: '森林般清新、沉穩的木質香',
+    with: '大西洋雪松、尤加利、歐洲赤松、野薄荷、胡椒薄荷、馬鬱蘭、岩蘭草' },
+  'AR-007': { name: '禪', mood: '柑橘與雪松的安靜香氣',
+    with: '甜橙、山雞椒、大西洋雪松、紅橘' },
+  'AR-008': { name: '甜睡眠', mood: '溫柔的花香與柑橘香',
+    with: '真正薰衣草、醒目薰衣草、羅馬洋甘菊、苦橙葉、甜橙、紅橘、佛手柑' },
+  'AR-009': { name: '生活享受', mood: '溫暖、像家一樣的花香',
+    with: '依蘭、大馬士革玫瑰、香草、甜橙、芳樟、錫蘭肉桂、廣藿香' },
+  'AR-010': { name: '甜蜜舒適時光', mood: '香草與肉桂的甜暖香氣',
+    with: '香草、錫蘭肉桂、依蘭、檀香、大西洋雪松、芳樟、醒目薰衣草、佛手柑、紅橘、甜橙' },
+  'AR-011': { name: '豐盛富足', mood: '溫暖、有推力的辛香',
+    with: '生薑、錫蘭肉桂、黑胡椒、甜橙、香脂冷杉、萊姆、藏茴香、小荳蔻、丁香、月桂' }
+};
+
+// 空白：接收來的，給比較沉、安定的；有定義：自己的能量卡住，給比較明亮、有推動力的
+const PAIRS = {
+  head:   { open: ['AR-002', '沉靜下來，讓接收來的思緒先停一停。'],
+            defined: ['AR-006', '清爽通透，讓自己的想法有出口。裡面也有岩蘭草，跟你的單方同一個方向。'] },
+  ajna:   { open: ['AR-004', '薰衣草的柔，陪你接受「現在還不確定」也沒關係。'],
+            defined: ['AR-005', '清爽有力，陪你把已經知道的說出來。'] },
+  throat: { open: ['AR-007', '安靜下來，等被問的時候再說。'],
+            defined: ['AR-003', '明亮外放，陪你把一直沒說出口的話說出來。'] },
+  g:      { open: ['AR-009', '先讓空間變得溫暖、對味，對的地方會帶出對的方向。'],
+            defined: ['AR-008', '先休息，回到自己的節奏。'] },
+  ego:    { open: ['AR-010', '被好好撫慰，你不需要證明什麼。'],
+            defined: ['AR-007', '撐得住的人，也要讓自己靜下來。'] },
+  sacral: { open: ['AR-008', '借來的能量用完了，先躺下來充電。'],
+            defined: ['AR-011', '把自己的動力找回來，用在真正想做的事。'] },
+  solar:  { open: ['AR-002', '有乳香陪著，比較不容易被別人的情緒帶走。'],
+            defined: ['AR-010', '情緒像潮汐，被撫慰著，等它流過去。'] },
+  spleen: { open: ['AR-006', '淨化、守住界線，讓別人的擔心留在外面。'],
+            defined: ['AR-005', '支持身體自己的力量，好好聽身體的提醒。'] },
+  root:   { open: ['AR-002', '別人的時間壓力，先讓自己停下來。'],
+            defined: ['AR-011', '把自己的推動力，用在準備好的那一步。'] }
+};
+
+function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+function render() {
+  const q = new URLSearchParams(location.search);
+  const key = q.get('c');
+  const state = q.get('s') === 'defined' ? 'defined' : 'open';
+  const c = CENTERS[key];
+  const page = document.getElementById('page');
+  if (!c) {
+    page.innerHTML = '<div class="wrap missing"><p>找不到這個中心的推薦。</p><a class="btn" href="index.html">去做九大能量中心狀態掃描</a></div>';
+    return;
+  }
+  const oil = OILS[c.oil];
+  const [blendId, reason] = PAIRS[key][state];
+  const blend = BLENDS[blendId];
+  const label = state === 'open' ? '空白' : '有定義';
+  document.title = `${c.name}｜${label}・陪你的香氣｜鑰．本質 Key Essence`;
+
+  page.innerHTML = `
+    <section class="hero">
+      <div class="eyebrow">陪你的香氣</div>
+      <h1>${esc(c.name)}<em>｜</em>${label}</h1>
+      <p>${esc(c.title)}</p>
+      <div class="pic"><img src="images/xiaoyue-${key}-calm.jpg" alt="${esc(c.name)}：放鬆下來的小鑰"></div>
+    </section>
+    <div class="wrap">
+      <section class="oil">
+        <div class="kind">① 單方精油</div>
+        <h2>${esc(oil.name)}</h2>
+        <div class="meta">萃取部位：${esc(oil.part)}・${esc(oil.size)}</div>
+        <h3>為什麼是它</h3>
+        <p>${esc(oil.why)}</p>
+        <h3>今天可以這樣用</h3>
+        <p class="tip">${esc(oil.use)}</p>
+        <a class="btn" href="${SHOP + c.oil}">選購 ${esc(oil.name)}</a>
+      </section>
+
+      <section class="oil">
+        <div class="kind">② 想用擴香的話</div>
+        <h2>${esc(blend.name)} 複方</h2>
+        <div class="meta">普羅芳擴香複方・30ml・${esc(blend.mood)}</div>
+        <h3>為什麼適合${label}的你</h3>
+        <p>${esc(reason)}</p>
+        <h3>配方裡有</h3>
+        <p>${esc(blend.with)}</p>
+        <h3>怎麼用</h3>
+        <p class="tip">滴 3～5 滴在不加熱的擴香儀裡，大約適合 9～15 平方公尺的房間。</p>
+        <a class="btn" href="${SHOP + blendId}">選購 ${esc(blend.name)} 複方</a>
+      </section>
+
+      <p class="note">選購按鈕會打開鑰．本質的精油選購頁，把這一支放進清單，確認後再傳給 Molly，不會直接扣款。<br>
+      精油以嗅聞為主；要塗抹在皮膚上請先稀釋。擴香時，2 歲以下孩子的房間先不要用；懷孕、哺乳、嬰幼兒、氣喘、癲癇、慢性病或正在服藥的人，使用前請先諮詢專業人員。複方成分以瓶身標籤為準。</p>
+
+      <section class="book">
+        <p>想更深入了解自己人類圖的不同面向，歡迎預約人類圖陪伴，線上或實體都可以。</p>
+        <a class="btn ghost" href="../contact.html">預約人類圖陪伴</a>
+      </section>
+
+      <p class="foot"><a href="index.html" style="color:inherit">再做一次九大能量中心狀態掃描</a><br>© 鑰．本質 Key Essence</p>
+    </div>`;
+}
+
+render();
+</script>
+</body>
+</html>
