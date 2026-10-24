@@ -102,6 +102,8 @@ button { font: inherit; cursor: pointer; }
 .q-figure { width: 120px; margin: 0.6rem auto 0.4rem; }
 .q-figure img { aspect-ratio: 1; object-fit: contain; }
 .q-title { font-size: 1.3rem; line-height: 1.6; margin: 0.6rem 0 1.2rem; }
+.q-intro { background: var(--sand); border-radius: 4px; padding: 0.9rem 1rem; color: var(--umber); font-size: 0.95rem; line-height: 1.8; margin-top: 0.8rem; }
+.q-intro:empty { display: none; }
 .options { display: grid; gap: 10px; }
 .option {
   text-align: left;
@@ -228,6 +230,7 @@ button { font: inherit; cursor: pointer; }
       <div class="qcount" id="qcount"></div>
     </div>
     <div class="q-figure" id="qFigure"></div>
+    <p class="q-intro" id="qIntro"></p>
     <h2 class="q-title" id="qTitle"></h2>
     <div class="options" id="options"></div>
     <p class="hint">沒有對錯，選最像你最近的那一個</p>
@@ -508,10 +511,13 @@ function renderQuestion() {
 
   let opts;
   if (isTie) {
-    $('qTitle').textContent = '這幾句話，哪一句最像你今天的心情？';
+    // 同分時的說明不提中心名稱（Molly 2026-10-24 決定），只請他挑最想先解決的
+    $('qIntro').textContent = '看起來，最近讓你煩心的事不只一件，有幾個地方的感受一樣強。我們先從你最想解決、最讓你煩惱的那一個開始。';
+    $('qTitle').textContent = '這幾句話裡，哪一句是你現在最想先解決的？';
     opts = tieKeys.map(k => [CENTERS[k].tie, k]);
     $('qFigure').innerHTML = '';
   } else {
+    $('qIntro').textContent = '';
     $('qTitle').textContent = QUESTIONS[step].q;
     opts = QUESTIONS[step].o;
     // 題目頁輪流放不同中心的小鑰，和該題選項無關，作答的人看不出對應
