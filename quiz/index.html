@@ -2,6 +2,14 @@
 <html lang="zh-Hant-TW">
 <head>
 <meta charset="UTF-8">
+<!-- Google Analytics（2026-10-24 Molly 建立）：看人數、來源（網址帶 utm_source）、做完與點 LINE 的人數 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LNQ1JPQNY9"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-LNQ1JPQNY9');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
 <title>最近，哪裡最累？｜鑰．本質 Key Essence</title>
@@ -711,6 +719,7 @@ function renderResult() {
 
   document.querySelectorAll('.choice').forEach(b => b.classList.remove('picked'));
   document.querySelectorAll('.extend-out').forEach(o => o.classList.remove('show'));
+  track('quiz_complete', { center: mainKey });
   show('result');
 }
 
@@ -737,7 +746,17 @@ document.querySelectorAll('.choice').forEach(btn => {
   });
 });
 
+// 統計事件：開始作答、做完（帶主要中心）、點 LINE、點預約；GA 沒載入時什麼都不做
+function track(name, params) {
+  if (typeof gtag === 'function') gtag('event', name, params || {});
+}
+
+$('lineKnown').addEventListener('click', () => track('click_line', { center: mainKey, type: 'known' }));
+$('lineUnknown').addEventListener('click', () => track('click_line', { center: mainKey, type: 'unknown' }));
+$('bookBtn').addEventListener('click', () => track('click_book', { center: mainKey }));
+
 function start() {
+  track('quiz_start');
   answers = []; step = 0; tieKeys = []; mainKey = null;
   QUESTIONS = drawQuestions();
   renderQuestion();
