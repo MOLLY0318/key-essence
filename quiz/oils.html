@@ -56,6 +56,10 @@ img { max-width: 100%; display: block; }
 .read .tip { background: var(--sand); border-radius: 4px; padding: 0.9rem 1rem; margin-bottom: 1rem; }
 .btn { display: block; text-align: center; margin-top: 1.1rem; border: 1px solid var(--deep); background: var(--deep); color: var(--mist); padding: 0.8rem 1rem; border-radius: 3px; letter-spacing: 0.1em; text-decoration: none; }
 .btn.ghost { background: transparent; color: var(--deep); }
+.oil.next p { font-size: 1rem; margin-top: 0.4rem; }
+.oil.next b { font-family: 'Noto Serif TC', serif; color: var(--deep); }
+.back { padding: 1rem 0 0; font-size: 0.92rem; }
+.back a { color: var(--brass); text-decoration: none; }
 .note { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 0.4rem 0 1.2rem; }
 .book { text-align: center; padding: 0.6rem 0 1.4rem; }
 .foot { font-size: 0.78rem; color: var(--bluegray); text-align: center; padding: 1rem 0 2.4rem; }
@@ -224,15 +228,29 @@ function render() {
   const [blendId, reason] = PAIRS[key][state];
   const blend = BLENDS[blendId];
   const label = state === 'open' ? '空白' : '有定義';
-  document.title = `${c.name}｜${label}・陪你的香氣｜鑰．本質 Key Essence`;
+  // 兩種內容：預設是「延伸解讀」（不放商品）；v=oil 是「深入了解」精油介紹＋選購（Molly 2026-10-24 要求分開）
+  const isOil = q.get('v') === 'oil';
+  const base = `?c=${key}&s=${state}`;
+  document.title = `${c.name}｜${label}・${isOil ? '陪你的香氣' : '延伸解讀'}｜鑰．本質 Key Essence`;
 
-  page.innerHTML = `
+  const hero = `
     <section class="hero">
-      <div class="eyebrow">延伸解讀・陪你的香氣</div>
+      <div class="eyebrow">${isOil ? '深入了解・陪你的香氣' : '延伸解讀'}</div>
       <h1>${esc(c.name)}<em>｜</em>${label}</h1>
       <p>${esc(c.title)}</p>
       <div class="pic"><img src="images/xiaoyue-${key}-calm.jpg" alt="${esc(c.name)}：放鬆下來的小鑰"></div>
-    </section>
+    </section>`;
+  const tail = `
+      <section class="book">
+        <p>想更深入了解自己人類圖的不同面向，歡迎預約人類圖陪伴，線上或實體都可以。</p>
+        <a class="btn ghost" href="${BOOK}">到官方 LINE 預約人類圖陪伴</a>
+      </section>
+
+      <p class="foot"><a href="index.html" style="color:inherit">再做一次九大能量中心狀態掃描</a><br>© 鑰．本質 Key Essence</p>
+    </div>`;
+
+  if (!isOil) {
+    page.innerHTML = hero + `
     <div class="wrap">
       <section class="read">
         <h3>你的${esc(c.name)}是${label}</h3>
@@ -244,6 +262,18 @@ function render() {
         <p class="ask">${esc(c.ask)}</p>
         <p class="tip">${esc(oil.use)}</p>
       </section>
+
+      <section class="oil next">
+        <div class="kind">陪你的香氣</div>
+        <p>單方：<b>${esc(oil.name)}</b>　擴香：<b>${esc(blend.name)} 複方</b></p>
+        <a class="btn" href="${base}&v=oil">深入了解這兩支精油 ›</a>
+      </section>` + tail;
+    return;
+  }
+
+  page.innerHTML = hero + `
+    <div class="wrap">
+      <p class="back"><a href="${base}">‹ 回到延伸解讀</a></p>
 
       <section class="oil">
         <div class="kind">① 單方精油</div>
@@ -271,14 +301,7 @@ function render() {
 
       <p class="note">選購按鈕會打開鑰．本質的精油選購頁，把這一支放進清單，確認後再傳給 Molly，不會直接扣款。<br>
       精油以嗅聞為主；要塗抹在皮膚上請先稀釋。擴香時，2 歲以下孩子的房間先不要用；懷孕、哺乳、嬰幼兒、氣喘、癲癇、慢性病或正在服藥的人，使用前請先諮詢專業人員。複方成分以瓶身標籤為準。</p>
-
-      <section class="book">
-        <p>想更深入了解自己人類圖的不同面向，歡迎預約人類圖陪伴，線上或實體都可以。</p>
-        <a class="btn ghost" href="${BOOK}">到官方 LINE 預約人類圖陪伴</a>
-      </section>
-
-      <p class="foot"><a href="index.html" style="color:inherit">再做一次九大能量中心狀態掃描</a><br>© 鑰．本質 Key Essence</p>
-    </div>`;
+      <p class="back"><a href="${base}">‹ 回到延伸解讀</a></p>` + tail;
 }
 
 render();
