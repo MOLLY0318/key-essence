@@ -317,9 +317,11 @@
       picked[m[1]] = { qty: Math.max(1, parseInt(m[2] || '1', 10)) };
     });
     if (!Object.keys(picked).length) return false;
-    cart = picked;
+    // merge=1（測驗介紹頁用）：加進原本的清單；沒帶時維持 Molly 傳連結的用法，整個換成指定品項
+    cart = params.get('merge') === '1' ? Object.assign({}, cart, picked) : picked;
     saveCart();
     params.delete('add');
+    params.delete('merge');
     const rest = params.toString();
     history.replaceState(null, '', location.pathname + (rest ? '?' + rest : '') + location.hash);
     return true;
@@ -349,6 +351,11 @@
       const note = document.getElementById('cartLinkNote');
       if (note) note.style.display = 'block';
     }
+
+    document.getElementById('cartKeepShopping').addEventListener('click', function () {
+      closeCartModal();
+      document.getElementById('shopFilter').scrollIntoView({ block: 'start' });
+    });
 
     document.getElementById('cartFab').addEventListener('click', openCartModal);
     document.getElementById('cartModalClose').addEventListener('click', closeCartModal);

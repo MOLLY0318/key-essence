@@ -58,6 +58,10 @@ img { max-width: 100%; display: block; }
 .btn.ghost { background: transparent; color: var(--deep); }
 .oil.next p { font-size: 1rem; margin-top: 0.4rem; }
 .oil.next b { font-family: 'Noto Serif TC', serif; color: var(--deep); }
+.alts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 0.6rem; }
+.chip { border: 1px solid var(--brass); color: var(--brass); border-radius: 20px; padding: 0.3rem 0.9rem; font-size: 0.9rem; text-decoration: none; background: #fff; }
+.more-shop { padding: 0.2rem 0 0.6rem; }
+.more-shop .btn { margin-top: 0.7rem; }
 .back { padding: 1rem 0 0; font-size: 0.92rem; }
 .back a { color: var(--brass); text-decoration: none; }
 .note { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 0.4rem 0 1.2rem; }
@@ -80,7 +84,8 @@ img { max-width: 100%; display: block; }
 <script>
 // 精油與複方配對依據：Molly-Agent/100_Todo/projects/精油測驗-引流工具/LINE關鍵字回覆清單.md「擴香複方對照」
 // 選購按鈕用官網選購頁的 ?add=商品代碼，點了會把那一支放進清單
-const SHOP = '../shop.html?add=';
+// 選購：加進清單（merge=1，保留已經選的品項），再打開官網選購頁
+const buy = ids => `../shop.html?add=${ids.join(',')}&merge=1`;
 // 預約在官方 LINE 裡完成，送出關鍵字「預約人類圖陪伴」觸發自動回覆
 const BOOK = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent('預約人類圖陪伴');
 
@@ -128,12 +133,20 @@ const EXPLAIN = {
             defined: '你有穩定的推動力，也容易一直處在衝刺狀態。給自己一段不用趕的時間，讓身體從加速裡慢下來。' }
 };
 
-// 也可以選（原本在測驗結果頁，2026-10-24 移到這裡）
+// 也可以選（原本在測驗結果頁，2026-10-24 移到這裡）：[名稱, 商品代碼]，每支都可以直接加進清單
 const ALT = {
-  'EO-091': '纈草', 'EO-013': '綠花白千層、桉油醇迷迭香', 'EO-025': '葡萄柚、佛手柑',
-  'EO-056': '橙花、大馬士革玫瑰', 'EO-010': '檀香、黑胡椒', 'EO-029': '芹菜籽、野胡蘿蔔',
-  'EO-007': '沒藥、安息香', 'EO-050': '馬鬱蘭、廣藿香', 'EO-093': '岩蘭草（被追著跑、需要先停下來的時候）'
+  'EO-091': [['纈草', 'EO-092']],
+  'EO-013': [['綠花白千層', 'EO-063'], ['桉油醇迷迭香', 'EO-081']],
+  'EO-025': [['葡萄柚', 'EO-023'], ['佛手柑', 'EO-020']],
+  'EO-056': [['橙花', 'EO-018'], ['大馬士革玫瑰', 'EO-080']],
+  'EO-010': [['檀香', 'EO-086'], ['黑胡椒', 'EO-077']],
+  'EO-029': [['芹菜籽', 'EO-004'], ['野胡蘿蔔', 'EO-038']],
+  'EO-007': [['沒藥', 'EO-028'], ['安息香', 'EO-084']],
+  'EO-050': [['馬鬱蘭', 'EO-072'], ['廣藿香', 'EO-079']],
+  'EO-093': [['岩蘭草', 'EO-091']]
 };
+// 生薑的「也可以選」岩蘭草有使用時機的說明
+const ALT_NOTE = { 'EO-093': '被追著跑、需要先停下來的時候，可以改用岩蘭草。' };
 
 // 單方精油：與測驗結果頁同一支
 const OILS = {
@@ -282,8 +295,9 @@ function render() {
         <h3>為什麼是它</h3>
         <p>${esc(oil.why)}</p>
         <h3>也可以選</h3>
-        <p>${esc(ALT[c.oil])}。家裡有其中一支就可以，聞聞看，選你最喜歡的那個味道。</p>
-        <a class="btn" href="${SHOP + c.oil}">選購 ${esc(oil.name)}</a>
+        <p>${ALT_NOTE[c.oil] ? esc(ALT_NOTE[c.oil]) : '家裡有其中一支就可以，聞聞看，選你最喜歡的那個味道。'}</p>
+        <div class="alts">${ALT[c.oil].map(([n, id]) => `<a class="chip" href="${buy([id])}">選購 ${esc(n)}</a>`).join('')}</div>
+        <a class="btn" href="${buy([c.oil])}">選購 ${esc(oil.name)}</a>
       </section>
 
       <section class="oil">
@@ -296,10 +310,15 @@ function render() {
         <p>${esc(blend.with)}</p>
         <h3>怎麼用</h3>
         <p class="tip">滴 3～5 滴在不加熱的擴香儀裡，大約適合 9～15 平方公尺的房間。</p>
-        <a class="btn" href="${SHOP + blendId}">選購 ${esc(blend.name)} 複方</a>
+        <a class="btn" href="${buy([blendId])}">選購 ${esc(blend.name)} 複方</a>
       </section>
 
-      <p class="note">選購按鈕會打開鑰．本質的精油選購頁，把這一支放進清單，確認後再傳給 Molly，不會直接扣款。<br>
+      <section class="more-shop">
+        <a class="btn" href="${buy([c.oil, blendId])}">單方＋擴香一起選購</a>
+        <a class="btn ghost" href="../shop.html">還想看看其他精油 ›</a>
+      </section>
+
+      <p class="note">選購按鈕會打開鑰．本質的精油選購頁，把選的品項加進清單（已經選的會保留），還可以繼續挑其他品項，確認後再傳給 Molly，不會直接扣款。<br>
       精油以嗅聞為主；要塗抹在皮膚上請先稀釋。擴香時，2 歲以下孩子的房間先不要用；懷孕、哺乳、嬰幼兒、氣喘、癲癇、慢性病或正在服藥的人，使用前請先諮詢專業人員。複方成分以瓶身標籤為準。</p>
       <p class="back"><a href="${base}">‹ 回到延伸解讀</a></p>` + tail;
 }
