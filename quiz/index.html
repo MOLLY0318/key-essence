@@ -571,8 +571,21 @@ const VERSION_C = [
 const QUESTION_BANK = VERSION_A.map((q, i) => [q, VERSION_B[i], VERSION_C[i]]);
 let QUESTIONS = [];    // 這次作答抽到的 9 題，start() 時每個題位隨機抽一版
 
+// 選項順序也每次打亂，避免有人習慣選同一個位置；在抽題時就排好，按「上一題」回去順序不會變
+function shuffled(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 function drawQuestions() {
-  return QUESTION_BANK.map(vs => vs[Math.floor(Math.random() * vs.length)]);
+  return QUESTION_BANK.map(vs => {
+    const q = vs[Math.floor(Math.random() * vs.length)];
+    return { q: q.q, o: shuffled(q.o) };
+  });
 }
 
 const LETTERS = ['A', 'B', 'C', 'D'];
