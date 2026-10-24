@@ -123,10 +123,15 @@ button { font: inherit; cursor: pointer; }
 /* 結果頁 */
 .result-hero h2 { font-size: 1.65rem; line-height: 1.45; }
 .result-hero .center-name { color: var(--champagne); font-size: 0.95rem; letter-spacing: 0.2em; }
-.result-figure { width: 220px; margin: 1.4rem auto 0; background: var(--mist); border-radius: 8px; padding: 8px; }
+.result-figure { width: 170px; margin: 1.4rem auto 0; background: var(--mist); border-radius: 8px; padding: 8px; }
 .result-figure img { aspect-ratio: 1; object-fit: contain; }
 
-.grid-wrap { padding: 2rem 0 0.6rem; text-align: center; }
+.sum { padding: 1.4rem 0 0.4rem; }
+.sum p { margin-bottom: 0.9rem; line-height: 1.8; }
+.sum b { display: block; font-family: 'Noto Serif TC', serif; color: var(--brass); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em; }
+.sum .oil-line .oil-name { font-family: 'Noto Serif TC', serif; font-size: 1.25rem; color: var(--deep); }
+.sum .oil-line .oil-part { font-size: 0.85rem; color: var(--bluegray); margin-left: 0.3rem; }
+.grid-wrap { padding: 0.6rem 0 0.6rem; text-align: center; }
 .grid-wrap h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
 .grid-wrap .meta { margin-bottom: 1rem; }
 .nine { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
@@ -240,48 +245,17 @@ button { font: inherit; cursor: pointer; }
   </section>
 
   <div class="wrap">
-    <section class="grid-wrap">
-      <h3>你的九宮狀態</h3>
-      <p class="meta" id="gridNote"></p>
-      <div class="nine" id="nine"></div>
-    </section>
-
-    <section class="block">
-      <h3>你最近可能是這樣</h3>
-      <p id="rLike"></p>
-    </section>
-    <section class="block">
-      <h3>這份敏感的另一面</h3>
-      <p id="rStrength"></p>
-    </section>
-    <section class="block">
-      <h3>容易卡住的地方</h3>
-      <p id="rStuck"></p>
-    </section>
-    <section class="block">
-      <h3>陪你的精油</h3>
-      <div class="oil-card">
-        <div>
-          <div class="oil-part" id="rPart"></div>
-          <div class="oil-name" id="rOil"></div>
-          <p id="rOilWhy" style="margin-top:0.5rem;"></p>
-        </div>
-        <div id="rCalm"></div>
-      </div>
-      <p class="alt-oils"><b>也可以選：</b><span id="rAlt"></span><br>家裡有其中一支就可以，聞聞看，選你最喜歡的那個味道。</p>
-    </section>
-    <section class="block">
-      <h3>今天問自己一句話</h3>
-      <p class="ask" id="rAsk"></p>
-    </section>
-    <section class="block">
-      <h3>一個小動作</h3>
-      <p class="gentle" id="rAction"></p>
+    <!-- 結果頁只留「被看見」的部分；怎麼照顧自己、精油用法移到 LINE 延伸解讀與介紹頁 oils.html -->
+    <section class="sum">
+      <p><b>你最近可能是這樣</b><span id="rLike"></span></p>
+      <p><b>這份敏感的另一面</b><span id="rStrength"></span></p>
+      <p><b>容易卡住的地方</b><span id="rStuck"></span></p>
+      <p class="oil-line"><b>陪你的精油</b><span class="oil-name" id="rOil"></span><span class="oil-part" id="rPart"></span></p>
     </section>
 
     <section class="extend">
-      <h3>想知道這份狀態，是你自己的，<br>還是從環境接收來的嗎？</h3>
-      <p>你的<b id="eCenter"></b>在人類圖上是空白，還是有定義？</p>
+      <h3>想知道這份狀態從哪裡來，<br>這週可以怎麼照顧它嗎？</h3>
+      <p>你的<b id="eCenter"></b>在人類圖上是空白，還是有定義？選一個，到官方 LINE 看你的延伸解讀。</p>
       <div class="choice-row">
         <button class="choice" data-k="open">空白</button>
         <button class="choice" data-k="defined">有定義</button>
@@ -309,6 +283,12 @@ button { font: inherit; cursor: pointer; }
       <div class="extend-out" id="outSkip">
         <p>好的，謝謝你今天停下來看看自己。想再多了解的時候，隨時回來。</p>
       </div>
+    </section>
+
+    <section class="grid-wrap">
+      <h3>你的九宮狀態</h3>
+      <p class="meta" id="gridNote"></p>
+      <div class="nine" id="nine"></div>
     </section>
 
     <section class="book">
@@ -592,13 +572,8 @@ function renderResult() {
   $('rLike').textContent = c.like;
   $('rStrength').textContent = c.strength;
   $('rStuck').textContent = c.stuck;
-  $('rPart').textContent = `萃取部位：${c.part}`;
+  $('rPart').textContent = `（${c.part}）`;
   $('rOil').textContent = c.oil;
-  $('rOilWhy').textContent = c.why;
-  $('rAlt').textContent = c.alt;
-  $('rCalm').innerHTML = figure(mainKey, 'calm', `${c.name}：放鬆下來的小鑰`);
-  $('rAsk').innerHTML = c.ask;
-  $('rAction').textContent = c.action;
   $('eCenter').textContent = c.name;
 
   $('gridNote').textContent = lit.length > 1

@@ -50,6 +50,10 @@ img { max-width: 100%; display: block; }
 .oil h3 { font-size: 0.98rem; margin: 1rem 0 0.3rem; }
 .oil h3::before { content: ''; display: inline-block; width: 12px; height: 1px; background: var(--champagne); vertical-align: middle; margin-right: 0.5rem; }
 .oil .tip { background: var(--mist); border-radius: 4px; padding: 0.8rem 0.9rem; font-size: 0.95rem; }
+.read { padding: 1.5rem 0 0.4rem; border-bottom: 1px solid rgba(168, 137, 95, 0.25); }
+.read h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.read .ask { font-family: 'Noto Serif TC', serif; color: var(--deep); font-size: 1.05rem; text-align: center; padding: 0.4rem 0.2rem 0.8rem; }
+.read .tip { background: var(--sand); border-radius: 4px; padding: 0.9rem 1rem; margin-bottom: 1rem; }
 .btn { display: block; text-align: center; margin-top: 1.1rem; border: 1px solid var(--deep); background: var(--deep); color: var(--mist); padding: 0.8rem 1rem; border-radius: 3px; letter-spacing: 0.1em; text-decoration: none; }
 .btn.ghost { background: transparent; color: var(--deep); }
 .note { font-size: 0.8rem; color: var(--bluegray); line-height: 1.8; padding: 0.4rem 0 1.2rem; }
@@ -76,16 +80,55 @@ const SHOP = '../shop.html?add=';
 // 預約在官方 LINE 裡完成，送出關鍵字「預約人類圖陪伴」觸發自動回覆
 const BOOK = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent('預約人類圖陪伴');
 
+// ask：今天問自己一句話（萃取部位×人類圖中心框架的覺察問題，原本在測驗結果頁，2026-10-24 移到這裡）
 const CENTERS = {
-  head:   { name: '頭頂中心',   title: '一盞關不掉的燈',   oil: 'EO-091' },
-  ajna:   { name: '邏輯中心',   title: '想先拿到地圖的人', oil: 'EO-013' },
-  throat: { name: '喉嚨中心',   title: '一個想被聽見的聲音', oil: 'EO-025' },
-  g:      { name: 'G 中心',     title: '在找回家的路',     oil: 'EO-056' },
-  ego:    { name: '意志力中心', title: '一直撐著的肩膀',   oil: 'EO-010' },
-  sacral: { name: '薦骨中心',   title: '燒到最後的柴火',   oil: 'EO-029' },
-  solar:  { name: '情緒中心',   title: '快滿出來的水杯',   oil: 'EO-007' },
-  spleen: { name: '直覺中心',   title: '一直守夜的哨兵',   oil: 'EO-050' },
-  root:   { name: '根部中心',   title: '被追著跑的腳步',   oil: 'EO-093' }
+  head:   { name: '頭頂中心',   title: '一盞關不掉的燈',   oil: 'EO-091',
+            ask: '「我現在想不通的這件事，是我的問題，還是我從別人那裡接過來的？」' },
+  ajna:   { name: '邏輯中心',   title: '想先拿到地圖的人', oil: 'EO-013',
+            ask: '「我是真的需要現在就搞懂，還是只是受不了不確定的感覺？」' },
+  throat: { name: '喉嚨中心',   title: '一個想被聽見的聲音', oil: 'EO-025',
+            ask: '「我現在想開口，是有人在問我，還是我怕自己沒被看見？」' },
+  g:      { name: 'G 中心',     title: '在找回家的路',     oil: 'EO-056',
+            ask: '「我待在這個地方、跟這些人在一起，身體覺得對嗎？」' },
+  ego:    { name: '意志力中心', title: '一直撐著的肩膀',   oil: 'EO-010',
+            ask: '「今天答應的事，是我想做，還是想證明自己？」' },
+  sacral: { name: '薦骨中心',   title: '燒到最後的柴火',   oil: 'EO-029',
+            ask: '「我現在是還有力氣，還是只是停不下來？」' },
+  solar:  { name: '情緒中心',   title: '快滿出來的水杯',   oil: 'EO-007',
+            ask: '「這份情緒是我的，還是我從別人那裡接過來的？」' },
+  spleen: { name: '直覺中心',   title: '一直守夜的哨兵',   oil: 'EO-050',
+            ask: '「我現在的害怕，是身體真的在提醒我，還是我把別人的擔心接過來了？」' },
+  root:   { name: '根部中心',   title: '被追著跑的腳步',   oil: 'EO-093',
+            ask: '「今天讓我急的，是真的急，還是我想快點擺脫它？」' }
+};
+
+// 延伸解讀：空白／有定義（與 LINE 解讀卡說明同一段）
+const EXPLAIN = {
+  head:   { open: '你可能吸收了身邊人的思考壓力，人越多越明顯。那些問題不一定是你的，可以留著，不用馬上有答案。',
+            defined: '這股想弄懂的力量是你自己的，穩定而持續。它需要的是出口：寫下來、說出來，而不是一直在腦中轉。' },
+  ajna:   { open: '你可能放大了別人的確定感，覺得自己也一定要想清楚。不確定可以是探索的開始，不必急著變成行動。',
+            defined: '你有自己固定的思考方式，這是你的優勢。卡住的時候，可以提醒自己：想法不用完美，也可以先說出口。' },
+  throat: { open: '你像一個擴音器，會放大現場的溝通氣氛。等被問的時候再說，你會發現話反而說得更流暢。',
+            defined: '你有穩定的表達力量。煩躁的時候，可能是話一直沒有說出口，給它一個對的時機和對的人。' },
+  g:      { open: '你會反映出所處環境的樣子，所以「對的地方」對你特別重要。先選對空間，方向會自己浮現。',
+            defined: '你有穩定的自我感，最近覺得迷失，可能是走在不像自己的路上。回頭問問：這是我要的方向嗎？' },
+  ego:    { open: '你可能被別人的「我做得到」帶動，承諾超出自己的力氣。你不需要證明什麼，做到了就好好休息。',
+            defined: '你有穩定的意志力，說到做到。也正因為撐得住，更需要記得休息，不要把自己當成永遠不會累的人。' },
+  sacral: { open: '你可能借用了身邊人的能量，在人群中有電，回家就倒。在還沒累垮之前離開、躺下來，是在照顧自己。',
+            defined: '你有自己的生命動能，煩躁常常是因為把力氣用在不是自己想做的事。留意身體對事情的真實反應。' },
+  solar:  { open: '你會放大別人的情緒，對方正常的一句話，聽起來也可能像在罵你。先分辨：這份情緒是我的嗎？',
+            defined: '你的情緒有自己的起伏，像潮汐。不用在情緒高或低的時候做決定，等它流過去，清楚會自己來。' },
+  spleen: { open: '你可能接收了身邊人的擔心和害怕。讓恐懼流過去，不抓住也不壓制；遇到衝動的邀請，先不要立刻答應。',
+            defined: '你有自己的直覺，常常當下就知道。最近不安，可能是一直沒聽身體的提醒，給它一點安靜，讓它說話。' },
+  root:   { open: '你可能放大了別人的時間壓力。壓力來了不必馬上處理掉，先分辨哪些是真的時限。',
+            defined: '你有穩定的推動力，也容易一直處在衝刺狀態。給自己一段不用趕的時間，讓身體從加速裡慢下來。' }
+};
+
+// 也可以選（原本在測驗結果頁，2026-10-24 移到這裡）
+const ALT = {
+  'EO-091': '纈草', 'EO-013': '綠花白千層、桉油醇迷迭香', 'EO-025': '葡萄柚、佛手柑',
+  'EO-056': '橙花、大馬士革玫瑰', 'EO-010': '檀香、黑胡椒', 'EO-029': '芹菜籽、野胡蘿蔔',
+  'EO-007': '沒藥、安息香', 'EO-050': '馬鬱蘭、廣藿香', 'EO-093': '岩蘭草（被追著跑、需要先停下來的時候）'
 };
 
 // 單方精油：與測驗結果頁同一支
@@ -185,20 +228,31 @@ function render() {
 
   page.innerHTML = `
     <section class="hero">
-      <div class="eyebrow">陪你的香氣</div>
+      <div class="eyebrow">延伸解讀・陪你的香氣</div>
       <h1>${esc(c.name)}<em>｜</em>${label}</h1>
       <p>${esc(c.title)}</p>
       <div class="pic"><img src="images/xiaoyue-${key}-calm.jpg" alt="${esc(c.name)}：放鬆下來的小鑰"></div>
     </section>
     <div class="wrap">
+      <section class="read">
+        <h3>你的${esc(c.name)}是${label}</h3>
+        <p>${esc(EXPLAIN[key][state])}</p>
+      </section>
+
+      <section class="read">
+        <h3>這週，可以這樣照顧自己</h3>
+        <p class="ask">${esc(c.ask)}</p>
+        <p class="tip">${esc(oil.use)}</p>
+      </section>
+
       <section class="oil">
         <div class="kind">① 單方精油</div>
         <h2>${esc(oil.name)}</h2>
         <div class="meta">萃取部位：${esc(oil.part)}・${esc(oil.size)}</div>
         <h3>為什麼是它</h3>
         <p>${esc(oil.why)}</p>
-        <h3>今天可以這樣用</h3>
-        <p class="tip">${esc(oil.use)}</p>
+        <h3>也可以選</h3>
+        <p>${esc(ALT[c.oil])}。家裡有其中一支就可以，聞聞看，選你最喜歡的那個味道。</p>
         <a class="btn" href="${SHOP + c.oil}">選購 ${esc(oil.name)}</a>
       </section>
 
