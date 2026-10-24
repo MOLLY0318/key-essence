@@ -141,6 +141,7 @@ button { font: inherit; cursor: pointer; }
 .sum b { display: block; font-family: 'Noto Serif TC', serif; color: var(--brass); font-size: 0.9rem; font-weight: 600; letter-spacing: 0.08em; }
 .sum .oil-line .oil-name { font-family: 'Noto Serif TC', serif; font-size: 1.25rem; color: var(--deep); }
 .sum .oil-line .oil-part { font-size: 0.85rem; color: var(--bluegray); margin-left: 0.3rem; }
+.sum .oil-note { font-size: 0.85rem; color: var(--bluegray); line-height: 1.7; margin-top: -0.4rem; }
 .grid-wrap { padding: 0.6rem 0 0.6rem; text-align: center; }
 .grid-wrap h3 { font-size: 1.05rem; margin-bottom: 0.3rem; }
 .grid-wrap .meta { margin-bottom: 1rem; }
@@ -262,6 +263,8 @@ button { font: inherit; cursor: pointer; }
       <p><b>這份敏感的另一面</b><span id="rStrength"></span></p>
       <p><b>容易卡住的地方</b><span id="rStuck"></span></p>
       <p class="oil-line"><b>陪你的精油</b><span class="oil-name" id="rOil"></span><span class="oil-part" id="rPart"></span></p>
+      <!-- 避免把測驗推薦的油誤認成精油側寫結果（Molly 2026-10-24 選寫法 A） -->
+      <p class="oil-note">這是照顧這個中心的日常用油。精油側寫是另一件事：一對一，從你親手選的三支油，看見屬於你自己的故事。</p>
     </section>
 
     <section class="extend">
