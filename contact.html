@@ -66,25 +66,46 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
   <p>先從一句話開始，告訴我你現在的狀態，我們再一起決定靠近哪一種陪伴。</p>
 </header>
 
-<section id="experience">
+<section id="book">
+  <span id="experience" aria-hidden="true"></span>
   <div class="container">
     <div class="section-head">
-      <div class="eyebrow eyebrow-xl">Experience</div>
-      <h2>預約體驗</h2>
-      <p>填寫下方表單，留下你的資訊，我們會依登記順序為你安排體驗時段。</p>
+      <div class="eyebrow eyebrow-xl">Booking</div>
+      <h2>約一段時間給自己</h2>
+      <p>預約確認和匯款都在官方 LINE 進行。傳一句「我想預約」，我會親自回你，一起找時間。</p>
     </div>
-    <div class="jotform-embed">
-      <iframe
-        id="JotFormIFrame-262628599317067"
-        title="預約體驗表單"
-        allowtransparency="true"
-        allow="geolocation; microphone; camera; fullscreen; payment"
-        src="https://form.jotform.com/262628599317067"
-        frameborder="0"
-        style="min-width:100%;max-width:100%;height:539px;border:none;"
-        scrolling="no"
-      >
-      </iframe>
+
+    <div class="book-mobile">
+      <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84" target="_blank" rel="noopener">用 LINE 預約</a>
+      <a class="btn dark" href="https://line.me/R/oaMessage/@864ihpsq/?%E5%B9%AB%E6%88%91%E9%81%B8" target="_blank" rel="noopener">還不確定？讓我幫你選</a>
+      <p class="book-hint">按下去會打開 LINE，訊息已經幫你帶好，按「傳送」就可以。還沒加入官方帳號的話，先加入再傳送。</p>
+      <a class="book-alt" href="#book-form" data-show-form="book-form">沒有 LINE？改填預約表單</a>
+    </div>
+
+    <div class="book-desktop">
+      <div class="book-qr-card">
+        <img src="images/qr-line-book.png" alt="用 LINE 預約的 QR Code">
+        <h3>用手機掃一下就能預約</h3>
+        <p>用手機相機或 LINE 掃描，訊息會幫你帶好「我想預約」，按傳送就可以。</p>
+        <p>還不確定選哪一種？加入後點選單的「幫我選」。</p>
+      </div>
+      <div class="book-form" id="book-form">
+        <h3>不方便用 LINE？填表單也可以</h3>
+        <p>我會用 Email 回覆你。之後確認時段和匯款，還是會請你加入官方 LINE。</p>
+        <div class="jotform-embed">
+          <iframe
+            id="JotFormIFrame-262628599317067"
+            title="預約表單"
+            allowtransparency="true"
+            allow="geolocation; microphone; camera; fullscreen; payment"
+            src="https://form.jotform.com/262628599317067"
+            frameborder="0"
+            style="min-width:100%;max-width:100%;height:539px;border:none;"
+            scrolling="no"
+          >
+          </iframe>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -160,7 +181,7 @@ window.addEventListener('load', function () {
     </div>
 
     <div class="notice-box">
-      <strong>預約方式：</strong>在 LINE 或社群留言，告訴我你想預約的服務名稱（例如「精油側寫＋人類圖」或「三項統合解析」），我會親自回覆並安排時間。
+      <strong>預約方式：</strong>在官方 LINE 傳「我想預約」，告訴我想預約的服務（例如「陪伴會談・選一項」「精油側寫＋人類圖」「極致五感重置」），我會親自回覆並安排時間。確認時段和匯款都在 LINE 進行。
     </div>
     <div class="notice-box" style="margin-top:16px;">
       <strong>實體服務地點：</strong>桃園龜山，近林口長庚醫院（目前限女性）。完整地址確認預約後提供，怎麼搭車請看上方<a href="#transport" style="color:#b0976e;">「怎麼來找我」</a>。
@@ -191,5 +212,6 @@ window.addEventListener('load', function () {
   <div class="footer-meta">© 2026 鑰．本質 Key Essence ｜ 服務內容為身心陪伴與覺察工具，非醫療診斷或治療行為</div>
 </footer>
 
+<script src="booking.js"></script>
 </body>
 </html>

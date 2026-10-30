@@ -775,7 +775,44 @@ ul.credential-list.panel-list li::before {
   overflow: hidden;
 }
 .jotform-embed iframe { display: block; border-radius: 16px; }
-#experience, #book { scroll-margin-top: 120px; }
+#experience, #book, #book-form { scroll-margin-top: 120px; }
+
+/* ── 預約區：手機開 LINE／電腦看 QR code＋表單（booking.js 加上 is-mobile／is-desktop） ── */
+.book-mobile { max-width: 420px; margin: 2.5rem auto 0; text-align: center; }
+.book-mobile .btn { display: block; }
+.book-mobile .btn + .btn { margin-top: 1rem; }
+.book-hint { color: var(--bluegray); font-size: 0.88rem; margin-top: 1.2rem; }
+.book-alt { display: inline-block; margin-top: 1.2rem; font-size: 0.88rem; color: #b0976e; text-decoration: underline; text-underline-offset: 4px; }
+.book-desktop {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 2.5rem;
+  align-items: start;
+  max-width: 1000px;
+  margin: 3rem auto 0;
+}
+.book-qr-card {
+  background: #fff;
+  padding: 2.4rem 1.8rem;
+  text-align: center;
+  box-shadow:
+    0 1px 2px rgba(17, 27, 32, 0.05),
+    0 14px 28px -12px rgba(17, 27, 32, 0.16),
+    0 32px 56px -24px rgba(17, 27, 32, 0.14);
+}
+.book-qr-card img { width: 200px; margin: 0 auto 1.4rem; border: none; }
+.book-qr-card h3 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+.book-qr-card p { color: var(--bluegray); font-size: 0.88rem; }
+.book-qr-card p + p { margin-top: 0.8rem; }
+.book-form h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.book-form > p { color: var(--bluegray); font-size: 0.9rem; }
+.book-form .jotform-embed { margin-top: 1.2rem; }
+html.is-desktop .book-mobile { display: none; }
+html.is-mobile .book-qr-card { display: none; }
+html.is-mobile .book-form:not(.is-open) { display: none; }
+@media (max-width: 760px) {
+  .book-desktop { grid-template-columns: 1fr; }
+}
 .diff-list { list-style: none; margin-top: 1.4rem; }
 .diff-list li {
   padding: 1rem 0;

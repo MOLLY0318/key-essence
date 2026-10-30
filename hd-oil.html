@@ -208,21 +208,39 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
   <div class="container">
     <div class="section-head reveal">
       <div class="eyebrow eyebrow-xl">Begin</div>
-      <h2>填寫預約申請</h2>
-      <p>本次預約為「精油側寫＋人類圖陪伴」，1.5 小時，費用 NT$2,400。請填寫資料與方便的時段，後續會確認時間及付款方式。</p>
+      <h2>預約精油側寫＋人類圖</h2>
+      <p>1.5 小時，費用 NT$2,400。預約確認和匯款都在官方 LINE 進行，傳一句預約訊息，我會親自回你，一起找時間。</p>
     </div>
-    <div class="jotform-embed">
-      <iframe
-        id="JotFormIFrame-262901140588457"
-        title="精油側寫＋人類圖陪伴｜預約申請"
-        allowtransparency="true"
-        allow="geolocation; microphone; camera; fullscreen; payment"
-        src="https://form.jotform.com/262901140588457"
-        frameborder="0"
-        style="min-width:100%;max-width:100%;height:539px;border:none;"
-        scrolling="no"
-      >
-      </iframe>
+
+    <div class="book-mobile">
+      <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C%E7%B2%BE%E6%B2%B9%E5%81%B4%E5%AF%AB%EF%BC%8B%E4%BA%BA%E9%A1%9E%E5%9C%96" target="_blank" rel="noopener">用 LINE 預約</a>
+      <p class="book-hint">按下去會打開 LINE，訊息已經幫你帶好，按「傳送」就可以。還沒加入官方帳號的話，先加入再傳送。</p>
+      <a class="book-alt" href="#book-form" data-show-form="book-form">沒有 LINE？改填預約表單</a>
+    </div>
+
+    <div class="book-desktop">
+      <div class="book-qr-card">
+        <img src="images/qr-line-book-hd-oil.png" alt="用 LINE 預約精油側寫＋人類圖的 QR Code">
+        <h3>用手機掃一下就能預約</h3>
+        <p>用手機相機或 LINE 掃描，訊息會幫你帶好「我想預約｜精油側寫＋人類圖」，按傳送就可以。</p>
+      </div>
+      <div class="book-form" id="book-form">
+        <h3>不方便用 LINE？填表單也可以</h3>
+        <p>我會用 Email 回覆你。之後確認時段和匯款，還是會請你加入官方 LINE。</p>
+        <div class="jotform-embed">
+          <iframe
+            id="JotFormIFrame-262901140588457"
+            title="精油側寫＋人類圖陪伴｜預約申請"
+            allowtransparency="true"
+            allow="geolocation; microphone; camera; fullscreen; payment"
+            src="https://form.jotform.com/262901140588457"
+            frameborder="0"
+            style="min-width:100%;max-width:100%;height:539px;border:none;"
+            scrolling="no"
+          >
+          </iframe>
+        </div>
+      </div>
     </div>
     <p style="text-align:center;margin-top:2rem;font-size:0.8rem;color:#7E8D91;">本服務為身心陪伴與覺察工具，非醫療診斷或治療行為。</p>
   </div>
@@ -280,5 +298,6 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
   window.addEventListener('load', check);
 })();
 </script>
+<script src="booking.js"></script>
 </body>
 </html>
