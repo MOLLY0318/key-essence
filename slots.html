@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>可預約時段｜鑰．本質 Key Essence</title>
+<meta name="description" content="看 Molly 接下來可以預約的時段，選好時間後用 LINE 傳給我確認。精油側寫、人類圖、生命靈數陪伴會談，線上或桃園工作室。">
+<link rel="canonical" href="https://molly0318.github.io/key-essence/slots.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="鑰．本質 Key Essence">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:url" content="https://molly0318.github.io/key-essence/slots.html">
+<meta property="og:title" content="可預約時段｜鑰．本質 Key Essence">
+<meta property="og:description" content="看 Molly 接下來可以預約的時段，選好時間後用 LINE 傳給我確認。">
+<meta property="og:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+/* ── 可預約時段頁（只在這頁用） ── */
+.slot-steps { max-width: 860px; margin: 0 auto; display: grid; gap: 2.4rem; }
+.slot-step h2 { font-size: 1.25rem; margin-bottom: 0.9rem; }
+.slot-step h2 small { font-family: 'Noto Sans TC', sans-serif; font-weight: 400; font-size: 0.85rem; color: var(--bluegray); letter-spacing: 0.04em; margin-left: 0.4rem; }
+.pick { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
+.pick label { position: relative; display: block; background: #fff; border: 1px solid var(--sand); border-radius: 16px; padding: 1rem 1.2rem; cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease; }
+.pick input { position: absolute; opacity: 0; pointer-events: none; }
+.pick label:has(input:checked) { border-color: var(--brass); box-shadow: 0 0 0 1px var(--brass), 0 12px 24px -14px rgba(168,137,95,.5); }
+.pick label:has(input:focus-visible) { outline: 2px solid var(--brass); outline-offset: 3px; }
+.pick b { display: block; font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: 1.02rem; }
+.pick span { display: block; font-size: 0.85rem; color: var(--umber); line-height: 1.6; margin-top: 0.2rem; }
+.days { display: grid; gap: 0.9rem; }
+.day-card { background: #fff; border-radius: 16px; padding: 1rem 1.2rem; box-shadow: 0 10px 24px -16px rgba(17,27,32,.25); }
+.day-card h3 { font-size: 1rem; margin-bottom: 0.6rem; font-variant-numeric: tabular-nums; }
+.times { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.time-btn { font: inherit; font-size: 0.95rem; font-variant-numeric: tabular-nums; background: var(--mist); border: 1px solid var(--sand); color: var(--ink); border-radius: 50px; padding: 0.35rem 1rem; cursor: pointer; }
+.time-btn:hover { border-color: var(--brass); }
+.time-btn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--mist); }
+.time-btn:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+.slot-empty { background: #fff; border-radius: 16px; padding: 1.6rem 1.4rem; text-align: center; color: var(--umber); }
+.slot-empty .btn { margin-top: 1rem; }
+.confirm { background: var(--ink); color: var(--mist); border-radius: 20px; padding: 1.6rem 1.5rem; }
+.confirm h2 { color: var(--mist); font-size: 1.2rem; margin-bottom: 0.8rem; }
+.confirm .msg { background: rgba(245,241,234,.08); border: 1px solid rgba(199,173,122,.35); border-radius: 12px; padding: 0.9rem 1rem; font-size: 0.95rem; line-height: 1.8; white-space: pre-line; user-select: all; }
+.confirm .acts { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.1rem; }
+.confirm .btn.dark { border-color: var(--champagne); color: var(--champagne); background: none; font: inherit; font-size: 0.88rem; letter-spacing: 0.12em; cursor: pointer; }
+.confirm .note { color: var(--bluegray); font-size: 0.85rem; margin-top: 0.9rem; line-height: 1.7; }
+.confirm .qr { display: none; gap: 1rem; align-items: center; margin-top: 1.1rem; }
+html.is-desktop .confirm .qr { display: flex; }
+.confirm .qr img { width: 110px; background: #fff; padding: 6px; border-radius: 8px; }
+.confirm .qr p { font-size: 0.85rem; color: var(--sand); }
+.studio-note { font-size: 0.85rem; color: var(--umber); margin-top: 0.7rem; }
+.updated { text-align: center; font-size: 0.8rem; color: var(--bluegray); margin-top: 0.4rem; }
+</style>
+</head>
+<body>
+
+<div class="bg-light-texture" aria-hidden="true"></div>
+
+<nav class="site-nav">
+  <div class="nav-inner">
+    <a href="index.html"><img class="nav-logo" src="images/logo-lockup-black-transparent.png" alt="鑰．本質 Key Essence"></a>
+    <div class="nav-links">
+      <a href="index.html">首頁</a>
+      <a href="about.html">關於 Molly</a>
+      <a href="mind-room.html">心靈整聊室</a>
+      <a href="craft-school.html">手作學院</a>
+      <a href="blog/index.html">文章</a>
+      <a href="faq.html">常見問題</a>
+      <a href="contact.html" class="active">預約</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-header">
+  <div class="eyebrow eyebrow-xl">AVAILABLE TIMES</div>
+  <h1>可預約時段</h1>
+  <p>選好想做的陪伴和時間，用 LINE 傳給我。我回覆確認後，這段時間就是留給你的。</p>
+</header>
+
+<section>
+  <div class="container">
+    <div class="slot-steps">
+
+      <div class="slot-step">
+        <h2>在哪裡見面</h2>
+        <div class="pick" id="modePick">
+          <label><input type="radio" name="mode" value="online" checked><b>線上</b><span>Google Meet，在家就可以</span></label>
+          <label><input type="radio" name="mode" value="studio"><b>桃園工作室</b><span>龜山，近林口長庚（目前只接待女性）</span></label>
+        </div>
+        <p class="studio-note" id="studioNote" hidden>男性朋友請選線上陪伴。完整地址在確認預約後告訴你，怎麼來可以看<a href="contact.html#transport" style="color:#b0976e;">交通方式</a>。</p>
+      </div>
+
+      <div class="slot-step">
+        <h2>想做哪一種</h2>
+        <div class="pick" id="servicePick"></div>
+      </div>
+
+      <div class="slot-step" id="pickTime">
+        <h2>選一個時間 <small>只顯示明天以後、還沒有人約的時段</small></h2>
+        <div class="days" id="days"></div>
+        <p class="updated" id="updated"></p>
+      </div>
+
+      <div class="confirm" id="confirm" hidden>
+        <h2>用 LINE 傳這段話給我</h2>
+        <div class="msg" id="msgText"></div>
+        <div class="acts">
+          <a class="btn solid" id="lineBtn" href="https://line.me/R/ti/p/@864ihpsq" target="_blank" rel="noopener">用 LINE 傳給 Molly</a>
+          <button class="btn dark" type="button" id="copyBtn">複製這段話</button>
+        </div>
+        <div class="qr">
+          <img src="images/qr-line.png" alt="LINE 官方帳號 QR Code">
+          <p>用電腦看的話，用手機掃這個 QR code 加入官方 LINE，再把上面這段話貼上傳送。</p>
+        </div>
+        <p class="note">傳出去是預約申請，我回覆確認、完成匯款後才算約好。同一個時段有別人先問的話，我會再跟你找其他時間。</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="alt">
+  <div class="container">
+    <div class="notice-box" style="margin-top:0;">
+      <strong>沒看到適合的時間？</strong>直接在 LINE 告訴我你方便的日子，我看看能不能幫你挪出來。付款、取消改期的規則在<a href="faq.html" style="color:#b0976e;">常見問題</a>。
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <img class="footer-logo" src="images/logo-lockup-champagne.png" alt="鑰．本質">
+  <div class="footer-tagline">讓改變從你自己裡面發生</div>
+  <div class="footer-links">
+    <a href="index.html">首頁</a>
+    <a href="about.html">關於 Molly</a>
+    <a href="mind-room.html">心靈整聊室</a>
+    <a href="craft-school.html">手作學院</a>
+    <a href="blog/index.html">文章</a>
+    <a href="faq.html">常見問題</a>
+    <a href="contact.html">預約</a>
+  </div>
+  <div class="footer-meta">© 2026 鑰．本質 Key Essence ｜ 服務內容為身心陪伴與覺察工具，非醫療診斷或治療行為</div>
+</footer>
+
+<script src="booking.js"></script>
+<script src="booking-slots.js"></script>
+<script>
+(function () {
+  // 服務與價格（id 跟私人預約行事曆一致）
+  var SERVICES = [
+    { id: 'one',   name: '陪伴會談・選 1 項', time: '1 小時', price: 'NT$1,600', desc: '精油側寫、人類圖、生命靈數選一項', modes: ['online', 'studio'] },
+    { id: 'two',   name: '陪伴會談・選 2 項', time: '1.5 小時', price: 'NT$2,400', desc: '三項裡選兩項，從兩個角度一起看', modes: ['online', 'studio'] },
+    { id: 'three', name: '陪伴會談・三項統合', time: '2 小時', price: 'NT$3,200', desc: '三項一起看，送個人生命靈數解讀書', modes: ['online', 'studio'] },
+    { id: 'sound', name: '聲灸小憩・森林的回聲', time: '45 分鐘', price: 'NT$1,280', desc: '躺著聽銅缽和自然的聲音，單純放鬆', modes: ['studio'] },
+    { id: 'reset', name: '極致五感重置', time: '120 分鐘', price: 'NT$3,600', desc: '精油側寫＋聲灸，現場親手調一瓶 5ml 滾珠油帶走', modes: ['studio'] }
+  ];
+  var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
+  var data = window.KE_SLOTS || { days: [], leadHours: 24 };
+  var mode = 'online', service = 'one', picked = null;
+  var $ = function (id) { return document.getElementById(id); };
+  var isMobile = document.documentElement.classList.contains('is-mobile');
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+  function fmtDate(d) { var x = new Date(d + 'T12:00:00Z'); return (x.getUTCMonth() + 1) + '/' + x.getUTCDate() + '（' + WEEK[x.getUTCDay()] + '）'; }
+  function svc(id) { return SERVICES.filter(function (s) { return s.id === id; })[0]; }
+  // 以台灣時間計算，距離現在不到 leadHours 的時段不顯示
+  function bookable(date, t) { return new Date(date + 'T' + t + ':00+08:00').getTime() >= Date.now() + (data.leadHours || 24) * 3600e3; }
+
+  function renderServices() {
+    var box = $('servicePick'); box.textContent = '';
+    SERVICES.forEach(function (s) {
+      if (s.modes.indexOf(mode) < 0) return;
+      var l = el('label');
+      var i = el('input'); i.type = 'radio'; i.name = 'service'; i.value = s.id; i.checked = s.id === service;
+      i.addEventListener('change', function () { service = s.id; picked = null; renderDays(); });
+      l.appendChild(i);
+      l.appendChild(el('b', '', s.name));
+      l.appendChild(el('span', '', s.time + '｜' + s.price));
+      l.appendChild(el('span', '', s.desc));
+      box.appendChild(l);
+    });
+  }
+
+  function renderDays() {
+    var box = $('days'); box.textContent = '';
+    var shown = 0;
+    data.days.forEach(function (d) {
+      var ts = ((d[mode] || {})[service] || []).filter(function (t) { return bookable(d.date, t); });
+      if (!ts.length) return;
+      shown++;
+      var card = el('div', 'day-card');
+      card.appendChild(el('h3', '', fmtDate(d.date)));
+      var row = el('div', 'times');
+      ts.forEach(function (t) {
+        var b = el('button', 'time-btn', t);
+        b.type = 'button';
+        b.setAttribute('aria-pressed', picked && picked.date === d.date && picked.time === t ? 'true' : 'false');
+        b.addEventListener('click', function () { picked = { date: d.date, time: t }; renderDays(); });
+        row.appendChild(b);
+      });
+      card.appendChild(row);
+      box.appendChild(card);
+    });
+    if (!shown) {
+      var e = el('div', 'slot-empty');
+      e.appendChild(el('p', '', '這個選擇目前沒有開放的時段。告訴我你方便的日子，我幫你找時間。'));
+      var a = el('a', 'btn solid', '用 LINE 問時間');
+      a.href = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent('我想預約｜' + svc(service).name + '｜' + (mode === 'online' ? '線上' : '桃園工作室') + '，想問有沒有其他時間');
+      a.target = '_blank'; a.rel = 'noopener';
+      e.appendChild(a);
+      box.appendChild(e);
+    }
+    renderConfirm();
+  }
+
+  function renderConfirm() {
+    var c = $('confirm');
+    if (!picked) { c.hidden = true; return; }
+    var s = svc(service);
+    var msg = '我想預約\n日期：' + fmtDate(picked.date) + ' ' + picked.time + '\n服務：' + s.name + '（' + s.time + '）\n地點：' + (mode === 'online' ? '線上' : '桃園工作室');
+    $('msgText').textContent = msg;
+    $('lineBtn').href = 'https://line.me/R/oaMessage/@864ihpsq/?' + encodeURIComponent(msg);
+    $('copyBtn').textContent = '複製這段話';
+    c.hidden = false;
+    if (isMobile) c.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  $('copyBtn').addEventListener('click', function () {
+    var text = $('msgText').textContent, btn = this;
+    function selectMsg() {
+      var r = document.createRange(); r.selectNodeContents($('msgText'));
+      var s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = '已選取，請按複製';
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = '已複製'; }, selectMsg);
+    } else selectMsg();
+  });
+
+  document.querySelectorAll('input[name="mode"]').forEach(function (r) {
+    r.addEventListener('change', function () {
+      mode = r.value; picked = null;
+      if (svc(service).modes.indexOf(mode) < 0) service = 'one';
+      $('studioNote').hidden = mode !== 'studio';
+      renderServices(); renderDays();
+    });
+  });
+
+  if (data.updated) $('updated').textContent = '時段更新於 ' + data.updated;
+  renderServices(); renderDays();
+})();
+</script>
+</body>
+</html>
