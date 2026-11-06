@@ -33,6 +33,10 @@
 .day-card { background: #fff; border-radius: 16px; padding: 1rem 1.2rem; box-shadow: 0 10px 24px -16px rgba(17,27,32,.25); }
 .day-card h3 { font-size: 1rem; margin-bottom: 0.6rem; font-variant-numeric: tabular-nums; }
 .times { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.day-card.is-closed { background: transparent; box-shadow: none; border: 1px solid var(--sand); padding: 0.7rem 1.2rem; }
+.day-card.is-closed h3 { margin-bottom: 0; color: var(--bluegray); }
+.day-status { font-family: 'Noto Sans TC', sans-serif; font-weight: 400; font-size: 0.85rem; color: var(--bluegray); margin-left: 0.8rem; }
+.day-event { font-size: 0.88rem; color: var(--umber); margin-top: 0.3rem; }
 .time-btn { font: inherit; font-size: 0.95rem; font-variant-numeric: tabular-nums; background: var(--mist); border: 1px solid var(--sand); color: var(--ink); border-radius: 50px; padding: 0.35rem 1rem; cursor: pointer; }
 .time-btn:hover { border-color: var(--brass); }
 .time-btn[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--mist); }
@@ -107,7 +111,7 @@ html.is-desktop .confirm .qr { display: flex; }
       </div>
 
       <div class="slot-step" id="pickTime">
-        <h2>選一個時間 <small>只顯示明天以後、還沒有人約的時段</small></h2>
+        <h2>選一個時間 <small>從明天開始，點時間就可以預約</small></h2>
         <div class="days" id="days"></div>
         <p class="updated" id="updated"></p>
       </div>
@@ -192,26 +196,40 @@ html.is-desktop .confirm .qr { display: flex; }
     });
   }
 
+  function addDays(d, n) { var x = new Date(d + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); }
+  var twToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+
+  // 從明天排到最後一個有開放或活動的日子，每天標：可約時間／已額滿／不開放
   function renderDays() {
     var box = $('days'); box.textContent = '';
     var shown = 0;
-    data.days.forEach(function (d) {
-      var ts = ((d[mode] || {})[service] || []).filter(function (t) { return bookable(d.date, t); });
-      if (!ts.length) return;
-      shown++;
-      var card = el('div', 'day-card');
-      card.appendChild(el('h3', '', fmtDate(d.date)));
-      var row = el('div', 'times');
-      ts.forEach(function (t) {
-        var b = el('button', 'time-btn', t);
-        b.type = 'button';
-        b.setAttribute('aria-pressed', picked && picked.date === d.date && picked.time === t ? 'true' : 'false');
-        b.addEventListener('click', function () { picked = { date: d.date, time: t }; renderDays(); });
-        row.appendChild(b);
-      });
-      card.appendChild(row);
+    var byDate = {}, openModes = data.openModes || {}, evByDate = {};
+    data.days.forEach(function (d) { byDate[d.date] = d; });
+    (data.events || []).forEach(function (ev) { (evByDate[ev.date] = evByDate[ev.date] || []).push(ev); });
+    var all = Object.keys(openModes).concat(Object.keys(evByDate), Object.keys(byDate)).sort();
+    var first = addDays(twToday, 1), last = all.length ? all[all.length - 1] : first;
+    for (var date = first; date <= last; date = addDays(date, 1)) {
+      var d = byDate[date];
+      var ts = d ? ((d[mode] || {})[service] || []).filter(function (t) { return bookable(date, t); }) : [];
+      if (ts.length) shown++;
+      var card = el('div', 'day-card' + (ts.length ? '' : ' is-closed'));
+      var h = el('h3', '', fmtDate(date));
+      if (!ts.length) h.appendChild(el('span', 'day-status', (openModes[date] || []).indexOf(mode) >= 0 ? '已額滿' : '不開放'));
+      card.appendChild(h);
+      (evByDate[date] || []).forEach(function (ev) { card.appendChild(el('p', 'day-event', ev.start + '–' + ev.end + '　' + ev.title)); });
+      if (ts.length) {
+        var row = el('div', 'times');
+        ts.forEach(function (t) {
+          var b = el('button', 'time-btn', t);
+          b.type = 'button';
+          b.setAttribute('aria-pressed', picked && picked.date === date && picked.time === t ? 'true' : 'false');
+          b.addEventListener('click', (function (dd, tt) { return function () { picked = { date: dd, time: tt }; renderDays(); }; })(date, t));
+          row.appendChild(b);
+        });
+        card.appendChild(row);
+      }
       box.appendChild(card);
-    });
+    }
     if (!shown) {
       var e = el('div', 'slot-empty');
       e.appendChild(el('p', '', '這個選擇目前沒有開放的時段。告訴我你方便的日子，我幫你找時間。'));
