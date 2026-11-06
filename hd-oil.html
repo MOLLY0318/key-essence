@@ -18,6 +18,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+<style>
+.book-slots { background: #fff; padding: 2.4rem 2rem; box-shadow: 0 1px 2px rgba(17,27,32,.05), 0 14px 28px -12px rgba(17,27,32,.16), 0 32px 56px -24px rgba(17,27,32,.14); }
+.book-slots > p + p { margin-top: 0.8rem; }
+.book-slots .btn { margin-top: 1.6rem; }
+</style>
 <!-- Meta Pixel Code -->
 <script>
 if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1') {
@@ -209,13 +214,12 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
     <div class="section-head reveal">
       <div class="eyebrow eyebrow-xl">Begin</div>
       <h2>預約精油側寫＋人類圖</h2>
-      <p>1.5 小時，費用 NT$2,400。預約確認和匯款都在官方 LINE 進行，傳一句預約訊息，我會親自回你，一起找時間。</p>
+      <p>1.5 小時，費用 NT$2,400。先看可以約的時間，選好時段、填好出生資料，用 LINE 傳給我。預約確認和匯款都在官方 LINE 進行，我會親自回你。</p>
     </div>
 
     <div class="book-mobile">
-      <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C%E7%B2%BE%E6%B2%B9%E5%81%B4%E5%AF%AB%EF%BC%8B%E4%BA%BA%E9%A1%9E%E5%9C%96" target="_blank" rel="noopener">用 LINE 預約</a>
-      <p class="book-hint">按下去會打開 LINE，訊息已經幫你帶好，按「傳送」就可以。還沒加入官方帳號的話，先加入再傳送。</p>
-      <a class="book-alt" href="#book-form" data-show-form="book-form">沒有 LINE？改填預約表單</a>
+      <a class="btn solid" href="slots.html?pick=oil,hd">看可預約時段</a>
+      <p class="book-hint">精油側寫和人類圖已經幫你勾好。選好時間後，按「用 LINE 傳給 Molly」，訊息會幫你帶好，按「傳送」就可以。</p>
     </div>
 
     <div class="book-desktop">
@@ -224,29 +228,16 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
         <h3>用手機掃一下就能預約</h3>
         <p>用手機相機或 LINE 掃描，訊息會幫你帶好「我想預約｜精油側寫＋人類圖」，按傳送就可以。</p>
       </div>
-      <div class="book-form" id="book-form">
-        <h3>不方便用 LINE？填表單也可以</h3>
-        <p>我會用 Email 回覆你。之後確認時段和匯款，還是會請你加入官方 LINE。</p>
-        <div class="jotform-embed">
-          <iframe
-            id="JotFormIFrame-262901140588457"
-            title="精油側寫＋人類圖陪伴｜預約申請"
-            allowtransparency="true"
-            allow="geolocation; microphone; camera; fullscreen; payment"
-            src="https://form.jotform.com/262901140588457"
-            frameborder="0"
-            style="min-width:100%;max-width:100%;height:539px;border:none;"
-            scrolling="no"
-          >
-          </iframe>
-        </div>
+      <div class="book-form book-slots">
+        <h3>先看可以約的時間</h3>
+        <p>精油側寫和人類圖已經幫你勾好，選好線上或桃園工作室、時間，再填出生年月日、時間和地點，頁面會整理成一段預約訊息，用 LINE 傳給我就好。</p>
+        <p>用電腦看的話，頁面上也有 LINE QR code，可以複製訊息再用手機傳。</p>
+        <a class="btn solid" href="slots.html?pick=oil,hd">看可預約時段</a>
       </div>
     </div>
     <p style="text-align:center;margin-top:2rem;font-size:0.8rem;color:#7E8D91;">本服務為身心陪伴與覺察工具，非醫療診斷或治療行為。</p>
   </div>
 </section>
-<script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
-<script>window.jotformEmbedHandler("iframe[id='JotFormIFrame-262901140588457']", "https://form.jotform.com/")</script>
 
 <footer class="site-footer">
   <img class="footer-logo" src="images/logo-lockup-champagne.png" alt="鑰．本質">

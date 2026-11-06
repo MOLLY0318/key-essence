@@ -483,6 +483,13 @@ html.is-desktop .confirm .qr { display: flex; }
   });
   $('events').hidden = !events.length;
 
+  // 從其他頁面帶進來：slots.html?pick=oil,hd 會先勾好精油側寫＋人類圖
+  var PICK = { oil: '精油側寫', hd: '人類圖', num: '生命靈數' };
+  (new URLSearchParams(location.search).get('pick') || '').split(',').forEach(function (p) {
+    var box = PICK[p] && document.querySelector('input[name="item"][value="' + PICK[p] + '"]');
+    if (box) box.checked = true;
+  });
+
   if (data.updated) $('updated').textContent = '時段更新於 ' + data.updated;
   renderServices(); renderDays();
 })();
