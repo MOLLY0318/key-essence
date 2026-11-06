@@ -59,6 +59,7 @@ html.is-desktop .confirm .qr { display: flex; }
 .events ul { list-style: none; display: grid; gap: 0.4rem; }
 .events li { font-size: 0.95rem; font-variant-numeric: tabular-nums; }
 .events li b { font-weight: 500; margin-right: 0.6rem; }
+.ev-status { display: inline-block; margin-left: 0.6rem; font-size: 0.8rem; color: var(--rose); border: 1px solid var(--sand); border-radius: 50px; padding: 0 0.7rem; }
 .updated { text-align: center; font-size: 0.8rem; color: var(--bluegray); margin-top: 0.4rem; }
 </style>
 </head>
@@ -92,7 +93,7 @@ html.is-desktop .confirm .qr { display: flex; }
     <div class="slot-steps">
 
       <div class="events" id="events" hidden>
-        <h2>最近可以在這裡遇見我</h2>
+        <h2>近期行程</h2>
         <ul id="eventList"></ul>
       </div>
 
@@ -281,8 +282,9 @@ html.is-desktop .confirm .qr { display: flex; }
   var events = (data.events || []).filter(function (ev) { return new Date(ev.date + 'T' + ev.end + ':00+08:00').getTime() > Date.now(); });
   events.forEach(function (ev) {
     var li = el('li');
-    li.appendChild(el('b', '', fmtDate(ev.date) + ' ' + ev.start + '–' + ev.end));
+    li.appendChild(el('b', '', fmtDate(ev.date) + (ev.status ? '' : ' ' + ev.start + '–' + ev.end)));
     li.appendChild(document.createTextNode(ev.title));
+    if (ev.status) li.appendChild(el('span', 'ev-status', ev.status));
     $('eventList').appendChild(li);
   });
   $('events').hidden = !events.length;
