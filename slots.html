@@ -166,7 +166,11 @@ html.is-desktop .confirm .qr { display: flex; }
               <label class="inline"><input type="radio" name="renamed" value="沒有">沒有</label>
               <label class="inline"><input type="radio" name="renamed" value="有">有</label>
             </fieldset>
-            <label id="oldNameRow" hidden>舊名字的英文拼音<input id="iOldName" type="text" autocapitalize="characters"></label>
+            <div class="info-group" id="oldNameRow" hidden>
+              <label>舊的中文名字<input id="iOldCn" type="text"></label>
+              <label>舊名字的英文拼音<input id="iOldName" type="text" autocapitalize="characters"></label>
+              <p class="info-tip">舊護照上有的話照抄。不知道舊的英文拼音，就到<a href="https://www.boca.gov.tw/sp-natr-singleform-1.html" target="_blank" rel="noopener">外文姓名中譯英系統</a>輸入舊的中文名字，抄「威妥瑪拼音」那一欄。</p>
+            </div>
           </div>
         </form>
       </div>
@@ -358,8 +362,9 @@ html.is-desktop .confirm .qr { display: flex; }
       lines.push('護照英文姓名：' + val('iPassport')); if (!val('iPassport')) miss.push('護照英文姓名');
       var r = renamed();
       if (!r) miss.push('有沒有改過名字');
+      if (r === '有' && !val('iOldCn')) miss.push('舊的中文名字');
       if (r === '有' && !val('iOldName')) miss.push('舊名字的英文拼音');
-      lines.push('改過名字：' + r + (r === '有' ? '，舊英文拼音：' + val('iOldName') : ''));
+      lines.push('改過名字：' + r + (r === '有' ? '，舊名字：' + val('iOldCn') + '（' + val('iOldName') + '）' : ''));
     }
     var msg = lines.join('\n');
     $('msgText').textContent = msg;
