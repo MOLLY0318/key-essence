@@ -29,6 +29,7 @@
 .pick label:has(input:focus-visible) { outline: 2px solid var(--brass); outline-offset: 3px; }
 .pick b { display: block; font-family: 'Noto Serif TC', serif; font-weight: 600; font-size: 1.02rem; }
 .pick span { display: block; font-size: 0.85rem; color: var(--umber); line-height: 1.6; margin-top: 0.2rem; }
+.pick span.only-studio { display: inline-block; margin-top: 0.5rem; font-size: 0.78rem; color: var(--rose); border: 1px solid var(--sand); border-radius: 50px; padding: 0 0.7rem; }
 .days { display: grid; gap: 0.9rem; }
 .day-card { background: #fff; border-radius: 16px; padding: 1rem 1.2rem; box-shadow: 0 10px 24px -16px rgba(17,27,32,.25); }
 .day-card h3 { font-size: 1rem; margin-bottom: 0.6rem; font-variant-numeric: tabular-nums; }
@@ -309,15 +310,20 @@ html.is-desktop .confirm .qr { display: flex; }
 
   function renderServices() {
     var box = $('servicePick'); box.textContent = '';
+    // 全部服務都列出來；只在工作室做的，選了就自動切到「桃園工作室」
     SERVICES.forEach(function (s) {
-      if (s.modes.indexOf(mode) < 0) return;
       var l = el('label');
       var i = el('input'); i.type = 'radio'; i.name = 'service'; i.value = s.id; i.checked = s.id === service;
-      i.addEventListener('change', function () { service = s.id; picked = null; syncItems(); renderDays(); });
+      i.addEventListener('change', function () {
+        service = s.id; picked = null;
+        if (s.modes.indexOf(mode) < 0) { document.querySelector('input[name="mode"][value="studio"]').click(); return; }
+        syncItems(); renderDays();
+      });
       l.appendChild(i);
       l.appendChild(el('b', '', s.name));
       l.appendChild(el('span', '', s.time + '｜' + s.price));
       l.appendChild(el('span', '', s.desc));
+      if (s.modes.length === 1) l.appendChild(el('span', 'only-studio', '只在桃園工作室（目前限女性）'));
       box.appendChild(l);
     });
     syncItems();
