@@ -64,6 +64,7 @@ html.is-desktop .confirm .qr { display: flex; }
 .items p { flex-basis: 100%; font-size: 0.9rem; color: var(--umber); }
 .items label { display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; }
 .items input { width: 1.1rem; height: 1.1rem; accent-color: var(--brass); }
+.items .extra { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; border-top: 1px solid var(--sand); padding-top: 0.7rem; margin-top: 0.3rem; }
 .items .item-plan { color: var(--ink); font-family: 'Noto Serif TC', serif; }
 .info { background: #fff; border-radius: 16px; padding: 1.2rem 1.4rem; display: grid; gap: 0.9rem; }
 .info label { display: grid; gap: 0.3rem; font-size: 0.9rem; color: var(--umber); }
@@ -137,6 +138,12 @@ html.is-desktop .confirm .qr { display: flex; }
           <label><input type="checkbox" name="item" value="精油側寫">精油側寫</label>
           <label><input type="checkbox" name="item" value="人類圖">人類圖</label>
           <label><input type="checkbox" name="item" value="生命靈數">生命靈數</label>
+          <div class="extra" id="extraPick" hidden>
+            <p>也想一起看家人或伴侶的人類圖嗎？每多一位，多 30 分鐘</p>
+            <label><input type="radio" name="extraCount" value="0" checked>不用</label>
+            <label><input type="radio" name="extraCount" value="1">1 位</label>
+            <label><input type="radio" name="extraCount" value="2">2 位</label>
+          </div>
           <p class="item-plan" id="itemPlan"></p>
         </div>
         <div class="items" id="relPick" hidden>
@@ -258,11 +265,20 @@ html.is-desktop .confirm .qr { display: flex; }
     { id: 'sound', name: '聲灸小憩・森林的回聲', time: '45 分鐘', price: 'NT$1,280', desc: '躺著聽銅缽和自然的聲音，單純放鬆', modes: ['studio'] },
     { id: 'reset', name: '極致五感重置', time: '120 分鐘', price: 'NT$3,600', desc: '精油側寫＋聲灸，現場親手調一瓶 5ml 滾珠油帶走', modes: ['studio'] }
   ];
-  var TALK = {
-    1: { key: 'one',   name: '陪伴會談・選 1 項', time: '1 小時',   price: 'NT$1,600' },
-    2: { key: 'two',   name: '陪伴會談・選 2 項', time: '1.5 小時', price: 'NT$2,400' },
-    3: { key: 'three', name: '陪伴會談・三項統合', time: '2 小時',   price: 'NT$3,200，送個人生命靈數解讀書' }
-  };
+  // 陪伴會談：第一項 1 小時，之後每多一項、或人類圖每多看一個人，加 30 分鐘、NT$800
+  var TALK_NAME = { 1: '陪伴會談・選 1 項', 2: '陪伴會談・選 2 項', 3: '陪伴會談・三項統合' };
+  var KEY_BY_MIN = { 60: 'one', 90: 'two', 120: 'three', 150: 'd150', 180: 'd180' };
+  function fmtLen(m) { return m % 60 ? (m / 60).toFixed(1) + ' 小時' : (m / 60) + ' 小時'; }
+  function fmtPrice(m) { return 'NT$' + (m / 30 * 800).toLocaleString('en-US'); }
+  function talkPlan() {
+    var n = Math.max(1, items().length), k = extraCount(), min = 60 + 30 * (n - 1) + 30 * k;
+    return { key: KEY_BY_MIN[min], name: TALK_NAME[n] + (k ? '＋加看 ' + k + ' 位人類圖' : ''), time: fmtLen(min),
+      price: fmtPrice(min) + (n === 3 ? '，送個人生命靈數解讀書' : '') };
+  }
+  function extraCount() {
+    if (items().indexOf('人類圖') < 0) return 0;
+    var r = document.querySelector('input[name="extraCount"]:checked'); return r ? +r.value : 0;
+  }
   // 關係人類圖：加看 1 位＝兩張圖 1 小時，2 位＝三張圖 1.5 小時（長度同 one／two）
   var REL = {
     1: { key: 'one', name: '人類圖關係・兩張圖', time: '1 小時',   price: 'NT$1,600' },
@@ -278,7 +294,6 @@ html.is-desktop .confirm .qr { display: flex; }
   function fmtDate(d) { var x = new Date(d + 'T12:00:00Z'); return (x.getUTCMonth() + 1) + '/' + x.getUTCDate() + '（' + WEEK[x.getUTCDay()] + '）'; }
   function svc(id) { return SERVICES.filter(function (s) { return s.id === id; })[0]; }
   function items() { return [].slice.call(document.querySelectorAll('input[name="item"]:checked')).map(function (i) { return i.value; }); }
-  function talkPlan() { return TALK[Math.max(1, items().length)]; }
   // 對應 booking-slots.js 裡的服務代號
   function relCount() { var r = document.querySelector('input[name="relCount"]:checked'); return r ? +r.value : 1; }
   function slotKey() { return service === 'talk' ? talkPlan().key : service === 'rel' ? REL[relCount()].key : service; }
@@ -310,13 +325,14 @@ html.is-desktop .confirm .qr { display: flex; }
 
   function syncItems() {
     $('itemPick').hidden = service !== 'talk';
+    $('extraPick').hidden = items().indexOf('人類圖') < 0;
     $('relPick').hidden = service !== 'rel';
     var rp = REL[relCount()];
     $('relPlan').textContent = '→ ' + rp.time + '，' + rp.price;
     var n = items().length, p = talkPlan();
     $('itemPlan').textContent = n ? '→ ' + p.name + '，' + p.time + '，' + p.price : '還沒勾的話，先用 1 小時的時段幫你找時間';
   }
-  document.querySelectorAll('input[name="item"], input[name="relCount"]').forEach(function (c) {
+  document.querySelectorAll('input[name="item"], input[name="relCount"], input[name="extraCount"]').forEach(function (c) {
     c.addEventListener('change', function () { picked = null; syncItems(); renderDays(); });
   });
 
@@ -371,7 +387,7 @@ html.is-desktop .confirm .qr { display: flex; }
   // 人類圖、生命靈數需要的資料：勾了才出現
   function needs() {
     var its = service === 'talk' ? items() : [];
-    var rel = service === 'rel' ? relCount() : 0;
+    var rel = service === 'rel' ? relCount() : service === 'talk' ? extraCount() : 0;
     return { hd: rel > 0 || its.indexOf('人類圖') >= 0, num: its.indexOf('生命靈數') >= 0, rel: rel };
   }
   function val(id) { return $(id).value.trim(); }
