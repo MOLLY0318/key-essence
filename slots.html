@@ -50,6 +50,11 @@ html.is-desktop .confirm .qr { display: flex; }
 .confirm .qr img { width: 110px; background: #fff; padding: 6px; border-radius: 8px; }
 .confirm .qr p { font-size: 0.85rem; color: var(--sand); }
 .studio-note { font-size: 0.85rem; color: var(--umber); margin-top: 0.7rem; }
+.events { background: #fff; border-radius: 16px; padding: 1.2rem 1.4rem; box-shadow: 0 10px 24px -16px rgba(17,27,32,.25); }
+.events h2 { font-size: 1.1rem; margin-bottom: 0.6rem; }
+.events ul { list-style: none; display: grid; gap: 0.4rem; }
+.events li { font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.events li b { font-weight: 500; margin-right: 0.6rem; }
 .updated { text-align: center; font-size: 0.8rem; color: var(--bluegray); margin-top: 0.4rem; }
 </style>
 </head>
@@ -81,6 +86,11 @@ html.is-desktop .confirm .qr { display: flex; }
 <section>
   <div class="container">
     <div class="slot-steps">
+
+      <div class="events" id="events" hidden>
+        <h2>最近可以在這裡遇見我</h2>
+        <ul id="eventList"></ul>
+      </div>
 
       <div class="slot-step">
         <h2>在哪裡見面</h2>
@@ -246,6 +256,16 @@ html.is-desktop .confirm .qr { display: flex; }
       renderServices(); renderDays();
     });
   });
+
+  // 擺攤、講座這類公開行程：還沒結束的才顯示
+  var events = (data.events || []).filter(function (ev) { return new Date(ev.date + 'T' + ev.end + ':00+08:00').getTime() > Date.now(); });
+  events.forEach(function (ev) {
+    var li = el('li');
+    li.appendChild(el('b', '', fmtDate(ev.date) + ' ' + ev.start + '–' + ev.end));
+    li.appendChild(document.createTextNode(ev.title));
+    $('eventList').appendChild(li);
+  });
+  $('events').hidden = !events.length;
 
   if (data.updated) $('updated').textContent = '時段更新於 ' + data.updated;
   renderServices(); renderDays();
