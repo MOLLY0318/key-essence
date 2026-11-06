@@ -71,6 +71,7 @@ html.is-desktop .confirm .qr { display: flex; }
 .info input:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
 .info-group { display: grid; gap: 0.7rem; border-top: 1px solid var(--sand); padding-top: 0.9rem; }
 .info-head { font-family: 'Noto Serif TC', serif; font-weight: 600; color: var(--ink); }
+.info-tip a { color: #b0976e; text-decoration: underline; text-underline-offset: 3px; }
 .info-tip { font-size: 0.82rem; color: var(--bluegray); line-height: 1.6; margin-top: -0.3rem; }
 .info fieldset { border: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-size: 0.9rem; color: var(--umber); }
 .info legend { flex-basis: 100%; margin-bottom: 0.3rem; }
@@ -159,13 +160,13 @@ html.is-desktop .confirm .qr { display: flex; }
           <div class="info-group" id="gNum" hidden>
             <p class="info-head">生命靈數需要</p>
             <label>護照上的英文姓名<input id="iPassport" type="text" placeholder="例如 WANG HSIAO-MEI" autocapitalize="characters"></label>
-            <p class="info-tip">請照護照上的拼法寫。沒有護照的話，寫你平常用的英文拼音。</p>
+            <p class="info-tip">請照護照上的拼法寫。還沒有護照的話，請到外交部的<a href="https://www.boca.gov.tw/sp-natr-singleform-1.html" target="_blank" rel="noopener">外文姓名中譯英系統</a>輸入中文姓名，抄「威妥瑪拼音」那一欄。</p>
             <fieldset>
               <legend>有沒有改過名字？</legend>
               <label class="inline"><input type="radio" name="renamed" value="沒有">沒有</label>
               <label class="inline"><input type="radio" name="renamed" value="有">有</label>
             </fieldset>
-            <label id="oldNameRow" hidden>舊名字的英文拼音（方便的話）<input id="iOldName" type="text" autocapitalize="characters"></label>
+            <label id="oldNameRow" hidden>舊名字的英文拼音<input id="iOldName" type="text" autocapitalize="characters"></label>
           </div>
         </form>
       </div>
@@ -357,7 +358,8 @@ html.is-desktop .confirm .qr { display: flex; }
       lines.push('護照英文姓名：' + val('iPassport')); if (!val('iPassport')) miss.push('護照英文姓名');
       var r = renamed();
       if (!r) miss.push('有沒有改過名字');
-      lines.push('改過名字：' + r + (r === '有' && val('iOldName') ? '，舊英文拼音：' + val('iOldName') : ''));
+      if (r === '有' && !val('iOldName')) miss.push('舊名字的英文拼音');
+      lines.push('改過名字：' + r + (r === '有' ? '，舊英文拼音：' + val('iOldName') : ''));
     }
     var msg = lines.join('\n');
     $('msgText').textContent = msg;
