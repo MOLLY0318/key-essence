@@ -71,6 +71,10 @@ html.is-desktop .confirm .qr { display: flex; }
 .info input:focus-visible { outline: 2px solid var(--brass); outline-offset: 1px; }
 .info-group { display: grid; gap: 0.7rem; border-top: 1px solid var(--sand); padding-top: 0.9rem; }
 .info-head { font-family: 'Noto Serif TC', serif; font-weight: 600; color: var(--ink); }
+.info select { font: inherit; font-size: 1rem; color: var(--ink); background: var(--mist); border: 1px solid var(--sand); border-radius: 10px; padding: 0.5rem 0.8rem; width: 100%; }
+.person { display: grid; gap: 0.7rem; background: var(--mist); border-radius: 12px; padding: 0.9rem 1rem; }
+.person input[type="text"], .person input[type="date"], .person select { background: #fff; }
+.person-head { font-size: 0.9rem; color: var(--ink); font-weight: 500; }
 .info-tip a { color: #b0976e; text-decoration: underline; text-underline-offset: 3px; }
 .info-tip { font-size: 0.82rem; color: var(--bluegray); line-height: 1.6; margin-top: -0.3rem; }
 .info fieldset { border: 0; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; font-size: 0.9rem; color: var(--umber); }
@@ -135,6 +139,12 @@ html.is-desktop .confirm .qr { display: flex; }
           <label><input type="checkbox" name="item" value="生命靈數">生命靈數</label>
           <p class="item-plan" id="itemPlan"></p>
         </div>
+        <div class="items" id="relPick" hidden>
+          <p>除了你自己，想一起看幾位？</p>
+          <label><input type="radio" name="relCount" value="1" checked>1 位（兩張圖，1 小時）</label>
+          <label><input type="radio" name="relCount" value="2">2 位（三張圖，1.5 小時）</label>
+          <p class="item-plan" id="relPlan"></p>
+        </div>
       </div>
 
       <div class="slot-step" id="pickTime">
@@ -156,6 +166,26 @@ html.is-desktop .confirm .qr { display: flex; }
             <label>出生時間<input id="iBirthTime" type="text" placeholder="例如 14:30，盡量準到幾點幾分"></label>
             <p class="info-tip">可以查媽媽手冊或出生證明。真的查不到也沒關係，寫「大約下午」，我們再討論。</p>
             <label>出生地點<input id="iBirthPlace" type="text" placeholder="例如 台北市"></label>
+          </div>
+          <div class="info-group" id="gRel" hidden>
+            <p class="info-head">想一起看的人</p>
+            <p class="info-tip">對方的出生資料，請先問過他同意再提供。</p>
+            <div class="person" data-p="1">
+              <p class="person-head">第 1 位</p>
+              <label>對方是你的<select id="p1Rel"><option value="">請選擇</option><option>伴侶／另一半</option><option>父親</option><option>母親</option><option>孩子</option><option>其他</option></select></label>
+              <label>對方的稱呼<input id="p1Name" type="text" placeholder="例如 先生、大女兒，不用寫全名"></label>
+              <label>出生年月日（國曆）<input id="p1Birth" type="date"></label>
+              <label>出生時間<input id="p1Time" type="text" placeholder="例如 08:15，查不到可寫大約"></label>
+              <label>出生地點<input id="p1Place" type="text" placeholder="例如 高雄市"></label>
+            </div>
+            <div class="person" data-p="2" id="person2" hidden>
+              <p class="person-head">第 2 位</p>
+              <label>對方是你的<select id="p2Rel"><option value="">請選擇</option><option>伴侶／另一半</option><option>父親</option><option>母親</option><option>孩子</option><option>其他</option></select></label>
+              <label>對方的稱呼<input id="p2Name" type="text" placeholder="例如 媽媽、小兒子"></label>
+              <label>出生年月日（國曆）<input id="p2Birth" type="date"></label>
+              <label>出生時間<input id="p2Time" type="text" placeholder="例如 08:15，查不到可寫大約"></label>
+              <label>出生地點<input id="p2Place" type="text" placeholder="例如 高雄市"></label>
+            </div>
           </div>
           <div class="info-group" id="gNum" hidden>
             <p class="info-head">生命靈數需要</p>
@@ -224,6 +254,7 @@ html.is-desktop .confirm .qr { display: flex; }
   // 畫面上的服務；陪伴會談勾幾項，就對應私人行事曆的 one／two／three
   var SERVICES = [
     { id: 'talk',  name: '陪伴會談', time: '1～2 小時', price: 'NT$1,600 起', desc: '精油側寫、人類圖、生命靈數，選一項到三項', modes: ['online', 'studio'] },
+    { id: 'rel',   name: '人類圖・看你們之間的關係', time: '1～1.5 小時', price: 'NT$1,600 起', desc: '你和伴侶、父母或孩子，把兩到三個人的人類圖放在一起，看見彼此怎麼相處', modes: ['online', 'studio'] },
     { id: 'sound', name: '聲灸小憩・森林的回聲', time: '45 分鐘', price: 'NT$1,280', desc: '躺著聽銅缽和自然的聲音，單純放鬆', modes: ['studio'] },
     { id: 'reset', name: '極致五感重置', time: '120 分鐘', price: 'NT$3,600', desc: '精油側寫＋聲灸，現場親手調一瓶 5ml 滾珠油帶走', modes: ['studio'] }
   ];
@@ -231,6 +262,11 @@ html.is-desktop .confirm .qr { display: flex; }
     1: { key: 'one',   name: '陪伴會談・選 1 項', time: '1 小時',   price: 'NT$1,600' },
     2: { key: 'two',   name: '陪伴會談・選 2 項', time: '1.5 小時', price: 'NT$2,400' },
     3: { key: 'three', name: '陪伴會談・三項統合', time: '2 小時',   price: 'NT$3,200，送個人生命靈數解讀書' }
+  };
+  // 關係人類圖：加看 1 位＝兩張圖 1 小時，2 位＝三張圖 1.5 小時（長度同 one／two）
+  var REL = {
+    1: { key: 'one', name: '人類圖關係・兩張圖', time: '1 小時',   price: 'NT$1,600' },
+    2: { key: 'two', name: '人類圖關係・三張圖', time: '1.5 小時', price: 'NT$2,400' }
   };
   var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
   var data = window.KE_SLOTS || { days: [], leadHours: 24 };
@@ -244,9 +280,11 @@ html.is-desktop .confirm .qr { display: flex; }
   function items() { return [].slice.call(document.querySelectorAll('input[name="item"]:checked')).map(function (i) { return i.value; }); }
   function talkPlan() { return TALK[Math.max(1, items().length)]; }
   // 對應 booking-slots.js 裡的服務代號
-  function slotKey() { return service === 'talk' ? talkPlan().key : service; }
+  function relCount() { var r = document.querySelector('input[name="relCount"]:checked'); return r ? +r.value : 1; }
+  function slotKey() { return service === 'talk' ? talkPlan().key : service === 'rel' ? REL[relCount()].key : service; }
   // 訊息裡的服務名稱與長度
   function serviceLine() {
+    if (service === 'rel') { var rp = REL[relCount()]; return rp.name + '（' + rp.time + '）'; }
     if (service !== 'talk') { var s = svc(service); return s.name + '（' + s.time + '）'; }
     var p = talkPlan(), its = items();
     return p.name + '（' + p.time + '）' + (its.length ? '：' + its.join('、') : '');
@@ -272,10 +310,13 @@ html.is-desktop .confirm .qr { display: flex; }
 
   function syncItems() {
     $('itemPick').hidden = service !== 'talk';
+    $('relPick').hidden = service !== 'rel';
+    var rp = REL[relCount()];
+    $('relPlan').textContent = '→ ' + rp.time + '，' + rp.price;
     var n = items().length, p = talkPlan();
     $('itemPlan').textContent = n ? '→ ' + p.name + '，' + p.time + '，' + p.price : '還沒勾的話，先用 1 小時的時段幫你找時間';
   }
-  document.querySelectorAll('input[name="item"]').forEach(function (c) {
+  document.querySelectorAll('input[name="item"], input[name="relCount"]').forEach(function (c) {
     c.addEventListener('change', function () { picked = null; syncItems(); renderDays(); });
   });
 
@@ -330,7 +371,8 @@ html.is-desktop .confirm .qr { display: flex; }
   // 人類圖、生命靈數需要的資料：勾了才出現
   function needs() {
     var its = service === 'talk' ? items() : [];
-    return { hd: its.indexOf('人類圖') >= 0, num: its.indexOf('生命靈數') >= 0 };
+    var rel = service === 'rel' ? relCount() : 0;
+    return { hd: rel > 0 || its.indexOf('人類圖') >= 0, num: its.indexOf('生命靈數') >= 0, rel: rel };
   }
   function val(id) { return $(id).value.trim(); }
   function renamed() { var r = document.querySelector('input[name="renamed"]:checked'); return r ? r.value : ''; }
@@ -342,6 +384,8 @@ html.is-desktop .confirm .qr { display: flex; }
     $('gBirth').hidden = !(n.hd || n.num);
     $('gHD').hidden = !n.hd;
     $('gNum').hidden = !n.num;
+    $('gRel').hidden = !n.rel;
+    $('person2').hidden = n.rel < 2;
     $('oldNameRow').hidden = renamed() !== '有';
   }
 
@@ -357,6 +401,15 @@ html.is-desktop .confirm .qr { display: flex; }
     if (n.hd) {
       lines.push('出生時間：' + val('iBirthTime')); if (!val('iBirthTime')) miss.push('出生時間');
       lines.push('出生地點：' + val('iBirthPlace')); if (!val('iBirthPlace')) miss.push('出生地點');
+    }
+    for (var p = 1; p <= n.rel; p++) {
+      var pre = 'p' + p, who = '第 ' + p + ' 位';
+      lines.push('對象 ' + p + '：' + val(pre + 'Name') + '（' + val(pre + 'Rel') + '）' + fmtBirth(val(pre + 'Birth')) + ' ' + val(pre + 'Time') + '，' + val(pre + 'Place'));
+      if (!val(pre + 'Rel')) miss.push(who + '的關係');
+      if (!val(pre + 'Name')) miss.push(who + '的稱呼');
+      if (!val(pre + 'Birth')) miss.push(who + '的出生年月日');
+      if (!val(pre + 'Time')) miss.push(who + '的出生時間');
+      if (!val(pre + 'Place')) miss.push(who + '的出生地點');
     }
     if (n.num) {
       lines.push('護照英文姓名：' + val('iPassport')); if (!val('iPassport')) miss.push('護照英文姓名');
