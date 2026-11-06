@@ -199,7 +199,7 @@ html.is-desktop .confirm .qr { display: flex; }
   function addDays(d, n) { var x = new Date(d + 'T12:00:00Z'); x.setUTCDate(x.getUTCDate() + n); return x.toISOString().slice(0, 10); }
   var twToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Taipei', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 
-  // 從明天排到最後一個有開放或活動的日子，每天標：可約時間／已額滿／不開放
+  // 從明天排到最後一個有開放的日子：有時間就列時間，開放過但約滿標「已額滿」，沒開放的日子不顯示
   function renderDays() {
     var box = $('days'); box.textContent = '';
     var shown = 0;
@@ -211,10 +211,12 @@ html.is-desktop .confirm .qr { display: flex; }
     for (var date = first; date <= last; date = addDays(date, 1)) {
       var d = byDate[date];
       var ts = d ? ((d[mode] || {})[service] || []).filter(function (t) { return bookable(date, t); }) : [];
+      var wasOpen = (openModes[date] || []).indexOf(mode) >= 0;
+      if (!ts.length && !wasOpen) continue; // 沒開放的日子不顯示
       if (ts.length) shown++;
       var card = el('div', 'day-card' + (ts.length ? '' : ' is-closed'));
       var h = el('h3', '', fmtDate(date));
-      if (!ts.length) h.appendChild(el('span', 'day-status', (openModes[date] || []).indexOf(mode) >= 0 ? '已額滿' : '不開放'));
+      if (!ts.length) h.appendChild(el('span', 'day-status', '已額滿'));
       card.appendChild(h);
       (evByDate[date] || []).forEach(function (ev) { card.appendChild(el('p', 'day-event', ev.start + '–' + ev.end + '　' + ev.title)); });
       if (ts.length) {
