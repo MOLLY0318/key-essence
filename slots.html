@@ -49,7 +49,10 @@
 .confirm .msg { background: rgba(245,241,234,.08); border: 1px solid rgba(199,173,122,.35); border-radius: 12px; padding: 0.9rem 1rem; font-size: 0.95rem; line-height: 1.8; white-space: pre-line; user-select: all; }
 .confirm .acts { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.1rem; }
 .confirm .btn.dark { border-color: var(--champagne); color: var(--champagne); background: none; font: inherit; font-size: 0.88rem; letter-spacing: 0.12em; cursor: pointer; }
-.confirm .note { color: var(--bluegray); font-size: 0.85rem; margin-top: 0.9rem; line-height: 1.7; }
+.confirm .note { color: var(--sand); font-size: 0.85rem; margin-top: 1.1rem; line-height: 1.7; border-top: 1px solid rgba(199,173,122,.25); padding-top: 0.9rem; }
+.confirm .rules { list-style: none; display: grid; gap: 0.35rem; margin-top: 0.5rem; }
+.confirm .rules li { position: relative; padding-left: 1rem; }
+.confirm .rules li::before { content: "•"; position: absolute; left: 0; color: var(--champagne); }
 .confirm .qr { display: none; gap: 1rem; align-items: center; margin-top: 1.1rem; }
 html.is-desktop .confirm .qr { display: flex; }
 .confirm .qr img { width: 110px; background: #fff; padding: 6px; border-radius: 8px; }
@@ -225,7 +228,14 @@ html.is-desktop .confirm .qr { display: flex; }
           <img src="images/qr-line.png" alt="LINE 官方帳號 QR Code">
           <p>用電腦看的話，用手機掃這個 QR code 加入官方 LINE，再把上面這段話貼上傳送。</p>
         </div>
-        <p class="note">傳出去是預約申請，我回覆確認、完成匯款後才算約好。同一個時段有別人先問的話，我會再跟你找其他時間。</p>
+        <div class="note">
+          <p>傳出去是預約申請，我在 LINE 回覆確認後，請你完成匯款。</p>
+          <ul class="rules">
+            <li>每個時段只開放一人預約，以先完成匯款的人為準。</li>
+            <li>最晚在預約時間的 4 小時前完成匯款，並提供需要的資料（例如人類圖的出生資料），會談當天就不用花時間等。</li>
+            <li>預約時間前 4 小時，還沒在 LINE 確認、完成匯款、資料備齊的話，這個預約就不成立。</li>
+          </ul>
+        </div>
       </div>
 
     </div>
