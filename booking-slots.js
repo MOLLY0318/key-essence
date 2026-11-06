@@ -1,6 +1,6 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-06 18:22",
+ "updated": "2026-11-06 18:24",
  "leadHours": 24,
  "days": [
   {
@@ -203,13 +203,13 @@ window.KE_SLOTS = {
    "date": "2026-11-21",
    "start": "14:00",
    "end": "21:00",
-   "title": "公館「身心靈」擺攤"
+   "title": "公館身心靈市集見面會"
   },
   {
    "date": "2026-11-22",
    "start": "14:00",
    "end": "21:00",
-   "title": "公館「身心靈」擺攤"
+   "title": "公館身心靈市集見面會"
   }
  ]
 };
