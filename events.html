@@ -80,6 +80,7 @@ html.is-mobile .line-join img { display: none; }
 html:not(.dk-is-desktop) .dk-desk, html:not(.dk-is-desktop) .dk-desk-copy { display: none; }
 html.dk-is-desktop .dk-mobile-send { display: none; }
 .dk-box { max-height: calc(100vh - 32px); overflow-y: auto; }
+.dk-remind { margin-top: 1rem; padding: 0.8rem 1rem; background: rgba(176,151,110,.12); border-radius: 10px; font-size: 0.88rem !important; color: #2b3a3e !important; }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -234,10 +235,15 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
         </div>
       </div>
     <ol class="steps reveal" style="margin-top:2.4rem;">
-      <li><strong>選時間、填資料</strong>點想預約的時間，填好姓名和手機，按「用 LINE 傳給 Molly」。還沒加入官方 LINE 的話，會先請你加入 @864ihpsq。</li>
+      <li><strong>加入官方 LINE 好友</strong>還沒加入的話，請先按下方「先加入官方 LINE 好友」；用電腦看的話，也可以用手機掃下方的 QR code，加入 @864ihpsq。</li>
+      <li><strong>選時間、填資料，用 LINE 傳給我</strong>點想預約的時間，填好姓名和手機，按「用 LINE 傳給 Molly」並送出。<b>一定要在 LINE 傳出預約訊息，時段才會為你保留。</b></li>
       <li><strong>等我回覆確認</strong>我在 LINE 回覆確認後，這個時段就保留給你。每個時段只開放一位，以先確認的人為準。</li>
       <li><strong>當天現場付款</strong>不用事先匯款，體驗完在現場付 NT$400 就可以。</li>
     </ol>
+    <div class="line-join reveal">
+      <img src="images/qr-line.png" alt="官方 LINE QR Code">
+      <a class="btn dark" href="https://line.me/R/ti/p/@864ihpsq" target="_blank" rel="noopener">先加入官方 LINE 好友</a>
+    </div>
     <div class="notice-box reveal" style="margin-top:2rem;">
       <strong>小提醒</strong><br>
       ・已預約的朋友，時段會為你保留 10 分鐘。超過 10 分鐘還沒到，我們會先接待現場的朋友；之後如果還有空檔，再依現場時間幫你安排。<br>
@@ -444,6 +450,7 @@ KE_FULL.forEach(function (k) {
       <p>① 用手機掃 QR code，加入官方 LINE<br>② 按「複製」，把上面這段文字貼到 LINE 傳給我</p>
       <img src="images/qr-line.png" alt="官方 LINE QR Code">
     </div>
+    <p class="dk-remind"><strong>請務必在 LINE 傳出這則預約訊息</strong>，時段才會為你保留。<br>傳出後請等我回覆確認，才算預約成功。</p>
     <div class="dk-actions">
       <a class="btn solid dk-mobile-send" id="dkSend" target="_blank" rel="noopener">用 LINE 傳給 Molly</a>
       <button type="button" class="btn solid dk-desk-copy" id="dkCopy">複製這段文字</button>
