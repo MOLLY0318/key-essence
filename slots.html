@@ -123,11 +123,7 @@ html.is-desktop .confirm .qr { display: flex; }
   <div class="container">
     <div class="slot-steps">
 
-      <div class="events" id="events" hidden>
-        <h2>近期行程</h2>
-        <ul id="eventList"></ul>
-        <p class="events-more"><a href="activities.html">看活動介紹與預約方式 →</a></p>
-      </div>
+      <p class="events-more" style="text-align:center;margin:0;">見面會、夥伴老師特約等活動，請看 <a href="activities.html">近期活動 →</a></p>
 
       <div class="slot-step">
         <h2>在哪裡見面</h2>
@@ -379,7 +375,6 @@ html.is-desktop .confirm .qr { display: flex; }
       var h = el('h3', '', fmtDate(date));
       if (!ts.length) h.appendChild(el('span', 'day-status', '已額滿'));
       card.appendChild(h);
-      (evByDate[date] || []).forEach(function (ev) { card.appendChild(el('p', 'day-event', (ev.status ? ev.title + '　' + ev.status : ev.start + '–' + ev.end + '　' + ev.title))); });
       if (ts.length) {
         var row = el('div', 'times');
         ts.forEach(function (t) {
@@ -493,16 +488,7 @@ html.is-desktop .confirm .qr { display: flex; }
     });
   });
 
-  // 擺攤、講座這類公開行程：還沒結束的才顯示
-  var events = (data.events || []).filter(function (ev) { return new Date(ev.date + 'T' + ev.end + ':00+08:00').getTime() > Date.now(); });
-  events.forEach(function (ev) {
-    var li = el('li');
-    li.appendChild(el('b', '', fmtDate(ev.date) + (ev.status ? '' : ' ' + ev.start + '–' + ev.end)));
-    li.appendChild(document.createTextNode(ev.title));
-    if (ev.status) li.appendChild(el('span', 'ev-status', ev.status));
-    $('eventList').appendChild(li);
-  });
-  $('events').hidden = !events.length;
+  // 公開行程（見面會、特約）改放在 activities.html，預約頁只顯示可預約時段（2026-11-08 Molly 決定）
 
   // 從其他頁面帶進來：slots.html?pick=oil,hd 會先勾好精油側寫＋人類圖
   var PICK = { oil: '精油側寫', hd: '人類圖', num: '生命靈數' };
