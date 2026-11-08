@@ -70,6 +70,16 @@ html.is-mobile .line-join img { display: none; }
 .dk-box img { width: 150px; height: 150px; margin: 0.6rem auto; display: block; }
 .dk-box p { font-size: 0.9rem; line-height: 1.8; color: #4a5a5e; }
 .dk-actions { display: flex; gap: 0.6rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+.dk-form { text-align: left; margin: 0.8rem 0 0.2rem; display: grid; gap: 0.7rem; }
+.dk-form label { display: grid; gap: 0.3rem; font-size: 0.9rem; color: #2b3a3e; }
+.dk-form label[hidden] { display: none; }
+.dk-form input { font: inherit; padding: 0.6rem 0.8rem; border: 1px solid #cfc6b8; border-radius: 10px; }
+.dk-note { font-size: 0.8rem !important; color: #7E8D91 !important; }
+.dk-msg { white-space: pre-line; text-align: left; }
+.dk-err { color: #b3554a !important; margin-top: 0.6rem; }
+html:not(.dk-is-desktop) .dk-desk, html:not(.dk-is-desktop) .dk-desk-copy { display: none; }
+html.dk-is-desktop .dk-mobile-send { display: none; }
+.dk-box { max-height: calc(100vh - 32px); overflow-y: auto; }
 </style>
 <!-- Meta Pixel Code -->
 <script>
@@ -139,7 +149,7 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
       <p>11/21（六）、11/22（日）14:00–21:00<br>公館禮客｜台北市中正區思源街 16 號</p>
     </div>
     <div class="prose reveal" style="margin-top:1.6rem;">
-      <p>這兩天，我和復生老師一起在公館禮客和大家見面。兩項體驗每場約 20 分鐘、體驗價 NT$400，可以只選一項，也可以接著兩項都做。</p>
+      <p>這兩天，我和復生老師一起在公館禮客和大家見面。兩項體驗每場約 20 分鐘、體驗價 NT$400，當天現場付款。可以只選一項，也可以接著兩項都做。</p>
     </div>
     <div class="grid-2 mk-intro">
       <div class="card reveal">
@@ -172,7 +182,7 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
         <div class="faq-a"><span>不用。這次的體驗不上油，穿著衣服就可以，建議穿寬鬆、腰部不緊的衣服。剛吃飽的話，建議隔一段時間再來。</span></div>
       </details>
     </div>
-    <p class="mk-hint reveal">每小時先開放一場預約，其他時段保留給現場的朋友；預約額滿後會再加開。<br>點想預約的時間，會打開官方 LINE 並帶好預約訊息，按「傳送」就可以。每個時段只開放一位。</p>
+    <p class="mk-hint reveal">每小時先開放一場預約，其他時段保留給現場的朋友；預約額滿後會再加開。<br>點想預約的時間，填好姓名和手機，就能用 LINE 傳給我。</p>
       <div class="mk-day reveal">
         <h3>11/21（六）</h3>
         <div class="mk-svc">
@@ -224,14 +234,14 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
         </div>
       </div>
     <ol class="steps reveal" style="margin-top:2.4rem;">
-      <li><strong>加入官方 LINE</strong>點上面的時間傳出預約訊息。還沒加入的話，請先加入官方 LINE @864ihpsq。</li>
-      <li><strong>完成匯款</strong>我在 LINE 跟你確認時段後，會提供匯款資訊。精油側寫和內臟按摩都匯給我，完成匯款，時段才算預約成立。</li>
-      <li><strong>前一天晚上 9 點前完成</strong>11/21 的預約請在 11/20 21:00 前完成匯款，11/22 的預約請在 11/21 21:00 前完成。以先完成匯款的人為準。</li>
+      <li><strong>選時間、填資料</strong>點想預約的時間，填好姓名和手機，按「用 LINE 傳給 Molly」。還沒加入官方 LINE 的話，會先請你加入 @864ihpsq。</li>
+      <li><strong>等我回覆確認</strong>我在 LINE 回覆確認後，這個時段就保留給你。每個時段只開放一位，以先確認的人為準。</li>
+      <li><strong>當天現場付款</strong>不用事先匯款，體驗完在現場付 NT$400 就可以。</li>
     </ol>
     <div class="notice-box reveal" style="margin-top:2rem;">
       <strong>小提醒</strong><br>
-      ・已預約並完成匯款的朋友，時段會為你保留 10 分鐘。超過 10 分鐘還沒到，我們會先接待現場的朋友；之後如果還有空檔，再依現場時間幫你安排。<br>
-      ・臨時有狀況，請盡早在 LINE 跟我說一聲。取消與改期的規則，請看<a href="faq.html" style="color:#b0976e;">常見問題</a>。<br>
+      ・已預約的朋友，時段會為你保留 10 分鐘。超過 10 分鐘還沒到，我們會先接待現場的朋友；之後如果還有空檔，再依現場時間幫你安排。<br>
+      ・臨時不能來，請盡早在 LINE 跟我說一聲，讓這個時段可以留給其他朋友。<br>
       ・現場如果還有空檔，也歡迎直接來找我們。
     </div>
   </div>
@@ -421,38 +431,76 @@ KE_FULL.forEach(function (k) {
 <script src="booking.js"></script>
 <div class="dk-modal" id="dkModal" hidden role="dialog" aria-modal="true" aria-labelledby="dkTitle">
   <div class="dk-box">
-    <h3 id="dkTitle">用手機傳給我就完成了</h3>
-    <p>你選的是：</p>
+    <h3 id="dkTitle">預約資料</h3>
+    <p>你選的是：<strong id="dkPick"></strong></p>
+    <form id="dkForm" class="dk-form" hidden>
+      <label>姓名或稱呼<input type="text" id="fName" autocomplete="name" required></label>
+      <label>手機<input type="tel" id="fPhone" autocomplete="tel" inputmode="tel" required></label>
+      <label id="fBodyWrap">身體狀況（例如懷孕、近期腹部手術，沒有可以不填）<input type="text" id="fBody"></label>
+      <p class="dk-note">資料只會出現在你傳給我的 LINE 訊息裡，網頁不會保存。</p>
+    </form>
     <div class="dk-msg" id="dkMsg"></div>
-    <p>① 用手機掃下面的 QR code，加入官方 LINE<br>② 把上面這段文字傳給我（可以先按「複製」，再貼到 LINE）</p>
-    <img src="images/qr-line.png" alt="官方 LINE QR Code">
+    <div class="dk-desk">
+      <p>① 用手機掃 QR code，加入官方 LINE<br>② 按「複製」，把上面這段文字貼到 LINE 傳給我</p>
+      <img src="images/qr-line.png" alt="官方 LINE QR Code">
+    </div>
     <div class="dk-actions">
-      <button type="button" class="btn solid" id="dkCopy">複製這段文字</button>
+      <a class="btn solid dk-mobile-send" id="dkSend" target="_blank" rel="noopener">用 LINE 傳給 Molly</a>
+      <button type="button" class="btn solid dk-desk-copy" id="dkCopy">複製這段文字</button>
       <button type="button" class="btn dark" id="dkClose">關閉</button>
     </div>
+    <p class="dk-err" id="dkErr" hidden>請先填好姓名和手機。</p>
   </div>
 </div>
 
 <script>
-// 電腦版：點預約時段不跳去 LINE 網頁，改跳出視窗，顯示預約文字＋複製＋QR code；手機照常直接打開 LINE
+// 點預約：見面會時段先填姓名、手機（內臟按摩多問身體狀況），再一次傳到 LINE；
+// 手機按「用 LINE 傳給 Molly」直接開 LINE，電腦顯示複製＋QR code。特約場次在手機上照常直接開 LINE。
 (function () {
-  var html = document.documentElement;
-  var modal = document.getElementById('dkModal'), msgBox = document.getElementById('dkMsg');
+  var LINE = 'https://line.me/R/oaMessage/@864ihpsq/?';
+  var html = document.documentElement, $ = function (id) { return document.getElementById(id); };
+  var modal = $('dkModal'), base = '', needForm = false, isBw = false;
   function isDesktop() { return html.classList.contains('is-desktop'); }
+  html.classList.toggle('dk-is-desktop', isDesktop());
+  function build() {
+    if (!needForm) return base;
+    var t = base + '\n姓名：' + $('fName').value.trim() + '\n手機：' + $('fPhone').value.trim();
+    if (isBw) t += '\n身體狀況：' + ($('fBody').value.trim() || '無');
+    return t;
+  }
+  function ready() { return !needForm || ($('fName').value.trim() && $('fPhone').value.trim()); }
+  function refresh() {
+    var t = build();
+    $('dkMsg').textContent = t;
+    $('dkSend').href = LINE + encodeURIComponent(t);
+    $('dkErr').hidden = true;
+  }
+  ['fName', 'fPhone', 'fBody'].forEach(function (id) { $(id).addEventListener('input', refresh); });
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href*="line.me/R/oaMessage/"]');
-    if (!a || !isDesktop() || a.classList.contains('is-full')) return;
+    if (!a || a.id === 'dkSend' || a.classList.contains('is-full')) return;
+    needForm = a.classList.contains('mk-slot');
+    if (!needForm && !isDesktop()) return;
     e.preventDefault();
-    msgBox.textContent = decodeURIComponent(a.href.split('?')[1] || '');
-    document.getElementById('dkCopy').textContent = '複製這段文字';
+    base = decodeURIComponent(a.href.split('?')[1] || '');
+    isBw = needForm && base.indexOf('內臟按摩') > -1;
+    $('dkPick').textContent = base.replace('我想預約｜', '');
+    $('dkForm').hidden = !needForm;
+    $('fBodyWrap').hidden = !isBw;
+    $('dkTitle').textContent = needForm ? '填好資料，傳給我就完成了' : '用手機傳給我就完成了';
+    $('dkCopy').textContent = '複製這段文字';
+    refresh();
     modal.hidden = false;
+    if (needForm) setTimeout(function () { $('fName').focus(); }, 50);
   });
-  document.getElementById('dkClose').addEventListener('click', function () { modal.hidden = true; });
+  $('dkSend').addEventListener('click', function (e) { if (!ready()) { e.preventDefault(); $('dkErr').hidden = false; } });
+  $('dkClose').addEventListener('click', function () { modal.hidden = true; });
   modal.addEventListener('click', function (e) { if (e.target === modal) modal.hidden = true; });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') modal.hidden = true; });
-  document.getElementById('dkCopy').addEventListener('click', function () {
-    var btn = this, text = msgBox.textContent;
-    function selectIt() { var r = document.createRange(); r.selectNodeContents(msgBox); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '已選取，請按 ⌘C 複製'; }
+  $('dkCopy').addEventListener('click', function () {
+    if (!ready()) { $('dkErr').hidden = false; return; }
+    var btn = this, box = $('dkMsg'), text = box.textContent;
+    function selectIt() { var r = document.createRange(); r.selectNodeContents(box); var s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = '已選取，請按 ⌘C 複製'; }
     if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(function () { btn.textContent = '已複製'; }, selectIt);
     else selectIt();
   });
