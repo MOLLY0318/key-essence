@@ -1,6 +1,6 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-06 19:27",
+ "updated": "2026-11-08 17:00",
  "leadHours": 24,
  "days": [
   {
@@ -491,13 +491,6 @@ window.KE_SLOTS = {
   }
  ],
  "events": [
-  {
-   "date": "2026-11-07",
-   "start": "13:00",
-   "end": "18:00",
-   "title": "身心手療按摩（特約）",
-   "status": "已額滿"
-  },
   {
    "date": "2026-11-21",
    "start": "14:00",
