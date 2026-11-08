@@ -59,11 +59,12 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
 <style>
-.home-ev-list { max-width: 680px; margin: 0 auto; list-style: none; padding: 0; display: grid; gap: 0.8rem; }
-.home-ev-list a { display: grid; gap: 0.2rem; background: #fff; padding: 1.1rem 1.4rem; border-radius: 12px; box-shadow: 0 10px 24px -16px rgba(17,27,32,.25); text-decoration: none; color: #2b3a3e; line-height: 1.7; }
-.home-ev-list b { font-weight: 500; font-variant-numeric: tabular-nums; }
-.home-ev-list em { font-style: normal; color: #b0976e; font-size: 0.9rem; }
-.home-ev-more { text-align: center; margin-top: 1.6rem; }
+.home-notice { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 0.4rem 0.9rem; padding: 0.85rem 16px; background: #f4eee4; border-bottom: 1px solid rgba(176,151,110,.35); color: #2b3a3e; text-decoration: none; font-size: 0.95rem; line-height: 1.6; text-align: center; }
+.home-notice .hn-label { font-size: 0.8rem; letter-spacing: 0.08em; color: #fff; background: #b0976e; border-radius: 50px; padding: 0.1rem 0.75rem; }
+.home-notice .hn-go { color: #8a7148; white-space: nowrap; }
+.home-notice:hover .hn-go { text-decoration: underline; }
+.home-notice .hn-text span { white-space: nowrap; }
+@media (max-width: 640px) { .home-notice .hn-text { display: flex; flex-direction: column; } .home-notice .hn-dot { display: none; } }
 </style>
 </head>
 <body>
@@ -93,20 +94,12 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
   <p class="lede">「鑰．本質」陪你找回通往自己內在的鑰匙，看見自己的本質</p>
 </header>
 
-<!-- ===== 近期活動：跟 events.html 的「近期行程」一起更新；沒有活動時整段刪掉 ===== -->
-<section class="home-events section-light-texture">
-  <div class="container">
-    <div class="section-head reveal">
-      <div class="eyebrow eyebrow-xl">Upcoming</div>
-      <h2>近期活動</h2>
-    </div>
-    <ul class="home-ev-list reveal">
-      <li><a href="events.html#market"><b>11/21（六）、11/22（日）</b><span>公館禮客見面會｜精油側寫＋腹部身心手療體驗</span><em>看時段與預約 →</em></a></li>
-      <li><a href="events.html#special"><b>12/20（日）</b><span>身心手療按摩特約｜復生老師</span><em>看介紹與預約 →</em></a></li>
-    </ul>
-    <p class="home-ev-more reveal"><a href="events.html" class="btn dark">看所有活動 →</a></p>
-  </div>
-</section>
+<!-- ===== 近期活動公告列：跟 events.html 的「近期行程」一起更新；沒有活動時整段刪掉 ===== -->
+<a class="home-notice" href="events.html">
+  <span class="hn-label">近期活動</span>
+  <span class="hn-text"><span>11/21–22 公館禮客見面會</span><span class="hn-dot">・</span><span>12/20 身心手療按摩特約</span></span>
+  <span class="hn-go">看詳情 →</span>
+</a>
 
 <section>
   <div class="container">
