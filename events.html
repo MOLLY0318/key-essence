@@ -450,7 +450,7 @@ KE_FULL.forEach(function (k) {
       <p>① 用手機掃 QR code，加入官方 LINE<br>② 按「複製」，把上面這段文字貼到 LINE 傳給我</p>
       <img src="images/qr-line.png" alt="官方 LINE QR Code">
     </div>
-    <p class="dk-remind"><strong>請務必在 LINE 傳出這則預約訊息</strong>，時段才會為你保留。<br>傳出後請等我回覆確認，才算預約成功。</p>
+    <p class="dk-remind"><strong>請務必在 LINE（@864ihpsq）傳出這則預約訊息</strong>，時段才會為你保留。<br>傳出後請等我回覆確認，才算預約成功。</p>
     <div class="dk-actions">
       <a class="btn solid dk-mobile-send" id="dkSend" target="_blank" rel="noopener">用 LINE 傳給 Molly</a>
       <button type="button" class="btn solid dk-desk-copy" id="dkCopy">複製這段文字</button>
@@ -494,7 +494,7 @@ KE_FULL.forEach(function (k) {
     $('dkPick').textContent = base.replace('我想預約｜', '');
     $('dkForm').hidden = !needForm;
     $('fBodyWrap').hidden = !isBw;
-    $('dkTitle').textContent = needForm ? '填好資料，傳給我就完成了' : '用手機傳給我就完成了';
+    $('dkTitle').textContent = needForm ? '填好資料，傳到 LINE @864ihpsq 就完成了' : '用手機傳到 LINE @864ihpsq 就完成了';
     $('dkCopy').textContent = '複製這段文字';
     refresh();
     modal.hidden = false;
