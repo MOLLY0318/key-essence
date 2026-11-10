@@ -1,6 +1,6 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-10 11:37",
+ "updated": "2026-11-10 21:13",
  "leadHours": 24,
  "days": [
   {
@@ -420,29 +420,23 @@ window.KE_SLOTS = {
    "date": "2026-12-20",
    "online": {
     "one": [
-     "13:00",
      "16:00"
     ],
     "two": [
-     "13:00",
      "16:00"
     ],
     "three": [
-     "13:00",
      "16:00"
     ]
    },
    "studio": {
     "one": [
-     "13:30",
      "16:30"
     ],
     "two": [
-     "13:30",
      "16:30"
     ],
     "sound": [
-     "13:30",
      "16:30"
     ]
    }
