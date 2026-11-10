@@ -1,5 +1,12 @@
 // 普羅芳選購清單邏輯：篩選、購物車（localStorage）、複製訂單內容＋導去 LINE 加好友
 (function () {
+  // 檔期小字：data-until 那天過後自動隱藏（例：11 月限定 79 折到 2026-11-30）
+  (function hideEndedPromos() {
+    const d = new Date(), pad = (n) => String(n).padStart(2, '0');
+    const today = d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+    document.querySelectorAll('.promo-note[data-until]').forEach((el) => { if (today > el.dataset.until) el.style.display = 'none'; });
+  })();
+
   const CART_KEY = 'ke-shop-cart-v1';
   const CUSTOMER_KEY = 'ke-shop-customer-v1';
 
