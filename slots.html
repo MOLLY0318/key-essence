@@ -321,13 +321,12 @@ html.is-desktop .confirm .qr { display: flex; }
 
   function renderServices() {
     var box = $('servicePick'); box.textContent = '';
-    // 全部服務都列出來；只在工作室做的，選了就自動切到「桃園工作室」
-    SERVICES.forEach(function (s) {
+    // 只列出這個地點做得到的服務：線上＝陪伴會談、關係人類圖；工作室＝全部（2026-11-10 Molly 決定）
+    SERVICES.filter(function (s) { return s.modes.indexOf(mode) >= 0; }).forEach(function (s) {
       var l = el('label');
       var i = el('input'); i.type = 'radio'; i.name = 'service'; i.value = s.id; i.checked = s.id === service;
       i.addEventListener('change', function () {
         service = s.id; picked = null;
-        if (s.modes.indexOf(mode) < 0) { document.querySelector('input[name="mode"][value="studio"]').click(); return; }
         syncItems(); renderDays();
       });
       l.appendChild(i);
