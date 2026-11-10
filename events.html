@@ -498,7 +498,7 @@ KE_PENDING.forEach(function (p) {
 
 <script>
 // 點預約：活動時段先填姓名、手機（內臟按摩多問身體狀況），再一次傳到 LINE；
-// 手機按「用 LINE 傳給 Molly」直接開 LINE，電腦顯示複製＋QR code。特約場次在手機上照常直接開 LINE。
+// 手機按「用 LINE 傳給 Molly」直接開 LINE，電腦顯示複製＋QR code。特約場次一樣先填姓名、手機，訊息才會帶名字。
 (function () {
   var LINE = 'https://line.me/R/oaMessage/@864ihpsq/?';
   var html = document.documentElement, $ = function (id) { return document.getElementById(id); };
@@ -522,7 +522,7 @@ KE_PENDING.forEach(function (p) {
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href*="line.me/R/oaMessage/"]');
     if (!a || a.id === 'dkSend' || a.classList.contains('is-full')) return;
-    needForm = a.classList.contains('mk-slot');
+    needForm = a.classList.contains('mk-slot') || a.hasAttribute('data-slot'); // 特約場次也要先填姓名、手機（2026-11-10）
     if (!needForm && !isDesktop()) return;
     e.preventDefault();
     base = decodeURIComponent(a.href.split('?')[1] || '');
