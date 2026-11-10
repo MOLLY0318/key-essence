@@ -1294,6 +1294,84 @@ footer.site-footer .footer-social a:hover {
 .craft-dot.active { background: var(--champagne); }
 
 /* ── SHOP：普羅芳選購清單 ── */
+/* 全產品系列 DM 卡：封面圖＋說明，整張可點 */
+.shop-dm-card {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto 2rem;
+  padding: 1.1rem 1.3rem;
+  background: #fff;
+  border: 1px solid var(--sand);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(17,27,32,0.05), 0 12px 26px -14px rgba(17,27,32,0.22);
+  text-align: left;
+  font-family: inherit;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.shop-dm-card:hover { border-color: var(--champagne); transform: translateY(-2px); }
+.shop-dm-card:focus-visible { outline: 2px solid var(--brass); outline-offset: 3px; }
+.shop-dm-cover {
+  flex: none;
+  width: 120px;
+  max-width: 34%;
+  aspect-ratio: 662 / 936;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px -6px rgba(17,27,32,0.35);
+}
+.shop-dm-text { display: flex; flex-direction: column; gap: 0.35rem; min-width: 0; }
+.shop-dm-eyebrow { font-size: 0.75rem; letter-spacing: 0.12em; color: var(--brass); }
+.shop-dm-title { font-family: 'Noto Serif TC', serif; font-size: 1.35rem; font-weight: 600; }
+.shop-dm-desc { font-size: 0.9rem; color: var(--umber); line-height: 1.7; }
+.shop-dm-btn {
+  align-self: flex-start;
+  margin-top: 0.3rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 50px;
+  background: linear-gradient(155deg, var(--champagne) 0%, var(--brass) 100%);
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.shop-dm-note { font-size: 0.75rem; color: var(--bluegray); }
+@media (max-width: 480px) {
+  .shop-dm-card { gap: 1rem; padding: 1rem; }
+  .shop-dm-cover { width: 96px; }
+  .shop-dm-title { font-size: 1.15rem; }
+  .shop-dm-btn { font-size: 0.82rem; padding: 0.5rem 0.9rem; }
+}
+
+/* 商品搜尋欄 */
+.shop-search { max-width: 520px; margin: 0 auto 1.2rem; }
+.shop-search-input {
+  width: 100%;
+  padding: 0.85rem 1.2rem 0.85rem 2.6rem;
+  border: 1px solid var(--sand);
+  border-radius: 50px;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23A8895F' stroke-width='2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 1rem center;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--ink);
+}
+.shop-search-input:focus { outline: none; border-color: var(--champagne); box-shadow: 0 0 0 3px rgba(199,173,122,0.25); }
+.shop-filter.is-searching { display: none; }
+.shop-search-hint { min-height: 1.2em; margin-top: 0.4rem; text-align: center; font-size: 0.82rem; color: var(--bluegray); }
+.shop-search-empty {
+  grid-column: 1 / -1;
+  padding: 2rem 1.2rem;
+  text-align: center;
+  color: var(--umber);
+  background: #fff;
+  border-radius: 16px;
+  line-height: 1.8;
+}
+
 .shop-filter {
   display: flex;
   flex-wrap: wrap;

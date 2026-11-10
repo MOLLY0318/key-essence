@@ -6,6 +6,7 @@
   let activeCategory = '全部';
   // 從 LINE 連結帶入 ?cat=系列A,系列B 時，同時顯示多個系列
   let activeCats = null;
+  let searchQuery = '';
   let cart = loadCart();
   let customer = loadCustomer();
 
@@ -59,6 +60,9 @@
       btn.addEventListener('click', function () {
         activeCategory = btn.getAttribute('data-cat');
         activeCats = null;
+        searchQuery = '';
+        const searchInput = document.getElementById('shopSearch');
+        if (searchInput) searchInput.value = '';
         renderFilters();
         renderGrid();
       });
@@ -66,13 +70,34 @@
   }
 
   // ── 商品格 ──
+  // 搜尋：有輸入字時搜全部分類（品名、學名、分類），不受上方分類按鈕限制
+  function normalize(s) { return String(s || '').toLowerCase().replace(/\s+/g, ''); }
+  function searchMatches(p, q) { return normalize(p.name + p.latin + p.cat).indexOf(q) !== -1; }
+
   function renderGrid() {
     const el = document.getElementById('shopGrid');
-    const list = activeCats
-      ? SHOP_PRODUCTS.filter(function (p) { return activeCats.indexOf(p.cat) !== -1; })
-      : activeCategory === '全部'
-        ? SHOP_PRODUCTS
-        : SHOP_PRODUCTS.filter(function (p) { return p.cat === activeCategory; });
+    const q = normalize(searchQuery);
+    const list = q
+      ? SHOP_PRODUCTS.filter(function (p) { return searchMatches(p, q); })
+      : activeCats
+        ? SHOP_PRODUCTS.filter(function (p) { return activeCats.indexOf(p.cat) !== -1; })
+        : activeCategory === '全部'
+          ? SHOP_PRODUCTS
+          : SHOP_PRODUCTS.filter(function (p) { return p.cat === activeCategory; });
+
+    // 搜尋中先收起分類按鈕，結果直接接在搜尋欄下面
+    document.getElementById('shopFilter').classList.toggle('is-searching', !!q);
+    const hint = document.getElementById('shopSearchHint');
+    if (hint) {
+      hint.textContent = q
+        ? (list.length ? '找到 ' + list.length + ' 項「' + searchQuery.trim() + '」' : '')
+        : '';
+    }
+    if (q && !list.length) {
+      el.innerHTML = '<div class="shop-search-empty">找不到「' + escapeHtml(searchQuery.trim()) +
+        '」。可以換個字試試（例如只打「薰衣草」），或打開上面的 DM 翻翻看，也可以直接 LINE 問我。</div>';
+      return;
+    }
 
     el.innerHTML = list.map(function (p) {
       const qty = cart[p.id] ? cart[p.id].qty : 1;
@@ -362,6 +387,14 @@
     document.getElementById('cartModalBackdrop').addEventListener('click', closeCartModal);
 
     document.getElementById('catalogOpenBtn').addEventListener('click', openCatalogModal);
+
+    // 搜尋欄：打字就即時篩選；清空後回到原本選的分類
+    let searchTimer = null;
+    document.getElementById('shopSearch').addEventListener('input', function (e) {
+      const v = e.target.value;
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(function () { searchQuery = v; renderGrid(); }, 150);
+    });
     document.getElementById('catalogModalClose').addEventListener('click', closeCatalogModal);
     document.getElementById('catalogModalBackdrop').addEventListener('click', closeCatalogModal);
 

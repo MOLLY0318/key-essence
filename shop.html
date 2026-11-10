@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=2">
+<link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
 
@@ -69,10 +69,21 @@
       <strong>訂購方式：</strong>勾選品項加入清單 → 點右下角「查看清單」→ 填寫姓名／電話／寄送方式／地址 → 複製訂單內容，貼到跟我既有的 LINE 對話傳給我，我會回覆核對金額（滿 NT$2,000 免運）與付款方式（現金／匯款）。
     </div>
 
-    <p style="text-align:center; margin-bottom:0.5rem;">
-      <button type="button" id="catalogOpenBtn" style="background:none; border:none; color:var(--brass); text-decoration:underline; font-size:1em; cursor:pointer; font-family:inherit;">查看完整商品型錄 PDF（含商品照片）→</button>
-    </p>
-    <p style="text-align:center; margin-bottom:2.2rem; font-size:0.8rem; color:var(--bluegray);">型錄僅供參考商品外觀與介紹，實際售價請以上方選購清單為準</p>
+    <button type="button" class="shop-dm-card" id="catalogOpenBtn">
+      <img class="shop-dm-cover" src="images/shop/catalog-cover.jpg" alt="普羅芳全產品系列 DM 封面">
+      <span class="shop-dm-text">
+        <span class="shop-dm-eyebrow">先翻一翻再挑</span>
+        <span class="shop-dm-title">全產品系列 DM</span>
+        <span class="shop-dm-desc">34 頁，每一項商品都有照片和介紹。不確定要買哪一支，可以先從這裡看。</span>
+        <span class="shop-dm-btn">打開 DM 看商品照片 →</span>
+        <span class="shop-dm-note">DM 內的價格僅供參考，實際售價以下方選購清單為準</span>
+      </span>
+    </button>
+
+    <div class="shop-search">
+      <input type="search" id="shopSearch" class="shop-search-input" placeholder="搜尋品名，例如：薰衣草、荷荷芭、純露" autocomplete="off" aria-label="搜尋商品">
+      <div class="shop-search-hint" id="shopSearchHint"></div>
+    </div>
 
     <div class="shop-filter" id="shopFilter"></div>
 
@@ -167,6 +178,6 @@
 </footer>
 
 <script src="shop-data.js?v=4"></script>
-<script src="shop.js?v=5"></script>
+<script src="shop.js?v=6"></script>
 </body>
 </html>
