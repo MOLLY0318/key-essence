@@ -22,6 +22,8 @@
 .slot-steps { max-width: 860px; margin: 0 auto; display: grid; gap: 2.4rem; }
 .slot-step h2 { font-size: 1.25rem; margin-bottom: 0.9rem; }
 .slot-step h2 small { font-family: 'Noto Sans TC', sans-serif; font-weight: 400; font-size: 0.85rem; color: var(--bluegray); letter-spacing: 0.04em; margin-left: 0.4rem; }
+/* 有 hidden 的區塊一律藏起來（.items、.extra 等的 display 會蓋過 hidden，2026-11-10 修） */
+[hidden] { display: none !important; }
 .pick { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem; }
 .pick label { position: relative; display: block; background: #fff; border: 1px solid var(--sand); border-radius: 16px; padding: 1rem 1.2rem; cursor: pointer; transition: border-color .2s ease, box-shadow .2s ease; }
 .pick input { position: absolute; opacity: 0; pointer-events: none; }
