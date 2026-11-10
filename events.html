@@ -60,6 +60,8 @@ html.is-mobile .line-join img { display: none; }
 .mk-slot { display: block; text-align: center; padding: 0.55rem 0; border: 1px solid #b0976e; border-radius: 50px; color: #8a7148; text-decoration: none; font-variant-numeric: tabular-nums; font-size: 0.95rem; }
 .mk-slot:hover { background: #b0976e; color: #fff; }
 .mk-slot.is-full { border-color: #d8d2c8; color: #b5b0a8; pointer-events: none; text-decoration: line-through; }
+.mk-slot.is-pending { border-color: #d8d2c8; color: #a8895f; pointer-events: none; font-size: 0.8em; }
+.btn.is-full, .btn.is-pending { background: #e9e4dc; color: #8f8a82; border-color: transparent; pointer-events: none; cursor: default; }
 @media (max-width: 640px) { .mk-times { grid-template-columns: repeat(3, 1fr); } .mk-day { padding: 1.2rem 1rem; } }
 .mk-more { color: #b0976e; text-decoration: none; font-size: 0.9rem; display: inline-block; margin-top: 0.4rem; }
 .dk-modal { position: fixed; inset: 0; background: rgba(17,27,32,.55); display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 1000; }
@@ -372,17 +374,17 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
       <div class="card reveal">
         <div class="card-eyebrow">第 1 場</div>
         <h3>10:00–12:00</h3>
-        <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC1%E5%A0%B4%2010%3A00%E2%80%9312%3A00" target="_blank" rel="noopener">預約這場</a>
+        <a class="btn solid" data-slot="1220-sp-1000" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC1%E5%A0%B4%2010%3A00%E2%80%9312%3A00" target="_blank" rel="noopener">預約這場</a>
       </div>
       <div class="card reveal">
         <div class="card-eyebrow">第 2 場</div>
         <h3>13:00–15:00</h3>
-        <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC2%E5%A0%B4%2013%3A00%E2%80%9315%3A00" target="_blank" rel="noopener">預約這場</a>
+        <a class="btn solid" data-slot="1220-sp-1300" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC2%E5%A0%B4%2013%3A00%E2%80%9315%3A00" target="_blank" rel="noopener">預約這場</a>
       </div>
       <div class="card reveal">
         <div class="card-eyebrow">第 3 場</div>
         <h3>16:00–18:00</h3>
-        <a class="btn solid" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC3%E5%A0%B4%2016%3A00%E2%80%9318%3A00" target="_blank" rel="noopener">預約這場</a>
+        <a class="btn solid" data-slot="1220-sp-1600" href="https://line.me/R/oaMessage/@864ihpsq/?%E6%88%91%E6%83%B3%E9%A0%90%E7%B4%84%EF%BD%9C12%2F20%20%E8%BA%AB%E5%BF%83%E6%89%8B%E6%8A%80%E6%8C%89%E6%91%A9%20%E7%AC%AC3%E5%A0%B4%2016%3A00%E2%80%9318%3A00" target="_blank" rel="noopener">預約這場</a>
       </div>
     </div>
   </div>
@@ -452,9 +454,20 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
 <script>
 // 已約滿的時段：把 data-slot 的代號加進來，例如 '1121-oil-1400'（日期-服務-時間，oil＝精油側寫、bw＝內臟按摩）
 var KE_FULL = [];
-KE_FULL.forEach(function (k) {
+// 待匯款保留中：{ slot: 代號, until: 'YYYY-MM-DDTHH:MM+08:00' }，until＝確認後 96 小時。不寫客人姓名（公開頁面）
+// 時間一到，按鈕自動恢復可預約；匯款完成就把代號移到 KE_FULL。
+var KE_PENDING = [
+  { slot: '1220-sp-1000', until: '2026-11-14T11:55+08:00' }
+];
+function keLock(k, cls, label) {
   var a = document.querySelector('[data-slot="' + k + '"]');
-  if (a) { a.classList.add('is-full'); a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); a.title = '已額滿'; }
+  if (!a) return;
+  a.classList.add(cls); a.removeAttribute('href'); a.setAttribute('aria-disabled', 'true'); a.title = label;
+  if (a.classList.contains('btn')) a.textContent = label;
+}
+KE_FULL.forEach(function (k) { keLock(k, 'is-full', '已額滿'); });
+KE_PENDING.forEach(function (p) {
+  if (KE_FULL.indexOf(p.slot) < 0 && Date.now() < Date.parse(p.until)) keLock(p.slot, 'is-pending', '待匯款保留中');
 });
 </script>
 <script src="booking.js"></script>
