@@ -269,7 +269,8 @@ html.is-desktop .confirm .qr { display: flex; }
 </footer>
 
 <script src="booking.js"></script>
-<script src="booking-slots.js"></script>
+<!-- 每次都抓最新空檔，不讓瀏覽器用 10 分鐘前存下的舊版 -->
+<script>document.write('<script src="booking-slots.js?t=' + Date.now() + '"><\/script>');</script>
 <script>
 (function () {
   // 畫面上的服務；陪伴會談勾幾項，就對應私人行事曆的 one／two／three
