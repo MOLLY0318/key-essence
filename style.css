@@ -1707,3 +1707,108 @@ footer.site-footer .footer-social a:hover {
 .svc-group-note { color: #7a6d5c; font-size: 0.95rem; margin: 0 0 20px; }
 .svc-links { margin-top: 16px; text-align: center; }
 @media (max-width: 900px) { #mind .grid-3 { grid-template-columns: 1fr; } }
+
+/* ── 2026-11-13 黑馬班老師建議：人類圖光圈底圖、照片節奏、字體 Logo 化 ── */
+section.halo-bg { position: relative; overflow: hidden; }
+section.halo-bg::before {
+  content: "";
+  position: absolute;
+  left: 50%; top: 50%;
+  width: min(760px, 120vw);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: url('images/hd-halo.svg') center / contain no-repeat;
+  opacity: 0.32;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 760px) {
+  section.halo-bg::before { width: 92vw; }
+}
+section.halo-bg.halo-top::before { top: 1.5rem; width: min(600px, 110vw); transform: translateX(-50%); }
+section.halo-bg > .container { position: relative; z-index: 1; }
+
+.photo-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+.photo-strip figure, .life-gallery figure, .inline-duo figure { margin: 0; }
+.photo-strip img, .life-gallery img, .inline-duo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 18px 34px -20px rgba(17, 27, 32, 0.35);
+}
+.photo-strip figcaption, .life-gallery figcaption, .inline-duo figcaption {
+  margin-top: 0.6rem;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.06em;
+  color: var(--umber);
+  text-align: center;
+}
+.inline-duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  max-width: 34em;
+  margin: 2.2rem auto;
+}
+.inline-duo img { aspect-ratio: 3 / 4; }
+.life-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+.life-gallery img { aspect-ratio: 3 / 4; }
+@media (max-width: 900px) { .life-gallery { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) {
+  .photo-strip { grid-template-columns: 1fr; }
+  .inline-duo { gap: 0.8rem; }
+}
+
+.key-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--brass);
+  margin: 2rem auto;
+}
+.key-divider::before, .key-divider::after {
+  content: "";
+  width: 72px;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.5;
+}
+.key-divider img { width: 96px; height: auto; }
+
+/* 英文字母換成 Logo 鑰匙（Service 的 i） */
+.key-word { display: inline-flex; align-items: flex-end; justify-content: center; }
+.key-letter { height: 0.86em; width: auto; margin: 0 0.06em 0.16em; display: inline-block; }
+
+/* 精油瓶線條底圖：一正一倒，墊在標題兩側（精油＝天氣；人類圖光圈＝地圖） */
+section.oil-bg { position: relative; overflow: hidden; }
+section.oil-bg::before, section.oil-bg::after {
+  content: "";
+  position: absolute;
+  top: 2.5rem;
+  width: clamp(110px, 14vw, 190px);
+  aspect-ratio: 220 / 460;
+  background: url('images/oil-bottle-line.svg') center / contain no-repeat;
+  opacity: 0.38;
+  pointer-events: none;
+  z-index: 0;
+}
+section.oil-bg::before { left: max(2vw, calc(50% - 560px)); transform: rotate(-8deg); }
+section.oil-bg::after { right: max(2vw, calc(50% - 560px)); top: 4.5rem; transform: rotate(172deg); }
+section.oil-bg > .container { position: relative; z-index: 1; }
+@media (max-width: 760px) {
+  section.oil-bg::before, section.oil-bg::after { width: 80px; opacity: 0.28; }
+  section.oil-bg::before { left: -14px; }
+  section.oil-bg::after { right: -14px; }
+}
