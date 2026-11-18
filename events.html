@@ -453,12 +453,10 @@ src="https://www.facebook.com/tr?id=1137955562091197&ev=PageView&noscript=1"
 </script>
 <script>
 // 已約滿的時段：把 data-slot 的代號加進來，例如 '1121-oil-1400'（日期-服務-時間，oil＝精油側寫、bw＝內臟按摩）
-var KE_FULL = ['1122-bw-1600'];
+var KE_FULL = ['1122-bw-1600', '1220-sp-1000'];
 // 待匯款保留中：{ slot: 代號, until: 'YYYY-MM-DDTHH:MM+08:00' }，until＝確認後 96 小時。不寫客人姓名（公開頁面）
 // 時間一到，按鈕自動恢復可預約；匯款完成就把代號移到 KE_FULL。
-var KE_PENDING = [
-  { slot: '1220-sp-1000', until: '2026-11-14T11:55+08:00' }
-];
+var KE_PENDING = [];
 function keLock(k, cls, label) {
   var a = document.querySelector('[data-slot="' + k + '"]');
   if (!a) return;
