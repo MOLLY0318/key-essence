@@ -1,23 +1,8 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-18 10:02",
+ "updated": "2026-11-19 09:13",
  "leadHours": 24,
  "days": [
-  {
-   "date": "2026-11-18",
-   "online": {
-    "one": [
-     "20:00"
-    ],
-    "two": [
-     "20:00"
-    ],
-    "three": [
-     "20:00"
-    ]
-   },
-   "studio": {}
-  },
   {
    "date": "2026-11-23",
    "online": {
@@ -301,13 +286,11 @@ window.KE_SLOTS = {
    "date": "2026-12-20",
    "start": "10:00",
    "end": "12:00",
-   "title": "身心手技按摩（特約）｜2 小時 NT$2,800"
+   "title": "身心手技按摩（特約）｜2 小時 NT$2,800",
+   "status": "已額滿"
   }
  ],
  "openModes": {
-  "2026-11-18": [
-   "online"
-  ],
   "2026-11-23": [
    "online",
    "studio"
