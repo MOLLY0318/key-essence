@@ -1,6 +1,6 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-19 09:13",
+ "updated": "2026-11-22 09:34",
  "leadHours": 24,
  "days": [
   {
@@ -257,12 +257,6 @@ window.KE_SLOTS = {
   }
  ],
  "events": [
-  {
-   "date": "2026-11-21",
-   "start": "14:00",
-   "end": "21:00",
-   "title": "公館禮客見面會"
-  },
   {
    "date": "2026-11-22",
    "start": "14:00",
