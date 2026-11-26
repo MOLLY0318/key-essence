@@ -20,7 +20,7 @@
 <meta name="twitter:image" content="https://molly0318.github.io/key-essence/images/logo-lockup-champagne.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=5">
 </head>
 <body>
 
@@ -64,6 +64,11 @@
         這裡的商品都由台灣總代理（圓森芳療）進口，是有品質保證的正品。我是普羅芳認證專業講師，挑選時可以依你的狀況幫你搭配。</p>
       </div>
     </details>
+
+    <div class="notice-box" id="memberBanner" style="display:none; margin-bottom:1rem; border-color:var(--brass);">
+      <strong style="color:var(--brass);">🌿 <span class="member-label">會員價</span></strong><br>
+      <small>已套用 Molly 給你的折扣，下面的價錢已經是會員價（活氧機等芳香儀器除外）。</small>
+    </div>
 
     <div class="notice-box promo-note" data-until="2026-11-30" style="margin-bottom:1rem; border-color:var(--brass);">
       <strong style="color:var(--brass);">11 月限定｜全系列 79 折</strong>（即日起至 11/30）<br>
@@ -118,7 +123,17 @@
       <span>總金額 NT$<strong id="cartTotalPrice">0</strong></span>
     </div>
     <p style="text-align:right; margin:-0.4rem 0 0.8rem;"><button type="button" id="cartShareBtn" style="background:none; border:none; color:var(--brass); text-decoration:underline; cursor:pointer; font-family:inherit; font-size:0.9em;">🔗 複製這份清單的連結</button></p>
-    <div class="cart-note" style="margin-top:-0.6rem;">上面是原價小計<span class="promo-note" data-until="2026-11-30">；11 月限定結帳以 79 折計算（活氧機、空瓶分裝器材及耗材除外）</span>，實際折扣與是否符合「滿 NT$2,000 免運」，我核對訂單時會直接跟您說。</div>
+    <div class="member-code" id="memberCodeBox">
+      <div id="memberCodeForm">
+        <label for="memberCodeInput">有 Molly 給你的折扣碼嗎？（選填）</label>
+        <div class="member-code-row">
+          <input id="memberCodeInput" type="text" autocomplete="off" autocapitalize="characters" placeholder="輸入折扣碼">
+          <button type="button" class="btn" id="memberCodeBtn">套用</button>
+        </div>
+      </div>
+      <div class="member-code-msg" id="memberCodeMsg" aria-live="polite"></div>
+    </div>
+    <div class="cart-note" id="cartPriceNote" style="margin-top:-0.6rem;">上面是原價小計<span class="promo-note" data-until="2026-11-30">；11 月限定結帳以 79 折計算（活氧機、空瓶分裝器材及耗材除外）</span>，實際折扣與是否符合「滿 NT$2,000 免運」，我核對訂單時會直接跟您說。</div>
 
     <div class="cart-customer-form">
       <div class="cart-field">
@@ -183,6 +198,6 @@
 </footer>
 
 <script src="shop-data.js?v=4"></script>
-<script src="shop.js?v=7"></script>
+<script src="shop.js?v=9"></script>
 </body>
 </html>

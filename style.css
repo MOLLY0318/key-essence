@@ -1812,3 +1812,12 @@ section.oil-bg > .container { position: relative; z-index: 1; }
   section.oil-bg::before { left: -14px; }
   section.oil-bg::after { right: -14px; }
 }
+/* 會員價（只有 ?m= 連結進來才顯示，2026-11-26） */
+.shop-card .shop-card-price .shop-card-list{color:var(--text-muted,#8a8a8a);font-weight:400;font-size:.85em}
+.shop-card .shop-card-price .shop-card-member{color:var(--brass);}
+.member-code{margin:0 0 .8rem}
+.member-code label{display:block;font-size:.9em;margin-bottom:.35rem;color:var(--brass)}
+.member-code-row{display:flex;gap:.5rem}
+.member-code-row input{flex:1;min-width:0;padding:.55rem .7rem;border:1px solid rgba(160,130,90,.5);border-radius:8px;font:inherit;background:transparent;color:inherit}
+.member-code-row .btn{white-space:nowrap}
+.member-code-msg{font-size:.88em;color:var(--brass);margin-top:.35rem;min-height:1em}

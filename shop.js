@@ -9,6 +9,33 @@
 
   const CART_KEY = 'ke-shop-cart-v1';
   const CUSTOMER_KEY = 'ke-shop-customer-v1';
+  const MEMBER_KEY = 'ke-shop-member-v1';
+
+  // 會員價（2026-11-26 Molly）：只有拿到 Molly 給的連結（?m=代碼）才看得到，網站本身不公開寫折扣。
+  // 給流月訂閱、上課學員等符合條件的人。活氧機等芳香儀器不打折。
+  const MEMBER_CODES = { kemember: { rate: 0.85, label: '會員價 85 折' }, key85: { rate: 0.85, label: '會員價 85 折' } };  // 代碼一律小寫比對
+  const MEMBER_EXCLUDE_CATS = ['芳香儀/芳香用品系列'];
+  let member = loadMember();
+
+  function loadMember() {
+    let code = null;
+    try { code = (new URLSearchParams(location.search).get('m') || '').trim().toLowerCase(); } catch (e) {}
+    if (code && MEMBER_CODES[code]) {
+      try { localStorage.setItem(MEMBER_KEY, code); } catch (e) {}
+      return MEMBER_CODES[code];
+    }
+    try {
+      const saved = localStorage.getItem(MEMBER_KEY);
+      if (saved && MEMBER_CODES[saved]) return MEMBER_CODES[saved];
+    } catch (e) {}
+    return null;
+  }
+
+  // 這個商品給這位客人的單價（會員打折，四捨五入到元）
+  function unitPrice(p) {
+    if (!member || MEMBER_EXCLUDE_CATS.indexOf(p.cat) !== -1) return p.price;
+    return Math.round(p.price * member.rate);
+  }
 
   let activeCategory = '全部';
   // 從 LINE 連結帶入 ?cat=系列A,系列B 時，同時顯示多個系列
@@ -123,7 +150,9 @@
           '<div class="shop-card-latin">' + escapeHtml(latin) + '</div>' +
           '<div class="shop-card-size">容量：' + escapeHtml(p.size) + '</div>' +
           descHtml +
-          '<div class="shop-card-price">NT$ ' + p.price + '</div>' +
+          (unitPrice(p) !== p.price
+            ? '<div class="shop-card-price"><s class="shop-card-list">NT$ ' + p.price + '</s> <span class="shop-card-member">' + member.label + ' NT$ ' + unitPrice(p) + '</span></div>'
+            : '<div class="shop-card-price">NT$ ' + p.price + '</div>') +
           '<div class="shop-card-row">' +
             '<div class="qty-stepper">' +
               '<button type="button" class="qty-minus" aria-label="減少數量">−</button>' +
@@ -190,7 +219,7 @@
           '<div class="cart-row" data-id="' + escapeAttr(id) + '">' +
             '<div class="cart-row-info">' +
               '<div class="cart-row-name">' + escapeHtml(p.name) + '（' + escapeHtml(p.size) + '）</div>' +
-              '<div class="cart-row-meta">單價 NT$' + p.price + '</div>' +
+              '<div class="cart-row-meta">' + (unitPrice(p) !== p.price ? '會員價 NT$' + unitPrice(p) + '（原價 NT$' + p.price + '）' : '單價 NT$' + p.price) + '</div>' +
             '</div>' +
             '<div class="qty-stepper">' +
               '<button type="button" class="cart-qty-minus" aria-label="減少數量">−</button>' +
@@ -251,7 +280,7 @@
       const p = productById(id);
       if (!p) return;
       totalQty += cart[id].qty;
-      totalPrice += cart[id].qty * p.price;
+      totalPrice += cart[id].qty * unitPrice(p);
     });
     document.getElementById('cartTotalQty').textContent = totalQty;
     document.getElementById('cartTotalPrice').textContent = totalPrice;
@@ -261,18 +290,22 @@
     const ids = Object.keys(cart);
     if (ids.length === 0) return '';
     const lines = ['【普羅芳訂購清單】來自鑰．本質官網'];
-    let totalQty = 0, totalPrice = 0;
+    let totalQty = 0, totalPrice = 0, listTotal = 0;
     ids.forEach(function (id) {
       const p = productById(id);
       if (!p) return;
       const qty = cart[id].qty;
-      const subtotal = p.price * qty;
+      const u = unitPrice(p);
+      const subtotal = u * qty;
       totalQty += qty;
       totalPrice += subtotal;
-      lines.push('・' + p.name + '（' + p.size + '）NT$' + p.price + ' × ' + qty + ' = NT$' + subtotal);
+      listTotal += p.price * qty;
+      lines.push('・' + p.name + '（' + p.size + '）NT$' + u + (u !== p.price ? '（原價 ' + p.price + '）' : '') + ' × ' + qty + ' = NT$' + subtotal);
     });
     lines.push('');
-    lines.push('總數量：' + totalQty + '　總金額（原價）：NT$' + totalPrice);
+    lines.push(member
+      ? '總數量：' + totalQty + '　總金額（' + member.label + '）：NT$' + totalPrice + '（原價 NT$' + listTotal + '）'
+      : '總數量：' + totalQty + '　總金額（原價）：NT$' + totalPrice);
     lines.push('');
     lines.push('姓名：' + (customer.name || '（未填寫）'));
     lines.push('電話：' + (customer.phone || '（未填寫）'));
@@ -369,7 +402,42 @@
     return location.origin + location.pathname + '?add=' + parts.join(',');
   }
 
+  // 購物清單裡的「折扣碼」格子：客人自己輸入 Molly 給的碼
+  function applyMemberCode(raw) {
+    const code = String(raw || '').trim().toLowerCase();
+    const msg = document.getElementById('memberCodeMsg');
+    if (!MEMBER_CODES[code]) {
+      if (msg) msg.textContent = '這組折扣碼對不上，再確認一下，或直接 LINE 問我。';
+      return;
+    }
+    member = MEMBER_CODES[code];
+    try { localStorage.setItem(MEMBER_KEY, code); } catch (e) {}
+    showMemberNotes();
+    renderGrid();
+    renderCartModal();
+    renderCartTotals();
+  }
+
+  function showMemberNotes() {
+    const box = document.getElementById('memberCodeBox');
+    if (box) {
+      box.querySelector('#memberCodeForm').style.display = member ? 'none' : '';
+      const msg = document.getElementById('memberCodeMsg');
+      if (msg) msg.textContent = member ? '✅ 已套用 Molly 給你的' + member.label + '，上面的金額已經算好了。' : '';
+    }
+    if (!member) return;
+    const b = document.getElementById('memberBanner');
+    if (b) { b.style.display = 'block'; b.querySelector('.member-label').textContent = member.label; }
+    const n = document.getElementById('cartPriceNote');
+    if (n) n.textContent = '上面已經是' + member.label + '的金額（活氧機等芳香儀器除外）。檔期折扣比較低時，以比較划算的為準；是否符合「滿 NT$2,000 免運」，我核對訂單時會直接跟您說。';
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    showMemberNotes();
+    const codeBtn = document.getElementById('memberCodeBtn');
+    if (codeBtn) codeBtn.addEventListener('click', function () { applyMemberCode(document.getElementById('memberCodeInput').value); });
+    const codeInput = document.getElementById('memberCodeInput');
+    if (codeInput) codeInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); applyMemberCode(codeInput.value); } });
     const fromCartLink = applyAddParam();
     const fromLink = applyCatParam();
     renderFilters();
