@@ -1,6 +1,6 @@
 // 官網可預約時段：由 100_Todo/projects/預約行事曆/build-public-slots.cjs 產生，不要手改
 window.KE_SLOTS = {
- "updated": "2026-11-26 09:13",
+ "updated": "2026-11-26 21:13",
  "leadHours": 24,
  "days": [
   {
@@ -177,12 +177,6 @@ window.KE_SLOTS = {
    "end": "15:00",
    "title": "詠嘆樂活特約｜玥泫老師",
    "status": "已額滿"
-  },
-  {
-   "date": "2026-11-29",
-   "start": "16:00",
-   "end": "18:00",
-   "title": "詠嘆樂活特約｜玥泫老師"
   },
   {
    "date": "2026-12-20",
