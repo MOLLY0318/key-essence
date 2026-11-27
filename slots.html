@@ -154,8 +154,8 @@ html.is-desktop .confirm .qr { display: flex; }
         </div>
         <div class="items" id="relPick" hidden>
           <p>除了你自己，想一起看幾位？</p>
-          <label><input type="radio" name="relCount" value="1" checked>1 位（兩張圖，1 小時）</label>
-          <label><input type="radio" name="relCount" value="2">2 位（三張圖，1.5 小時）</label>
+          <label><input type="radio" name="relCount" value="1" checked>1 位（兩張圖，1.5 小時）</label>
+          <label><input type="radio" name="relCount" value="2">2 位（三張圖，2 小時）</label>
           <p class="item-plan" id="relPlan"></p>
         </div>
       </div>
@@ -276,7 +276,7 @@ html.is-desktop .confirm .qr { display: flex; }
   // 畫面上的服務；陪伴會談勾幾項，就對應私人行事曆的 one／two／three
   var SERVICES = [
     { id: 'talk',  name: '陪伴會談', time: '1～2 小時', price: 'NT$1,600 起', desc: '精油側寫、人類圖、生命靈數，選一項到三項', modes: ['online', 'studio'] },
-    { id: 'rel',   name: '人類圖・看你們之間的關係', time: '1～1.5 小時', price: 'NT$1,600 起', desc: '你和伴侶、父母或孩子，把兩到三個人的人類圖放在一起，看見彼此怎麼相處', modes: ['online', 'studio'] },
+    { id: 'rel',   name: '人類圖・看你們之間的關係', time: '1.5～2 小時', price: 'NT$2,400 起', desc: '你和伴侶、父母或孩子，把兩到三個人的人類圖放在一起，看見彼此怎麼相處', modes: ['online', 'studio'] },
     { id: 'sound', name: '聲灸小憩・森林的回聲', time: '45 分鐘', price: 'NT$1,280', desc: '躺著聽銅缽和自然的聲音，單純放鬆', modes: ['studio'] },
     { id: 'reset', name: '極致五感重置', time: '120 分鐘', price: 'NT$3,600', desc: '精油側寫＋聲灸，現場親手調一瓶 5ml 滾珠油帶走', modes: ['studio'] }
   ];
@@ -294,10 +294,10 @@ html.is-desktop .confirm .qr { display: flex; }
     if (items().indexOf('人類圖') < 0) return 0;
     var r = document.querySelector('input[name="extraCount"]:checked'); return r ? +r.value : 0;
   }
-  // 關係人類圖：加看 1 位＝兩張圖 1 小時，2 位＝三張圖 1.5 小時（長度同 one／two）
+  // 關係人類圖：加看 1 位＝兩張圖 1.5 小時，2 位＝三張圖 2 小時（長度同 two／three；2026-11-27 Molly 改價）
   var REL = {
-    1: { key: 'one', name: '人類圖關係・兩張圖', time: '1 小時',   price: 'NT$1,600' },
-    2: { key: 'two', name: '人類圖關係・三張圖', time: '1.5 小時', price: 'NT$2,400' }
+    1: { key: 'two',   name: '人類圖關係・兩張圖', time: '1.5 小時', price: 'NT$2,400' },
+    2: { key: 'three', name: '人類圖關係・三張圖', time: '2 小時',   price: 'NT$3,200' }
   };
   var WEEK = ['日', '一', '二', '三', '四', '五', '六'];
   var data = window.KE_SLOTS || { days: [], leadHours: 24 };
